@@ -9,19 +9,19 @@ namespace WcfBankingService
     public interface IBankingService
     {
         [OperationContract]
-        OperationStatus signIn(String login, String password);
+        OperationResponse signIn(String login, String password);
 
         [OperationContract]
         IEnumerable<Operation> getOperationHistory(String accountNumber);
 
         [OperationContract]
-        OperationStatus transfer(TransferData transferData);
+        OperationResponse transfer(TransferData transferData);
 
         [OperationContract]
-        OperationStatus deposit(PaymentData paymentData);
+        OperationResponse deposit(PaymentData paymentData);
 
         [OperationContract]
-        OperationStatus withdraw(PaymentData paymentData);
+        OperationResponse withdraw(PaymentData paymentData);
 
     }
 

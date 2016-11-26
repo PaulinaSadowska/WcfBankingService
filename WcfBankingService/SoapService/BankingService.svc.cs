@@ -7,12 +7,12 @@ namespace WcfBankingService
     public class BankingService : IBankingService
     {
 
-        public OperationStatus signIn(string login, string password)
+        public OperationResponse signIn(string login, string password)
         {
-            throw new NotImplementedException();
+            return OperationResponse.Success;
         }
         
-        public OperationStatus deposit(PaymentData paymentData)
+        public OperationResponse deposit(PaymentData paymentData)
         {
             throw new NotImplementedException();
         }
@@ -22,12 +22,12 @@ namespace WcfBankingService
             throw new NotImplementedException();
         }
 
-        public OperationStatus transfer(TransferData transferData)
+        public OperationResponse transfer(TransferData transferData)
         {
             throw new NotImplementedException();
         }
 
-        public OperationStatus withdraw(PaymentData paymentData)
+        public OperationResponse withdraw(PaymentData paymentData)
         {
             throw new NotImplementedException();
         }

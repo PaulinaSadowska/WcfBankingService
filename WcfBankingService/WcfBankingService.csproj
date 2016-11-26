@@ -99,10 +99,11 @@
     <Compile Include="SoapService\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
+    <Compile Include="SoapService\DataContract\EnumExtensions.cs" />
     <Compile Include="SoapService\IBankingService.cs" />
     <Compile Include="SoapService\DataContract\MoneySource.cs" />
     <Compile Include="SoapService\DataContract\Operation.cs" />
-    <Compile Include="SoapService\DataContract\OperationStatus.cs" />
+    <Compile Include="SoapService\DataContract\OperationResponse.cs" />
     <Compile Include="SoapService\DataContract\PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapService\DataContract\TransferData.cs" />
