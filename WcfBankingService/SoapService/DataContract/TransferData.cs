@@ -6,7 +6,9 @@ namespace WcfBankingService.SOAPService.DataContract
     public class TransferData : PaymentData
     {
         [DataMember]
-        private string SenderAccountNumber {get; set;}
+        private string SenderAccountNumber { get; set; }
+
+        [DataMember]
         private string Title { get; set; }
 
     }

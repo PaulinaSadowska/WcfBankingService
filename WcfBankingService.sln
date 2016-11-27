@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfBankingService", "WcfBan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSoapServiceTest", "BankingSoapServiceTest\BankingSoapServiceTest.csproj", "{587D75A9-F5E0-4FF6-A2FC-F5583E2F9409}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankTest", "BankTest\BankTest.csproj", "{620D1480-8D44-47E1-8635-E53F03B7D7BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{587D75A9-F5E0-4FF6-A2FC-F5583E2F9409}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{587D75A9-F5E0-4FF6-A2FC-F5583E2F9409}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{587D75A9-F5E0-4FF6-A2FC-F5583E2F9409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{620D1480-8D44-47E1-8635-E53F03B7D7BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{620D1480-8D44-47E1-8635-E53F03B7D7BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{620D1480-8D44-47E1-8635-E53F03B7D7BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{620D1480-8D44-47E1-8635-E53F03B7D7BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace WcfBankingService
         OperationResponse signIn(String login, String password);
 
         [OperationContract]
-        IEnumerable<Operation> getOperationHistory(String accountNumber);
+        IEnumerable<OperationRecord> getOperationHistory(String accountNumber);
 
         [OperationContract]
         OperationResponse transfer(TransferData transferData);

@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 
 namespace WcfBankingService
 {
-    [DataContract]
     public enum OperationResponse
     {
         [Description("")]
