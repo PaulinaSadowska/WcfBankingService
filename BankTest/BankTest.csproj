@@ -56,6 +56,7 @@
     <Compile Include="account\ControlSumCalculatorTest.cs" />
     <Compile Include="account\MockControlSumCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="user\UserManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WcfBankingService\WcfBankingService.csproj">
@@ -63,6 +64,7 @@
       <Name>WcfBankingService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

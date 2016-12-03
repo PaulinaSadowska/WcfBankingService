@@ -8,15 +8,19 @@ namespace WcfBankingService
 {
     public class User
     {
-        private readonly string _login;
-        private readonly string _password;
-        private string _accessToken; //generated after sign in
+        public string Login { get; }
+        private string _password;
         private IEnumerable<AccountNumber> _accoutNumber;
 
         public User(string login, string password)
         {
-            _login = login;
+            Login = login;
             _password = password;
+        }
+
+        public string GetAccessToken(string password)
+        {
+            return password == _password ? "some access token" : null;
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using System;
+﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.account;
 using WcfBankingService.account.number;
 
 namespace BankTest.account
