@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using WcfBankingService.operation;
 using WcfBankingService.SoapService;
 using WcfBankingService.SOAPService.DataContract;
 

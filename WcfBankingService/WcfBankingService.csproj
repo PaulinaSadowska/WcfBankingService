@@ -96,17 +96,25 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="account\AccountNumber.cs" />
-    <Compile Include="account\AccountNumberFactory.cs" />
-    <Compile Include="account\IAccountNumberFactory.cs" />
-    <Compile Include="account\StandardControlSumCalculator.cs" />
-    <Compile Include="account\IControlSumCalculator.cs" />
+    <Compile Include="account\Account.cs" />
+    <Compile Include="account\balance\Balance.cs" />
+    <Compile Include="account\number\AccountNumber.cs" />
+    <Compile Include="account\number\AccountNumberFactory.cs" />
+    <Compile Include="account\number\IAccountNumberFactory.cs" />
+    <Compile Include="account\number\StandardControlSumCalculator.cs" />
+    <Compile Include="account\number\IControlSumCalculator.cs" />
+    <Compile Include="account\balance\IBalance.cs" />
+    <Compile Include="operation\OperationManager.cs" />
+    <Compile Include="operation\operations\Deposit.cs" />
+    <Compile Include="operation\operations\IOperation.cs" />
+    <Compile Include="operation\operations\Transfer.cs" />
+    <Compile Include="operation\operations\Withdraw.cs" />
     <Compile Include="SoapService\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
     <Compile Include="SoapService\DataContract\EnumExtensions.cs" />
     <Compile Include="SoapService\IBankingService.cs" />
-    <Compile Include="OperationRecord.cs" />
+    <Compile Include="operation\OperationRecord.cs" />
     <Compile Include="SoapService\DataContract\OperationResponse.cs" />
     <Compile Include="SoapService\DataContract\PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +123,7 @@
     <Compile Include="SoapService\Validation\ServiceInputValidator.cs" />
     <Compile Include="user\IUserManager.cs" />
     <Compile Include="user\User.cs" />
+    <Compile Include="user\Users.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

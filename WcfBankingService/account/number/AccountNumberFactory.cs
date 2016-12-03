@@ -1,35 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WcfBankingService.accunt;
 
-namespace WcfBankingService.account
+namespace WcfBankingService.account.number
 {
     public class AccountNumberFactory : IAccountNumberFactory
     {
-        public readonly string BankId;
-        private IControlSumCalculator ControlSumCalculator;
+        private readonly string _bankId;
+        private IControlSumCalculator _controlSumCalculator;
 
         public AccountNumberFactory(string bankId, IControlSumCalculator controlSumCalculator)
         {
-            BankId = bankId;
-            ControlSumCalculator = controlSumCalculator;
+            _bankId = bankId;
+            _controlSumCalculator = controlSumCalculator;
         }
 
-        public AccountNumber createAccountNumber(string number)
+        public AccountNumber CreateAccountNumber(string number)
         {
             //create account number from number
             throw new NotImplementedException();
         }
 
-        public AccountNumber getAccountNumber(string accountNumber)
+        public AccountNumber GetAccountNumber(string accountNumber)
         {
             //create account number object from account Number (check if is valid!)
             throw new NotImplementedException();
         }
 
-        public bool isAccountNumberValid(string accountNumber)
+        public bool IsAccountNumberValid(string accountNumber)
         {
             throw new NotImplementedException();
         }

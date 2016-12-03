@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WcfBankingService.account;
 
-namespace WcfBankingService.accunt
+namespace WcfBankingService.account.number
 {
     public class AccountNumber
     {
@@ -12,7 +8,7 @@ namespace WcfBankingService.accunt
         public readonly string Number;
         public readonly string ControlSum;
 
-        public AccountNumber(String bankId, String number, String controlSum)
+        public AccountNumber(string bankId, string number, string controlSum)
         {
             BankId = bankId;
             Number = number;

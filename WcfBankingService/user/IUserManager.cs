@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WcfBankingService.accunt;
+using WcfBankingService.account.number;
 
 namespace WcfBankingService.user
 {
@@ -8,7 +8,11 @@ namespace WcfBankingService.user
         // if sign in was successfull - return user token
         // if not - null. 
         // Only with token you are able to get user account numbers
-        string signIn(string login, string password);
-        IEnumerable<AccountNumber> getAccountNumbersFromUser(string userToken);
+        string SignIn(string login, string password);
+        string SignUp(string login, string password);
+        void AddAccountNumber(string userToken, AccountNumber account);
+        IEnumerable<AccountNumber> GetAccountNumbersFromUser(string userToken);
+
+
     }
 }

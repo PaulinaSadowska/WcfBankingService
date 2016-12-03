@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.account;
+using WcfBankingService.account.number;
 
 namespace BankTest
 {
@@ -18,7 +19,7 @@ namespace BankTest
         [TestMethod]
         public void ControlSumCalculator_validInputData_ReturnsControlSum()
         {
-            String controlSum = controlSumCalculator.calculate("11216900", "1234567891234567");
+            String controlSum = controlSumCalculator.Calculate("11216900", "1234567891234567");
             Assert.Fail();
         }
 
