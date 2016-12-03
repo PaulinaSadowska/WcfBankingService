@@ -5,14 +5,14 @@ namespace WcfBankingService.User
 {
     public class User : IUser
     {
-        private readonly string _login;
         private readonly string _password;
-        public IEnumerable<AccountNumber> AccoutNumbers { get; }
+        public List<AccountNumber> AccoutNumbers;
 
         public User(string login, string password)
         {
-            _login = login;
+            Login = login;
             _password = password;
+            AccoutNumbers = new List<AccountNumber>();
         }
 
         public string GenerateAccessToken(string password)
@@ -22,9 +22,7 @@ namespace WcfBankingService.User
 
         public IEnumerable<AccountNumber> GetAccountNumbers(string accessToken)
         {
-            if (ContainsAccessToken(accessToken))
-                return AccoutNumbers;
-            return null;
+            return ContainsAccessToken(accessToken) ? AccoutNumbers : null;
         }
 
         private bool ContainsAccessToken(string accessToken)
@@ -32,9 +30,13 @@ namespace WcfBankingService.User
             return true; // TODO
         }
 
-        public string GetLogin()
+        public string Login { get; }
+
+        public bool AddAccountNumber(string accessToken, AccountNumber accountNumber)
         {
-            return _login;
+            if (!ContainsAccessToken(accessToken) || AccoutNumbers.Contains(accountNumber)) return false;
+            AccoutNumbers.Add(accountNumber);
+            return true;
         }
     }
 }

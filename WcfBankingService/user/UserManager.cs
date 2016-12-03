@@ -32,14 +32,15 @@ namespace WcfBankingService.User
             return true;
         }
 
-        public bool AddAccountNumber(string accessToken, AccountNumber accountNumber)
+        public bool AddAccountNumber(string login, string accessToken, AccountNumber accountNumber)
         {
-            throw new System.NotImplementedException();
+            var user = GetUser(login);
+            return user != null && user.AddAccountNumber(accessToken, accountNumber);
         }
 
         public bool ContainsUser(string login)
         {
-            return _users.Any(user => user.GetLogin().Equals(login));
+            return _users.Any(user => user.Login.Equals(login));
         }
 
         public IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken)
@@ -50,7 +51,7 @@ namespace WcfBankingService.User
 
         private IUser GetUser(string login)
         {
-            var searchedUsers = _users?.Where(user => user.GetLogin().Equals(login));
+            var searchedUsers = _users?.Where(user => user.Login.Equals(login));
             return searchedUsers?.FirstOrDefault();
         }
     }

@@ -6,12 +6,11 @@ namespace BankTest.user
 {
     internal class UserMock : IUser
     {
-        private readonly string _login;
         private readonly string _accessToken;
 
         public UserMock(string login, string accessToken)
         {
-            this._login = login;
+            this.Login = login;
             this._accessToken = accessToken;
         }
 
@@ -22,15 +21,17 @@ namespace BankTest.user
 
         public IEnumerable<AccountNumber> GetAccountNumbers(string accessToken)
         {
-            if (_accessToken == accessToken)
-                return new List<AccountNumber>{new AccountNumber("", "", "")};
-            return null;
+            return _accessToken == accessToken ? new List<AccountNumber>{new AccountNumber("", "", "")} : null;
         }
 
 
-        public string GetLogin()
+        public string Login { get; }
+
+        public bool AddAccountNumber(string accessToken, AccountNumber accountNumber)
         {
-            return _login;
+            if (_accessToken == accessToken)
+                return false;
+            return true;
         }
     }
 }

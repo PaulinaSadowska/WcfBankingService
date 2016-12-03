@@ -9,8 +9,8 @@ namespace WcfBankingService.User
 
         IEnumerable<AccountNumber> GetAccountNumbers(string accessToken);
 
-        string GetLogin();
+        string Login { get; }
 
-
+        bool AddAccountNumber(string accessToken, AccountNumber accountNumber);
     }
 }

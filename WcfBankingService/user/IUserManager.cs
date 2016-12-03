@@ -24,10 +24,11 @@ namespace WcfBankingService.User
         /// <summary>
         /// Add account number to user. 
         /// </summary>
+        /// <param name="login">user login</param>
         /// <param name="accessToken">access token received after sign in</param>
         /// <param name="accountNumber">account number</param>
         /// <returns>if account number was created</returns>
-        bool AddAccountNumber(string accessToken, AccountNumber accountNumber);
+        bool AddAccountNumber(string login, string accessToken, AccountNumber accountNumber);
 
         /// <summary>
         /// Checks if there is user with given login
