@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService;
+using WcfBankingService.account.number;
 using WcfBankingService.User;
 
 namespace BankTest.user
@@ -88,6 +90,31 @@ namespace BankTest.user
         public void GetAccountNumbersFromUser_WrongAccessToken_ReturnsNull()
         {
             Assert.IsNull(_userManager.GetAccountNumbers(MockLogin, "Wrong token"));
+        }
+
+        [TestMethod]
+        public void AddAccountNumber_NewNumber_ReturnsTrue()
+        {
+            string accessToken = _userManager.SignIn(Login, Password);
+            Assert.IsNotNull(accessToken);
+            Assert.IsTrue(_userManager.AddAccountNumber(Login, accessToken, new AccountNumber("1", "2", "3")));
+            var accounts = _userManager.GetAccountNumbers(Login, accessToken);
+            Assert.IsNotNull(accounts);
+            Assert.AreEqual(accounts.Count(), 1);
+        }
+
+        [TestMethod]
+        public void AddAccountNumber_WrongLogin_ReturnsFalse()
+        {
+            string accessToken = _userManager.SignIn(Login, Password);
+            Assert.IsNotNull(accessToken);
+            Assert.IsFalse(_userManager.AddAccountNumber("Wow", accessToken, new AccountNumber("1", "2", "3")));
+        }
+
+        [TestMethod]
+        public void AddAccountNumber_WrongAccessToken_ReturnsFalse()
+        {
+            Assert.IsFalse(_userManager.AddAccountNumber(Login, "nie wow", new AccountNumber("1", "2", "3")));
         }
     }
 }
