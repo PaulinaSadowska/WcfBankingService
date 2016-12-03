@@ -26,7 +26,11 @@ namespace WcfBankingService.user
 
         public bool SignUp(string login, string password)
         {
-            throw new System.NotImplementedException();
+            if (ContainsUser(login))
+                return false;
+
+            _users.Add(new User(login, password));
+            return true;
         }
 
         public bool AddAccountNumber(string accessToken, AccountNumber accountNumber)

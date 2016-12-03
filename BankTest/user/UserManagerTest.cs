@@ -52,5 +52,17 @@ namespace BankTest.user
         {
             Assert.IsFalse(_userManager.ContainsUser("Doge"));
         }
+
+        [TestMethod]
+        public void SignUpUser_UserNotExists_returnsTrue()
+        {
+            Assert.IsTrue(_userManager.SignUp("Doge", "Wow"));
+        }
+
+        [TestMethod]
+        public void SignUpUser_UserAlreadyExists_returnsFalse()
+        {
+            Assert.IsFalse(_userManager.SignUp(Login, "Wow"));
+        }
     }
 }
