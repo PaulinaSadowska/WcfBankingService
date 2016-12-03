@@ -121,10 +121,10 @@
     <Compile Include="SoapService\DataContract\TransferData.cs" />
     <Compile Include="SoapService\Validation\IServiceInputValidator.cs" />
     <Compile Include="SoapService\Validation\ServiceInputValidator.cs" />
-    <Compile Include="user\IUser.cs" />
-    <Compile Include="user\IUserManager.cs" />
-    <Compile Include="user\User.cs" />
-    <Compile Include="user\UserManager.cs" />
+    <Compile Include="User\IUser.cs" />
+    <Compile Include="User\IUserManager.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="User\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

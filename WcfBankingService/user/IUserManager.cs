@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WcfBankingService.account.number;
 
-namespace WcfBankingService.user
+namespace WcfBankingService.User
 {
     public interface IUserManager
     {

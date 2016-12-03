@@ -2,7 +2,7 @@
 using System.Linq;
 using WcfBankingService.account.number;
 
-namespace WcfBankingService.user
+namespace WcfBankingService.User
 {
     public class UserManager : IUserManager
     {
@@ -39,20 +39,18 @@ namespace WcfBankingService.user
 
         public bool ContainsUser(string login)
         {
-            return _users.Any(user => user.Login.Equals(login));
+            return _users.Any(user => user.GetLogin().Equals(login));
         }
 
         public IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken)
         {
             var user = GetUser(login);
-            if(user!=null && user.ContainsAccessToken(accessToken))
-                return user.AccoutNumber;
-            return null;
+            return user?.GetAccountNumbers(accessToken);
         }
 
         private IUser GetUser(string login)
         {
-            var searchedUsers = _users?.Where(user => user.Login.Equals(login));
+            var searchedUsers = _users?.Where(user => user.GetLogin().Equals(login));
             return searchedUsers?.FirstOrDefault();
         }
     }

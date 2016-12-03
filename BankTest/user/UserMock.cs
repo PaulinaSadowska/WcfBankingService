@@ -1,4 +1,6 @@
-﻿using WcfBankingService.user;
+﻿using System.Collections.Generic;
+using WcfBankingService.account.number;
+using WcfBankingService.User;
 
 namespace BankTest.user
 {
@@ -12,15 +14,19 @@ namespace BankTest.user
             this._login = login;
             this._accessToken = accessToken;
         }
+
         public string GenerateAccessToken(string password)
         {
             return _accessToken;
         }
 
-        public bool ContainsAccessToken(string accessToken)
+        public IEnumerable<AccountNumber> GetAccountNumbers(string accessToken)
         {
-            return _accessToken.Equals(accessToken);
+            if (_accessToken == accessToken)
+                return new List<AccountNumber>{new AccountNumber("", "", "")};
+            return null;
         }
+
 
         public string GetLogin()
         {

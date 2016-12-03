@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using WcfBankingService.account.number;
 
-namespace WcfBankingService.user
+namespace WcfBankingService.User
 {
     public class User : IUser
     {
         private readonly string _login;
         private readonly string _password;
-        public IEnumerable<AccountNumber> AccoutNumber { get; }
+        public IEnumerable<AccountNumber> AccoutNumbers { get; }
 
         public User(string login, string password)
         {
@@ -20,7 +20,14 @@ namespace WcfBankingService.user
             return password == _password ? "some access token" : null; // TODO
         }
 
-        public bool ContainsAccessToken(string accessToken)
+        public IEnumerable<AccountNumber> GetAccountNumbers(string accessToken)
+        {
+            if (ContainsAccessToken(accessToken))
+                return AccoutNumbers;
+            return null;
+        }
+
+        private bool ContainsAccessToken(string accessToken)
         {
             return true; // TODO
         }

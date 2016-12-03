@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService;
-using WcfBankingService.user;
+using WcfBankingService.User;
 
 namespace BankTest.user
 {
@@ -73,9 +73,21 @@ namespace BankTest.user
         }
         
         [TestMethod]
-        public void GetAccountNumbersFromUser_CorrectAccessToken_ReturnsAccountNumbers()
+        public void GetAccountNumbersFromUser_CorrectAccessTokenAndLogin_ReturnsAccountNumbers()
         {
-            Assert.IsTrue(_userManager.ContainsUser(MockLogin));
+            Assert.IsNotNull(_userManager.GetAccountNumbers(MockLogin, MockAccessToken));
+        }
+
+        [TestMethod]
+        public void GetAccountNumbersFromUser_WrongLogin_ReturnsNull()
+        {
+            Assert.IsNull(_userManager.GetAccountNumbers("WOOW", MockAccessToken));
+        }
+
+        [TestMethod]
+        public void GetAccountNumbersFromUser_WrongAccessToken_ReturnsNull()
+        {
+            Assert.IsNull(_userManager.GetAccountNumbers(MockLogin, "Wrong token"));
         }
     }
 }
