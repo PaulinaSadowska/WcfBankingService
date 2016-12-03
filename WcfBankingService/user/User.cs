@@ -1,26 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using WcfBankingService.account.number;
 
-namespace WcfBankingService
+namespace WcfBankingService.user
 {
-    public class User
+    public class User : IUser
     {
-        public string Login { get; }
-        private string _password;
-        private IEnumerable<AccountNumber> _accoutNumber;
+        private readonly string _login;
+        private readonly string _password;
+        public IEnumerable<AccountNumber> AccoutNumber { get; }
 
         public User(string login, string password)
         {
-            Login = login;
+            _login = login;
             _password = password;
         }
 
-        public string GetAccessToken(string password)
+        public string GenerateAccessToken(string password)
         {
-            return password == _password ? "some access token" : null;
+            return password == _password ? "some access token" : null; // TODO
+        }
+
+        public bool ContainsAccessToken(string accessToken)
+        {
+            return true; // TODO
+        }
+
+        public string GetLogin()
+        {
+            return _login;
         }
     }
 }

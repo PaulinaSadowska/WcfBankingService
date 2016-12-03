@@ -6,22 +6,21 @@ namespace WcfBankingService.user
 {
     public class UserManager : IUserManager
     {
-        private List<User> _users;
+        private List<IUser> _users;
 
         public UserManager()
         {
-            _users = new List<User>();
+            _users = new List<IUser>();
         }
 
-        public UserManager(List<User> users)
+        public UserManager(List<IUser> users)
         {
             _users = users;
         }
 
         public string SignIn(string login, string password)
         {
-            var searchedUser = _users?.Where(user => user.Login.Equals(login));
-            return searchedUser?.FirstOrDefault()?.GetAccessToken(password);
+            return GetUser(login)?.GenerateAccessToken(password);
         }
 
         public bool SignUp(string login, string password)
@@ -43,9 +42,18 @@ namespace WcfBankingService.user
             return _users.Any(user => user.Login.Equals(login));
         }
 
-        public IEnumerable<AccountNumber> GetAccountNumbersFromUser(string accessToken)
+        public IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken)
         {
-            throw new System.NotImplementedException();
+            var user = GetUser(login);
+            if(user!=null && user.ContainsAccessToken(accessToken))
+                return user.AccoutNumber;
+            return null;
+        }
+
+        private IUser GetUser(string login)
+        {
+            var searchedUsers = _users?.Where(user => user.Login.Equals(login));
+            return searchedUsers?.FirstOrDefault();
         }
     }
 }

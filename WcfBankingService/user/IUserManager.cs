@@ -39,8 +39,9 @@ namespace WcfBankingService.user
         /// <summary>
         /// Returns users account number list
         /// </summary>
+        /// <param name="login">user login</param>
         /// <param name="accessToken">access token received after sign in</param>
         /// <returns>Account number list</returns>
-        IEnumerable<AccountNumber> GetAccountNumbersFromUser(string accessToken);
+        IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken);
     }
 }

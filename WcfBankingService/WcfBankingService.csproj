@@ -121,6 +121,7 @@
     <Compile Include="SoapService\DataContract\TransferData.cs" />
     <Compile Include="SoapService\Validation\IServiceInputValidator.cs" />
     <Compile Include="SoapService\Validation\ServiceInputValidator.cs" />
+    <Compile Include="user\IUser.cs" />
     <Compile Include="user\IUserManager.cs" />
     <Compile Include="user\User.cs" />
     <Compile Include="user\UserManager.cs" />
