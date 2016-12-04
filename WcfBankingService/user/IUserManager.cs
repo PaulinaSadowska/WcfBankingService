@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using WcfBankingService.account;
-using WcfBankingService.account.number;
+using WcfBankingService.Accounts;
+using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.User
 {
@@ -36,7 +36,7 @@ namespace WcfBankingService.User
         /// <param name="accessToken">access token received after sign in</param>
         /// <param name="account">account</param>
         /// <returns>if account number was created</returns>
-        bool AddAccount(string login, string accessToken, Account account);
+        bool AddAccount(string login, string accessToken, IAccount account);
 
         /// <summary>
         /// Returns users accounts list
@@ -44,7 +44,7 @@ namespace WcfBankingService.User
         /// <param name="login">user login</param>
         /// <param name="accessToken">access token received after sign in</param>
         /// <returns>Account list</returns>
-        IEnumerable<Account> GetAllAccounts(string login, string accessToken);
+        IEnumerable<IAccount> GetAllAccounts(string login, string accessToken);
 
         /// <summary>
         /// Returns user account
@@ -53,7 +53,7 @@ namespace WcfBankingService.User
         /// <param name="accessToken">access token received after sign in</param>
         /// <param name="accoutNumber">account number</param>
         /// <returns>Account </returns>
-        Account GetAccount(string login, string accessToken, AccountNumber accoutNumber);
+        IAccount GetAccount(string login, string accessToken, AccountNumber accoutNumber);
 
 
 

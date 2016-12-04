@@ -6,14 +6,16 @@ namespace WcfBankingService.operation
     [DataContract]
     public class OperationRecord
     {
-        //TODO - add information if it is withdraw, deposit or transfer
         [DataMember]
-        private string OperationTitle { get; set; }
+        public  string Source { get; set; }
 
         [DataMember]
-        private BigInteger Amount { get; set; }
+        public string Title { get; set; }
 
         [DataMember]
-        private BigInteger BalanceAfterOperation { get; set; }
+        public BigInteger Amount { get; set; }
+
+        [DataMember]
+        public BigInteger BalanceAfterOperation { get; set; }
     }
 }

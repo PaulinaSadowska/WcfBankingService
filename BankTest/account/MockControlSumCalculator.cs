@@ -1,8 +1,6 @@
-﻿using System;
-using WcfBankingService.account;
-using WcfBankingService.account.number;
+﻿using WcfBankingService.Accounts.Number;
 
-namespace BankTest.account
+namespace BankTest.Account
 {
     class MockControlSumCalculator : IControlSumCalculator
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WcfBankingService.account.number
+namespace WcfBankingService.Accounts.Number
 {
     public class AccountNumberFactory : IAccountNumberFactory
     {

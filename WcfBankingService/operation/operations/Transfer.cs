@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WcfBankingService.account.balance;
+﻿using System.Numerics;
+using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.operation.operations
 {
-    public class Transfer : IOperation
+    public class Transfer : BankOperation, IBankCommand
     {
-        public IBalance Execute()
+        public Transfer(string operationTitle, BigInteger amount, string source) : base(operationTitle, amount, source)
         {
-            throw new NotImplementedException();
         }
 
-        public string GetInfo()
+        public void Execute()
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.account.number;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WcfBankingService.Accounts.Number;
 
-namespace BankTest.account
+namespace BankTest.Account
 {
     [TestClass]
     public class AccountNumberTest
@@ -20,7 +19,7 @@ namespace BankTest.account
         [TestMethod]
         public void CreateAccountNumber_validInputData_AccountNumberCreated()
         {
-            
+            Assert.Fail("not implemented");
         }
     }
 }

@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.account;
-using WcfBankingService.account.balance;
-using WcfBankingService.account.number;
+using WcfBankingService.Accounts;
+using WcfBankingService.Accounts.Balance;
+using WcfBankingService.Accounts.Number;
 using WcfBankingService.User;
 
 namespace BankTest.User
@@ -18,7 +18,7 @@ namespace BankTest.User
         private readonly string MockLogin = "NieAdmin132";
         private readonly string MockAccessToken = "accessToken142";
 
-        private readonly Account _account;
+        private readonly IAccount _account;
 
         private readonly UserManager _userManager;
 
@@ -30,7 +30,7 @@ namespace BankTest.User
                 new UserMock(MockLogin, MockAccessToken)
             };
             _userManager = new UserManager(userList);
-            _account = new Account(new AccountNumber("", "", ""), new Balance(new BigInteger(12)));
+            _account = new WcfBankingService.Accounts.Account(new AccountNumber("", "", ""), new Balance(new BigInteger(12)));
         }
 
 

@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Web;
-using WcfBankingService.account.balance;
+﻿using System.Numerics;
+using WcfBankingService.Accounts;
 
-namespace WcfBankingService.operation.operations
+namespace WcfBankingService.Operation.Operations
 {
-    public class Deposit : IOperation
+    public class Deposit : BankOperation, IBankCommand
     {
-        private readonly IBalance _balance;
+        private readonly IAccount _targetAccount;
         private readonly BigInteger _amount;
-        public Deposit(IBalance balance, BigInteger amount)
+        public Deposit(IAccount targetAccount, BigInteger amount, string operationTitle) : base(operationTitle, amount, "Deposit")
         {
-            _balance = balance;
+            _targetAccount = targetAccount;
             _amount = amount;
         }
 
-        public IBalance Execute()
+        public void Execute()
         {
-            return _balance.AddToBalance(_amount);
-        }
+            if(Executed)
+                return;
 
-        public string GetInfo()
-        {
-            return $"Deposit:\n balance after operation: {_balance.GetValue()}\n amount: {_amount}\n";
+            _targetAccount.AddToBalance(_amount);
+
+            Executed = true;
         }
     }
 }

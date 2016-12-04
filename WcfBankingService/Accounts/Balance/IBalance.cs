@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace WcfBankingService.account.balance
+namespace WcfBankingService.Accounts.Balance
 {
     public interface IBalance
     {

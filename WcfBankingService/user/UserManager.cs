@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WcfBankingService.account;
-using WcfBankingService.account.number;
+using WcfBankingService.Accounts;
+using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.User
 {
@@ -38,19 +38,19 @@ namespace WcfBankingService.User
             return _users.Any(user => user.Login.Equals(login));
         }
 
-        public bool AddAccount(string login, string accessToken, Account account)
+        public bool AddAccount(string login, string accessToken, IAccount account)
         {
             var user = GetUser(login);
             return user != null && user.AddAccount(accessToken, account);
         }
 
-        public IEnumerable<Account> GetAllAccounts(string login, string accessToken)
+        public IEnumerable<IAccount> GetAllAccounts(string login, string accessToken)
         {
             var user = GetUser(login);
             return user?.GetAllAccounts(accessToken);
         }
 
-        public Account GetAccount(string login, string accessToken, AccountNumber accoutNumber)
+        public IAccount GetAccount(string login, string accessToken, AccountNumber accoutNumber)
         {
             var user = GetUser(login);
             return user?.GetAccount(accessToken, accoutNumber);

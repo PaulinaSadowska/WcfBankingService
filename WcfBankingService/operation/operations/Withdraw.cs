@@ -1,29 +1,17 @@
-﻿using System;
-using System.Numerics;
-using WcfBankingService.account.balance;
+﻿using System.Numerics;
+using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.operation.operations
 {
-    public class Withdraw : IOperation
+    public class Withdraw : BankOperation, IBankCommand
     {
-        private IBalance _balance;
-        private BigInteger _amount;
-        public Withdraw(IBalance balance, BigInteger amount)
+        public Withdraw(string operationTitle, BigInteger amount, string source) : base(operationTitle, amount, source)
         {
-            _balance = balance;
-            _amount = amount;
         }
 
-        public IBalance Execute()
+        public void Execute()
         {
-            //get money from balance
-            //return new balance
-            return _balance.SubstractFromBalance(_amount);
-        }
-
-        public string GetInfo()
-        {
-            return $"Withdraw:\n balance after operation: {_balance.GetValue()}\n amount: {_amount}\n";
+            throw new System.NotImplementedException();
         }
     }
 }

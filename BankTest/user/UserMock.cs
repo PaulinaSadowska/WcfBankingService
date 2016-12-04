@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using WcfBankingService.account;
-using WcfBankingService.account.number;
+using WcfBankingService.Accounts;
+using WcfBankingService.Accounts.Number;
 using WcfBankingService.User;
 
 namespace BankTest.User
@@ -21,17 +21,17 @@ namespace BankTest.User
             return _accessToken;
         }
 
-        public IEnumerable<Account> GetAllAccounts(string accessToken)
+        public IEnumerable<IAccount> GetAllAccounts(string accessToken)
         {
-            return _accessToken == accessToken ? new List<Account>() : null;
+            return _accessToken == accessToken ? new List<IAccount>() : null;
         }
 
-        public Account GetAccount(string accessToken, AccountNumber accountNumber)
+        public IAccount GetAccount(string accessToken, AccountNumber accountNumber)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool AddAccount(string accessToken, Account account)
+        public bool AddAccount(string accessToken, IAccount account)
         {
             return _accessToken != accessToken;
         }

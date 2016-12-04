@@ -96,25 +96,28 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="account\Account.cs" />
-    <Compile Include="account\balance\Balance.cs" />
-    <Compile Include="account\number\AccountNumber.cs" />
-    <Compile Include="account\number\AccountNumberFactory.cs" />
-    <Compile Include="account\number\IAccountNumberFactory.cs" />
-    <Compile Include="account\number\StandardControlSumCalculator.cs" />
-    <Compile Include="account\number\IControlSumCalculator.cs" />
-    <Compile Include="account\balance\IBalance.cs" />
-    <Compile Include="operation\OperationManager.cs" />
-    <Compile Include="operation\operations\Deposit.cs" />
-    <Compile Include="operation\operations\IOperation.cs" />
-    <Compile Include="operation\operations\Transfer.cs" />
-    <Compile Include="operation\operations\Withdraw.cs" />
+    <Compile Include="Accounts\Account.cs" />
+    <Compile Include="Accounts\Balance\Balance.cs" />
+    <Compile Include="Accounts\IAccount.cs" />
+    <Compile Include="Accounts\Number\AccountNumber.cs" />
+    <Compile Include="Accounts\Number\AccountNumberFactory.cs" />
+    <Compile Include="Accounts\Number\IAccountNumberFactory.cs" />
+    <Compile Include="Accounts\Number\StandardControlSumCalculator.cs" />
+    <Compile Include="Accounts\Number\IControlSumCalculator.cs" />
+    <Compile Include="Accounts\Balance\IBalance.cs" />
+    <Compile Include="Operation\Operations\BankOperation.cs" />
+    <Compile Include="Operation\OperationManager.cs" />
+    <Compile Include="Operation\Operations\Deposit.cs" />
+    <Compile Include="Operation\Operations\IBankCommand.cs" />
+    <Compile Include="Operation\Operations\Transfer.cs" />
+    <Compile Include="Operation\Operations\Withdraw.cs" />
+    <Compile Include="Operation\OperationType.cs" />
     <Compile Include="SoapService\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
     <Compile Include="SoapService\DataContract\EnumExtensions.cs" />
     <Compile Include="SoapService\IBankingService.cs" />
-    <Compile Include="operation\OperationRecord.cs" />
+    <Compile Include="Operation\OperationRecord.cs" />
     <Compile Include="SoapService\DataContract\OperationResponse.cs" />
     <Compile Include="SoapService\DataContract\PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,4 @@
-﻿namespace WcfBankingService.account.number
+﻿namespace WcfBankingService.Accounts.Number
 {
     public interface IControlSumCalculator
     {

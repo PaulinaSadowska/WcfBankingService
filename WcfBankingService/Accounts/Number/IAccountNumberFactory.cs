@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WcfBankingService.account.number;
 
-namespace WcfBankingService.account
+namespace WcfBankingService.Accounts.Number
 {
     public interface IAccountNumberFactory
     {
