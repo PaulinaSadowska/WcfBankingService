@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using WcfBankingService.account;
 using WcfBankingService.account.number;
 
 namespace WcfBankingService.User
 {
     public class UserManager : IUserManager
     {
-        private List<IUser> _users;
+        private readonly List<IUser> _users;
 
         public UserManager()
         {
@@ -32,21 +33,27 @@ namespace WcfBankingService.User
             return true;
         }
 
-        public bool AddAccountNumber(string login, string accessToken, AccountNumber accountNumber)
-        {
-            var user = GetUser(login);
-            return user != null && user.AddAccountNumber(accessToken, accountNumber);
-        }
-
         public bool ContainsUser(string login)
         {
             return _users.Any(user => user.Login.Equals(login));
         }
 
-        public IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken)
+        public bool AddAccount(string login, string accessToken, Account account)
         {
             var user = GetUser(login);
-            return user?.GetAccountNumbers(accessToken);
+            return user != null && user.AddAccount(accessToken, account);
+        }
+
+        public IEnumerable<Account> GetAllAccounts(string login, string accessToken)
+        {
+            var user = GetUser(login);
+            return user?.GetAllAccounts(accessToken);
+        }
+
+        public Account GetAccount(string login, string accessToken, AccountNumber accoutNumber)
+        {
+            var user = GetUser(login);
+            return user?.GetAccount(accessToken, accoutNumber);
         }
 
         private IUser GetUser(string login)

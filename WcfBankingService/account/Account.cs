@@ -7,13 +7,13 @@ namespace WcfBankingService.account
 {
     public class Account
     {
-        private readonly AccountNumber _accountNumber;
+        public AccountNumber AccountNumber { get; }
         private readonly IBalance _balance;
         private IEnumerable<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)
         {
-            this._accountNumber = accountNumber;
+            this.AccountNumber = accountNumber;
             this._balance = balance;
         }
     }

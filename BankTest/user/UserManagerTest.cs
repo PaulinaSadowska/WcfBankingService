@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService;
+using WcfBankingService.account;
+using WcfBankingService.account.balance;
 using WcfBankingService.account.number;
 using WcfBankingService.User;
 
-namespace BankTest.user
+namespace BankTest.User
 {
     [TestClass]
     public class UserManagerTest
@@ -16,16 +18,19 @@ namespace BankTest.user
         private readonly string MockLogin = "NieAdmin132";
         private readonly string MockAccessToken = "accessToken142";
 
+        private readonly Account _account;
+
         private readonly UserManager _userManager;
 
         public UserManagerTest()
         {
             var userList = new List<IUser>
             {
-                new User(Login, Password),
+                new WcfBankingService.User.User(Login, Password),
                 new UserMock(MockLogin, MockAccessToken)
             };
             _userManager = new UserManager(userList);
+            _account = new Account(new AccountNumber("", "", ""), new Balance(new BigInteger(12)));
         }
 
 
@@ -75,21 +80,21 @@ namespace BankTest.user
         }
         
         [TestMethod]
-        public void GetAccountNumbersFromUser_CorrectAccessTokenAndLogin_ReturnsAccountNumbers()
+        public void GetAllAccountsFromUser_CorrectAccessTokenAndLogin_ReturnsAccountNumbers()
         {
-            Assert.IsNotNull(_userManager.GetAccountNumbers(MockLogin, MockAccessToken));
+            Assert.IsNotNull(_userManager.GetAllAccounts(MockLogin, MockAccessToken));
         }
 
         [TestMethod]
-        public void GetAccountNumbersFromUser_WrongLogin_ReturnsNull()
+        public void GetAllAcountsFromUser_WrongLogin_ReturnsNull()
         {
-            Assert.IsNull(_userManager.GetAccountNumbers("WOOW", MockAccessToken));
+            Assert.IsNull(_userManager.GetAllAccounts("WOOW", MockAccessToken));
         }
 
         [TestMethod]
-        public void GetAccountNumbersFromUser_WrongAccessToken_ReturnsNull()
+        public void GetAllAccountFromUser_WrongAccessToken_ReturnsNull()
         {
-            Assert.IsNull(_userManager.GetAccountNumbers(MockLogin, "Wrong token"));
+            Assert.IsNull(_userManager.GetAllAccounts(MockLogin, "Wrong token"));
         }
 
         [TestMethod]
@@ -97,8 +102,8 @@ namespace BankTest.user
         {
             string accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
-            Assert.IsTrue(_userManager.AddAccountNumber(Login, accessToken, new AccountNumber("1", "2", "3")));
-            var accounts = _userManager.GetAccountNumbers(Login, accessToken);
+            Assert.IsTrue(_userManager.AddAccount(Login, accessToken, _account));
+            var accounts = _userManager.GetAllAccounts(Login, accessToken);
             Assert.IsNotNull(accounts);
             Assert.AreEqual(accounts.Count(), 1);
         }
@@ -108,13 +113,13 @@ namespace BankTest.user
         {
             string accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
-            Assert.IsFalse(_userManager.AddAccountNumber("Wow", accessToken, new AccountNumber("1", "2", "3")));
+            Assert.IsFalse(_userManager.AddAccount("Wow", accessToken, _account));
         }
 
         [TestMethod]
         public void AddAccountNumber_WrongAccessToken_ReturnsFalse()
         {
-            Assert.IsFalse(_userManager.AddAccountNumber(Login, "nie wow", new AccountNumber("1", "2", "3")));
+            Assert.IsFalse(_userManager.AddAccount(Login, "nie wow", _account));
         }
     }
 }

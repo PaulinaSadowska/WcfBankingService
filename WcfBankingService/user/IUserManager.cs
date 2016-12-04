@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WcfBankingService.account;
 using WcfBankingService.account.number;
 
 namespace WcfBankingService.User
@@ -22,15 +23,6 @@ namespace WcfBankingService.User
         bool SignUp(string login, string password);
 
         /// <summary>
-        /// Add account number to user. 
-        /// </summary>
-        /// <param name="login">user login</param>
-        /// <param name="accessToken">access token received after sign in</param>
-        /// <param name="accountNumber">account number</param>
-        /// <returns>if account number was created</returns>
-        bool AddAccountNumber(string login, string accessToken, AccountNumber accountNumber);
-
-        /// <summary>
         /// Checks if there is user with given login
         /// </summary>
         /// <param name="login">login</param>
@@ -38,11 +30,32 @@ namespace WcfBankingService.User
         bool ContainsUser(string login);
 
         /// <summary>
-        /// Returns users account number list
+        /// Add account to user. 
         /// </summary>
         /// <param name="login">user login</param>
         /// <param name="accessToken">access token received after sign in</param>
-        /// <returns>Account number list</returns>
-        IEnumerable<AccountNumber> GetAccountNumbers(string login, string accessToken);
+        /// <param name="account">account</param>
+        /// <returns>if account number was created</returns>
+        bool AddAccount(string login, string accessToken, Account account);
+
+        /// <summary>
+        /// Returns users accounts list
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="accessToken">access token received after sign in</param>
+        /// <returns>Account list</returns>
+        IEnumerable<Account> GetAllAccounts(string login, string accessToken);
+
+        /// <summary>
+        /// Returns user account
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="accessToken">access token received after sign in</param>
+        /// <param name="accoutNumber">account number</param>
+        /// <returns>Account </returns>
+        Account GetAccount(string login, string accessToken, AccountNumber accoutNumber);
+
+
+
     }
 }

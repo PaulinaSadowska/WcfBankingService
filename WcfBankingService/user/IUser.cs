@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
+using WcfBankingService.account;
 using WcfBankingService.account.number;
 
 namespace WcfBankingService.User
 {
     public interface IUser
     {
-        string GenerateAccessToken(string password);
-
-        IEnumerable<AccountNumber> GetAccountNumbers(string accessToken);
-
         string Login { get; }
 
-        bool AddAccountNumber(string accessToken, AccountNumber accountNumber);
+        string GenerateAccessToken(string password);
+
+        IEnumerable<Account> GetAllAccounts(string accessToken);
+
+        Account GetAccount(string accessToken, AccountNumber accountNumber);
+
+        bool AddAccount(string accessToken, Account account);
     }
 }

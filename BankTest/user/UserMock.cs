@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using WcfBankingService.account;
 using WcfBankingService.account.number;
 using WcfBankingService.User;
 
-namespace BankTest.user
+namespace BankTest.User
 {
     internal class UserMock : IUser
     {
         private readonly string _accessToken;
+        public string Login { get; }
 
         public UserMock(string login, string accessToken)
         {
@@ -19,19 +21,20 @@ namespace BankTest.user
             return _accessToken;
         }
 
-        public IEnumerable<AccountNumber> GetAccountNumbers(string accessToken)
+        public IEnumerable<Account> GetAllAccounts(string accessToken)
         {
-            return _accessToken == accessToken ? new List<AccountNumber>{new AccountNumber("", "", "")} : null;
+            return _accessToken == accessToken ? new List<Account>() : null;
         }
 
-
-        public string Login { get; }
-
-        public bool AddAccountNumber(string accessToken, AccountNumber accountNumber)
+        public Account GetAccount(string accessToken, AccountNumber accountNumber)
         {
-            if (_accessToken == accessToken)
-                return false;
-            return true;
+            throw new System.NotImplementedException();
         }
+
+        public bool AddAccount(string accessToken, Account account)
+        {
+            return _accessToken != accessToken;
+        }
+
     }
 }
