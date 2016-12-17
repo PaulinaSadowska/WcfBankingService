@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using WcfBankingService.operation;
-using WcfBankingService.SoapService;
+using WcfBankingService.SoapService.DataContract;
+using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService
+namespace WcfBankingService.SoapService
 {
     public class BankingService : IBankingService
     {
-        private IServiceInputValidator InputValidator;
+        private readonly IServiceInputValidator InputValidator;
 
         public BankingService()
         {

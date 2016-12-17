@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using WcfBankingService.operation;
+using WcfBankingService.SoapService.DataContract;
 using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService

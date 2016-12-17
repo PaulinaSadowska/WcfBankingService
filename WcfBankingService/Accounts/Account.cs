@@ -13,7 +13,7 @@ namespace WcfBankingService.Accounts
 
         public IBalance Balance { get; }
 
-        private IEnumerable<OperationRecord> OperationHistory;
+        private IEnumerable<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)
         {

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using System.Runtime.Serialization;
 
-namespace WcfBankingService
+namespace WcfBankingService.SoapService.DataContract
 {
     public enum OperationResponse
     {

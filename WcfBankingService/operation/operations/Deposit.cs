@@ -19,6 +19,8 @@ namespace WcfBankingService.Operation.Operations
                 return;
 
             _targetAccount.AddToBalance(_amount);
+            //TODO
+            //SetBalanceAfterOperation(_targetAccount.getBalanceValue());
 
             Executed = true;
         }
