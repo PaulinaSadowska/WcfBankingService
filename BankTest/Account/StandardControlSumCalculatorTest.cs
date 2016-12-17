@@ -35,6 +35,30 @@ namespace BankTest.account
         }
 
         [TestMethod]
+        public void IsAccountNumberValid_validAccountNumber_ReturnsTrue()
+        {
+            Assert.IsTrue(_controlSumCalculator.IsValid($"{ControlSum}{BankId}{AccountNumber}"));
+        }
+
+        [TestMethod]
+        public void IsAccountNumberValid_invalidAccountNumber_ReturnsFalse()
+        {
+            Assert.IsFalse(_controlSumCalculator.IsValid($"90{BankId}{AccountNumber}"));
+        }
+
+        [TestMethod]
+        public void IsAccountNumberValid_accountNumberToShort_ReturnsFalse()
+        {
+            Assert.IsFalse(_controlSumCalculator.IsValid("90"));
+        }
+
+        [TestMethod]
+        public void IsAccountNumberValid_accountNumberNull_ReturnsFalse()
+        {
+            Assert.IsFalse(_controlSumCalculator.IsValid(null));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void ControlSumCalculator_bankIdNull_ThrowsException()
         {

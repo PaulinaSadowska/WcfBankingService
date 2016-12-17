@@ -6,13 +6,7 @@ namespace WcfBankingService.Accounts.Number.ControlSum
 {
     public class StandardControlSumCalculator : IControlSumCalculator
     {
-        /*
-Zamieniamy litery na cyfry, uzyskujemy liczbę: 101010230000261395100000252183
-Wyliczamy resztę z dzielenia tej liczby przez 97. Reszta wynosi 1.
-
-Reszta z dzielenia wynosi 1, co oznacza, że suma kontrolna jest prawidłowa.
-         * */
-
+        private const int AccountNumberLength = 26;
         private const int BankIdLength = 8;
         private const int InnerAccountNumberLength = 16;
 
@@ -21,12 +15,25 @@ Reszta z dzielenia wynosi 1, co oznacza, że suma kontrolna jest prawidłowa.
         public string Calculate(string bankId, string innerAccountNumber)
         {
             ValidateInput(bankId, innerAccountNumber);
-            int controlSum = CalculateControlSum($"{bankId}{innerAccountNumber}{PL}00");
+            var controlSum = CalculateControlSum($"{bankId}{innerAccountNumber}{PL}00");
             return controlSum.ToString("00");
         }
 
-        private int CalculateControlSum(string number)
+        public bool IsValid(string accountNumber)
         {
+            if (accountNumber == null || accountNumber.Length != AccountNumberLength)
+            {
+                return false;
+            }
+            var checksum = CalculateControlSum($"{accountNumber.Substring(2)}{PL}00");
+            return checksum == int.Parse(accountNumber.Substring(0, 2));
+        }
+
+        private static int CalculateControlSum(string number)
+        {
+            if(number.Length<AccountNumberLength+4)
+                throw new ArgumentException("CalculateControlSum - number to short");
+
             var firstPart = number.Substring(0, number.Length / 2);
             var secondPart = number.Substring(number.Length / 2, number.Length / 2);
 
@@ -38,15 +45,15 @@ Reszta z dzielenia wynosi 1, co oznacza, że suma kontrolna jest prawidłowa.
             return checksum;
         }
 
-        private void ValidateInput(string bankId, string number)
+        private static void ValidateInput(string bankId, string number)
         {
             if(bankId == null || number == null)
             {
-                throw new System.NullReferenceException("BankId and inner account innerAccountNumber can't be null");
+                throw new NullReferenceException("BankId and inner account innerAccountNumber can't be null");
             }
             if (bankId.Length != BankIdLength || number.Length != InnerAccountNumberLength)
             {
-                throw new System.ArgumentException("BankId or inner account number length invalid");
+                throw new ArgumentException("BankId or inner account number length invalid");
             }
         }
 

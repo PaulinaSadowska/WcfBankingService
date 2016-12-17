@@ -8,5 +8,10 @@ namespace BankTest.Account
         {
             return "00";
         }
+
+        public bool IsValid(string accountNumber)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

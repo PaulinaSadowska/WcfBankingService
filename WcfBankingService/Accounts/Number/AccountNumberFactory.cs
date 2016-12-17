@@ -25,10 +25,5 @@ namespace WcfBankingService.Accounts.Number
             //create account number object from account Number (check if is valid!)
             throw new NotImplementedException();
         }
-
-        public bool IsAccountNumberValid(string accountNumber)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
