@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.Accounts.Number;
+using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace BankTest.account
 {
     [TestClass]
-    public class ControlSumCalculatorTest
+    public class StandardControlSumCalculatorTest
     {
         private const string AccountNumber = "0000261395100000";
         private const string BankId = "10101023";
@@ -14,7 +14,7 @@ namespace BankTest.account
         private readonly IControlSumCalculator _controlSumCalculator;
 
   
-        public ControlSumCalculatorTest()
+        public StandardControlSumCalculatorTest()
         {
             _controlSumCalculator = new StandardControlSumCalculator();
         }
@@ -38,7 +38,7 @@ namespace BankTest.account
         [ExpectedException(typeof(NullReferenceException))]
         public void ControlSumCalculator_NumberNull_ThrowsException()
         {
-            _controlSumCalculator.Calculate(BankId, AccountNumber);
+            _controlSumCalculator.Calculate(BankId, null);
         }
 
         [TestMethod]

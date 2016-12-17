@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.Accounts.Number;
+using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace BankTest.Account
 {
@@ -9,11 +9,11 @@ namespace BankTest.Account
         private const string ValidNumber = "1234567891234567";
         private const string BankId = "11216900";
 
-        private IControlSumCalculator ControlSumCalculator;
+        private IControlSumCalculator _controlSumCalculator;
         
         public AccountNumberTest()
         {
-            ControlSumCalculator = new MockControlSumCalculator();
+            _controlSumCalculator = new MockControlSumCalculator();
         }
 
         [TestMethod]
