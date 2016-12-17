@@ -2,7 +2,7 @@
 
 namespace BankTest.Account
 {
-    class MockControlSumCalculator : IControlSumCalculator
+    internal class MockControlSumCalculator : IControlSumCalculator
     {
         public string Calculate(string bankId, string innerAccountNumber)
         {
@@ -11,7 +11,7 @@ namespace BankTest.Account
 
         public bool IsValid(string accountNumber)
         {
-            throw new System.NotImplementedException();
+            return accountNumber.Length == 26;
         }
     }
 }

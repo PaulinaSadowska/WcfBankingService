@@ -53,7 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Account\AccountNumberTest.cs" />
+    <Compile Include="Account\AccountNumberFactoryTest.cs" />
     <Compile Include="Account\StandardControlSumCalculatorTest.cs" />
     <Compile Include="Account\MockControlSumCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

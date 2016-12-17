@@ -3,13 +3,13 @@
     public class AccountNumber
     {
         public readonly string BankId;
-        public readonly string Number;
+        public readonly string InnerNumber;
         public readonly string ControlSum;
 
-        public AccountNumber(string bankId, string number, string controlSum)
+        public AccountNumber(string bankId, string innerNumber, string controlSum)
         {
             BankId = bankId;
-            Number = number;
+            InnerNumber = innerNumber;
             ControlSum = controlSum;
         }
 
@@ -20,7 +20,7 @@
 
         public override string ToString()
         {
-            return $"{ControlSum}{BankId}{Number}";
+            return $"{ControlSum}{BankId}{InnerNumber}";
         }
     }
 }
