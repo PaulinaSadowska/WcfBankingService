@@ -1,17 +1,12 @@
-﻿using WcfBankingService.Accounts.Number.ControlSum;
+﻿using System;
+using System.Globalization;
+using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace WcfBankingService.Accounts.Number.ControlSum
 {
     public class StandardControlSumCalculator : IControlSumCalculator
     {
         /*
-         * Rozpatrujemy konto o numerze IBAN PL83101010230000261395100000
-         * 
-Numer posiada 28 znaków. Dobry znak, jest szansa, że numer jest prawidłowy. 
-
-Po przeniesieniu 4 pierwszych znaków na koniec numeru uzyskujemy następujący ciąg
-znaków alfanumerycznych: 101010230000261395100000PL83
-
 Zamieniamy litery na cyfry, uzyskujemy liczbę: 101010230000261395100000252183
 Wyliczamy resztę z dzielenia tej liczby przez 97. Reszta wynosi 1.
 
@@ -21,11 +16,26 @@ Reszta z dzielenia wynosi 1, co oznacza, że suma kontrolna jest prawidłowa.
         private const int BankIdLength = 8;
         private const int InnerAccountNumberLength = 16;
 
+        private const string PL = "2521";
+
         public string Calculate(string bankId, string innerAccountNumber)
         {
             ValidateInput(bankId, innerAccountNumber);
-            
-            return "00";
+            int controlSum = CalculateControlSum($"{bankId}{innerAccountNumber}{PL}00");
+            return controlSum.ToString("00");
+        }
+
+        private int CalculateControlSum(string number)
+        {
+            var firstPart = number.Substring(0, number.Length / 2);
+            var secondPart = number.Substring(number.Length / 2, number.Length / 2);
+
+            var parsedFirstPart = ulong.Parse(firstPart, NumberStyles.Integer);
+            var firstModulo = parsedFirstPart % 97;
+            var parsedSecondPartCombined = ulong.Parse(firstModulo + secondPart, NumberStyles.Integer);
+
+            var checksum = 98 - (int)(parsedSecondPartCombined % 97);
+            return checksum;
         }
 
         private void ValidateInput(string bankId, string number)

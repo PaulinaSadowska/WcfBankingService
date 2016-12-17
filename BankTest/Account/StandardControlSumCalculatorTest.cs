@@ -24,7 +24,14 @@ namespace BankTest.account
         public void ControlSumCalculator_validInputData_ReturnsControlSum()
         { 
             var controlSum = _controlSumCalculator.Calculate(BankId, AccountNumber);
-            Assert.AreEqual(controlSum, ControlSum);
+            Assert.AreEqual(ControlSum, controlSum);
+        }
+
+        [TestMethod]
+        public void ControlSumCalculator_validInputDataControlSumStartsWithZero_ReturnsControlSum()
+        {
+            var controlSum = _controlSumCalculator.Calculate("11216900", "1234567891234567");
+            Assert.AreEqual("04", controlSum);
         }
 
         [TestMethod]
