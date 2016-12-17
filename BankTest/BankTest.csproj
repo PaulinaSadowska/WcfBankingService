@@ -57,6 +57,7 @@
     <Compile Include="Account\ControlSumCalculatorTest.cs" />
     <Compile Include="Account\MockControlSumCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\AccessTokenGeneratorTest.cs" />
     <Compile Include="User\UserManagerTest.cs" />
     <Compile Include="User\UserMock.cs" />
   </ItemGroup>
