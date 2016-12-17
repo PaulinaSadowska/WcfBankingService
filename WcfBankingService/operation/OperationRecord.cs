@@ -13,9 +13,9 @@ namespace WcfBankingService.operation
         public string Title { get; set; }
 
         [DataMember]
-        public BigInteger Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DataMember]
-        public BigInteger BalanceAfterOperation { get; set; }
+        public decimal BalanceAfterOperation { get; set; }
     }
 }

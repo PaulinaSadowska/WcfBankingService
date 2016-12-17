@@ -5,24 +5,24 @@ namespace WcfBankingService.Accounts.Balance
 {
     public class Balance : IBalance
     {
-        private BigInteger _balanceValue;
+        private decimal _balanceValue;
 
-        public Balance(BigInteger balanceValue)
+        public Balance(decimal balanceValue)
         {
             _balanceValue = balanceValue;
         }
 
-        public IBalance AddToBalance(BigInteger amount)
+        public IBalance AddToBalance(decimal amount)
         {
             throw new NotImplementedException();
         }
 
-        public IBalance SubstractFromBalance(BigInteger amount)
+        public IBalance SubstractFromBalance(decimal amount)
         {
             throw new NotImplementedException();
         }
 
-        public BigInteger GetValue()
+        public decimal GetValue()
         {
             return _balanceValue;
         }

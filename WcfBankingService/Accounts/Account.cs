@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
@@ -21,9 +22,9 @@ namespace WcfBankingService.Accounts
             this.Balance = balance;
         }
 
-        public void AddToBalance(BigInteger amount)
+        public void AddToBalance(decimal amount)
         {
-            throw new System.NotImplementedException();
+            Balance.AddToBalance(amount);
         }
     }
 }

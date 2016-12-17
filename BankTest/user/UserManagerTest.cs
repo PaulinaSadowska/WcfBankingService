@@ -30,7 +30,7 @@ namespace BankTest.User
                 new UserMock(MockLogin, MockAccessToken)
             };
             _userManager = new UserManager(userList);
-            _account = new WcfBankingService.Accounts.Account(new AccountNumber("", "", ""), new Balance(new BigInteger(12)));
+            _account = new WcfBankingService.Accounts.Account(new AccountNumber("", "", ""), new Balance(122m));
         }
 
 

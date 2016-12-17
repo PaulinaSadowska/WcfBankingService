@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Accounts.Number;
-using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace BankTest.Account
 {

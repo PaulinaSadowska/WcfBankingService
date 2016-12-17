@@ -5,7 +5,7 @@ namespace WcfBankingService.operation.operations
 {
     public class Transfer : BankOperation, IBankCommand
     {
-        public Transfer(string operationTitle, BigInteger amount, string source) : base(operationTitle, amount, source)
+        public Transfer(string operationTitle, decimal amount, string source) : base(operationTitle, amount, source)
         {
         }
 

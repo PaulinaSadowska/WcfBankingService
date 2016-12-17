@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using WcfBankingService.operation;
 
 namespace WcfBankingService.Operation.Operations
@@ -10,7 +9,7 @@ namespace WcfBankingService.Operation.Operations
 
         public bool Executed { get; set; }
 
-        protected BankOperation(string operationTitle, BigInteger amount, string source)
+        protected BankOperation(string operationTitle, decimal amount, string source)
         {
             OperationRecord = new OperationRecord
             {
@@ -20,7 +19,7 @@ namespace WcfBankingService.Operation.Operations
             };
         }
 
-        public void SetBalanceAfterOperation(BigInteger balance)
+        public void SetBalanceAfterOperation(decimal balance)
         {
             if (Executed)
                 OperationRecord.BalanceAfterOperation = balance;

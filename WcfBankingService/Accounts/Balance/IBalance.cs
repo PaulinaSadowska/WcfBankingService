@@ -1,11 +1,11 @@
-﻿using System.Numerics;
+﻿using System;
 
 namespace WcfBankingService.Accounts.Balance
 {
     public interface IBalance
     {
-        IBalance AddToBalance(BigInteger amount);
-        IBalance SubstractFromBalance(BigInteger amount);
-        BigInteger GetValue();
+        IBalance AddToBalance(decimal amount);
+        IBalance SubstractFromBalance(decimal amount);
+        decimal GetValue();
     }
 }

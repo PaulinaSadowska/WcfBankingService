@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using System;
 using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.Accounts
@@ -6,6 +6,6 @@ namespace WcfBankingService.Accounts
     public interface IAccount
     {
         AccountNumber AccountNumber { get; }
-        void AddToBalance(BigInteger amount);
+        void AddToBalance(Decimal amount);
     }
 }
