@@ -1,43 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using WcfBankingService.operation;
-using WcfBankingService.SoapService.DataContract;
+using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
+using WcfBankingService.User;
 
 namespace WcfBankingService.SoapService
 {
     public class BankingService : IBankingService
     {
-        private readonly IServiceInputValidator InputValidator;
+        private readonly IServiceInputValidator _inputValidator;
+        private readonly UserManager _userManager;
 
         public BankingService()
         {
-            InputValidator = new ServiceInputValidator();
+            _inputValidator = new ServiceInputValidator();
+            _userManager = new UserManager();
         }
 
-        public OperationResponse signIn(string login, string password)
+        public LogInResponse SignIn(string login, string password)
         {
-            InputValidator.CheckSignInDataValid(login, password);
-            return OperationResponse.Success;
+            _inputValidator.CheckSignInDataValid(login, password);
+            return new LogInResponse(_userManager.SignIn(login, password));
         }
         
-        public OperationResponse deposit(PaymentData paymentData)
+        public ResponseStatus Deposit(PaymentData paymentData)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<OperationRecord> getOperationHistory(String accountNumber)
+        public IEnumerable<OperationRecord> GetOperationHistory(String accountNumber)
         {
             throw new NotImplementedException();
         }
 
-        public OperationResponse transfer(TransferData transferData)
+        public ResponseStatus Transfer(TransferData transferData)
         {
             throw new NotImplementedException();
         }
 
-        public OperationResponse withdraw(PaymentData paymentData)
+        public ResponseStatus Withdraw(PaymentData paymentData)
         {
             throw new NotImplementedException();
         }

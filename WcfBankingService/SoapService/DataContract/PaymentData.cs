@@ -8,7 +8,7 @@ namespace WcfBankingService.SOAPService.DataContract
     public class PaymentData
     {
         [DataMember]
-        private String AccountNumber { get; set; }
+        private string AccountNumber { get; set; }
 
         [DataMember]
         private BigInteger Amount { get; set; }

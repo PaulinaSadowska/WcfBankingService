@@ -3,6 +3,7 @@ using System.ServiceModel;
 using WcfBankingService;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract;
+using WcfBankingService.SoapService.DataContract.Response;
 
 namespace BankingSoapServiceTest
 {
@@ -22,44 +23,46 @@ namespace BankingSoapServiceTest
         [TestMethod]
         public void signIn_CorrectLoginAndPassword_ReturnsSuccess()
         {
-            var response = _service.signIn(CorrectLogin, CorrectPassword);
-            Assert.AreEqual(response, OperationResponse.Success);
-            Assert.AreEqual(response.Message(), "");
+            var response = _service.SignIn(CorrectLogin, CorrectPassword);
+            Assert.AreEqual(response.ResponseStatus, ResponseStatus.Success);
+            Assert.IsNotNull(response.AccessToken);
         }
 
         [TestMethod]
         public void signIn_WrongLogin_ReturnsError()
         {
-            var response = _service.signIn("bad login", CorrectPassword);
-            Assert.AreEqual(response, OperationResponse.IncorrectLogin);
+            var response = _service.SignIn("bad login", CorrectPassword);
+            Assert.AreEqual(response.ResponseStatus, ResponseStatus.IncorrectLoginOrPassword);
+            Assert.IsNull(response.AccessToken);
         }
 
         [TestMethod]
         public void signIn_WrongPassword_ReturnsError()
         {
-            var response = _service.signIn(CorrectLogin, "badd password");
-            Assert.AreEqual(response, OperationResponse.IncorrectPassword);
+            var response = _service.SignIn(CorrectLogin, "bad password");
+            Assert.AreEqual(response.ResponseStatus, ResponseStatus.IncorrectLoginOrPassword);
+            Assert.IsNull(response.AccessToken);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void signIn_LoginNull_ThrowsFaultException()
         {
-            _service.signIn(null, CorrectPassword);
+            _service.SignIn(null, CorrectPassword);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void signIn_PasswordNull_ThrowsFaultException()
         {
-            _service.signIn(CorrectLogin, null);
+            _service.SignIn(CorrectLogin, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void signIn_LoginToShort_ThrowsFaultException()
         {
-            _service.signIn("", CorrectPassword);
+            _service.SignIn("", CorrectPassword);
             //todo - how shotr login can be?
         }
 
@@ -67,7 +70,7 @@ namespace BankingSoapServiceTest
         [ExpectedException(typeof(FaultException))]
         public void signIn_PasswordToShort_ThrowsFaultException()
         {
-            _service.signIn(CorrectLogin, "");
+            _service.SignIn(CorrectLogin, "");
             //todo - how short password can be?
         }
 

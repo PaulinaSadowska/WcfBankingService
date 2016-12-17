@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 using WcfBankingService.operation;
-using WcfBankingService.SoapService.DataContract;
+using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService
+namespace WcfBankingService.SoapService
 {
     [ServiceContract]
     public interface IBankingService
     {
         [OperationContract]
-        OperationResponse signIn(String login, String password);
+        LogInResponse SignIn(string login, string password);
 
         [OperationContract]
-        IEnumerable<OperationRecord> getOperationHistory(String accountNumber);
+        IEnumerable<OperationRecord> GetOperationHistory(string accountNumber);
 
         [OperationContract]
-        OperationResponse transfer(TransferData transferData);
+        ResponseStatus Transfer(TransferData transferData);
 
         [OperationContract]
-        OperationResponse deposit(PaymentData paymentData);
+        ResponseStatus Deposit(PaymentData paymentData);
 
         [OperationContract]
-        OperationResponse withdraw(PaymentData paymentData);
+        ResponseStatus Withdraw(PaymentData paymentData);
 
     }
 

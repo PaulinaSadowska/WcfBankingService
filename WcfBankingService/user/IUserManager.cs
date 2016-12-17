@@ -55,7 +55,5 @@ namespace WcfBankingService.User
         /// <returns>Account </returns>
         IAccount GetAccount(string login, string accessToken, AccountNumber accoutNumber);
 
-
-
     }
 }
