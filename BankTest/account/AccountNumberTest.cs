@@ -6,8 +6,8 @@ namespace BankTest.Account
     [TestClass]
     public class AccountNumberTest
     {
-        private const string VALID_NUMBER = "1234567891234567";
-        private const string BANK_ID = "11216900";
+        private const string ValidNumber = "1234567891234567";
+        private const string BankId = "11216900";
 
         private IControlSumCalculator ControlSumCalculator;
         

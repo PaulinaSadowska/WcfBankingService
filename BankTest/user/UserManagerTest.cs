@@ -15,8 +15,8 @@ namespace BankTest.User
         private const string Login = "Admin";
         private const string Password = "Password";
 
-        private readonly string MockLogin = "NieAdmin132";
-        private readonly string MockAccessToken = "accessToken142";
+        private const string MockLogin = "NieAdmin132";
+        private const string MockAccessToken = "accessToken142";
 
         private readonly IAccount _account;
 
@@ -37,21 +37,21 @@ namespace BankTest.User
         [TestMethod]
         public void SignInUser_UserExists_returnsAccessToken()
         {
-            string accessToken = _userManager.SignIn(Login, Password);
+            var accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
         }
 
         [TestMethod]
         public void SignInUser_WrongLogin_returnsNull()
         {
-            string accessToken = _userManager.SignIn("Doge", Password);
+            var accessToken = _userManager.SignIn("Doge", Password);
             Assert.IsNull(accessToken);
         }
 
         [TestMethod]
         public void SignInUser_WrongPassword_returnsNull()
         {
-            string accessToken = _userManager.SignIn(Login, "Wow");
+            var accessToken = _userManager.SignIn(Login, "Wow");
             Assert.IsNull(accessToken);
         }
 

@@ -12,8 +12,8 @@ namespace BankTest.User
 
         public UserMock(string login, string accessToken)
         {
-            this.Login = login;
-            this._accessToken = accessToken;
+            Login = login;
+            _accessToken = accessToken;
         }
 
         public string GenerateAccessToken(string password)
