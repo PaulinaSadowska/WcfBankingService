@@ -100,7 +100,7 @@ namespace BankTest.User
         [TestMethod]
         public void AddAccountNumber_NewNumber_ReturnsTrue()
         {
-            string accessToken = _userManager.SignIn(Login, Password);
+            var accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
             Assert.IsTrue(_userManager.AddAccount(Login, accessToken, _account));
             var accounts = _userManager.GetAllAccounts(Login, accessToken);
@@ -111,7 +111,7 @@ namespace BankTest.User
         [TestMethod]
         public void AddAccountNumber_WrongLogin_ReturnsFalse()
         {
-            string accessToken = _userManager.SignIn(Login, Password);
+            var accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
             Assert.IsFalse(_userManager.AddAccount("Wow", accessToken, _account));
         }

@@ -2,14 +2,16 @@
 using System.Linq;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
+using WcfBankingService.user;
 
 namespace WcfBankingService.User
 {
     public class User : IUser
     {
+        private const int AccessTokenLength = 12;
         private readonly string _password;
-        private List<IAccount> _accouts;
-        private List<string> _accessTokens;
+        private readonly List<IAccount> _accouts;
+        private readonly List<string> _accessTokens;
         public string Login { get; }
 
         public User(string login, string password)
@@ -22,14 +24,11 @@ namespace WcfBankingService.User
 
         public string GenerateAccessToken(string password)
         {
-            if (password == _password)
-            {
-                var accessToken = "some key";
-                _accessTokens.Add(accessToken);
-                return accessToken;
+            if (password != _password) return null;
 
-            }
-            return null;
+            var accessToken = AccessTokenGenerator.Generate(AccessTokenLength);
+            _accessTokens.Add(accessToken);
+            return accessToken;
         }
 
         public IEnumerable<IAccount> GetAllAccounts(string accessToken)
