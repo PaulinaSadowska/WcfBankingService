@@ -26,5 +26,15 @@ namespace WcfBankingService.Accounts
         {
             Balance.AddToBalance(amount);
         }
+
+        public void SubstractFromBalance(decimal amount)
+        {
+            Balance.SubstractFromBalance(amount);
+        }
+
+        public decimal GetBalanceValue()
+        {
+            return Balance.GetValue();
+        }
     }
 }

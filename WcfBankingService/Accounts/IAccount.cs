@@ -6,6 +6,8 @@ namespace WcfBankingService.Accounts
     public interface IAccount
     {
         AccountNumber AccountNumber { get; }
-        void AddToBalance(Decimal amount);
+        void AddToBalance(decimal amount);
+        void SubstractFromBalance(decimal amount);
+        decimal GetBalanceValue();
     }
 }

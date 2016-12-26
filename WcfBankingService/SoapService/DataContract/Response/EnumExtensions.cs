@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using WcfBankingService.SoapService.DataContract.Response;
 
-namespace WcfBankingService.SoapService.DataContract
+namespace WcfBankingService.SoapService.DataContract.Response
 {
     public static class EnumExtensions
     {

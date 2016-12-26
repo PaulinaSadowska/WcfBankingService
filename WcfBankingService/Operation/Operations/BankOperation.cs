@@ -23,6 +23,8 @@ namespace WcfBankingService.Operation.Operations
         {
             if (Executed)
                 OperationRecord.BalanceAfterOperation = balance;
+            else
+                throw new Exception("Balance should be saved after executing the operation");
         }
 
         public void CheckExecuted()

@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using WcfBankingService.Accounts;
+﻿using WcfBankingService.Accounts;
 
 namespace WcfBankingService.Operation.Operations
 {
@@ -7,6 +6,7 @@ namespace WcfBankingService.Operation.Operations
     {
         private readonly IAccount _targetAccount;
         private readonly decimal _amount;
+
         public Deposit(IAccount targetAccount, decimal amount, string operationTitle) : base(operationTitle, amount, "Deposit")
         {
             _targetAccount = targetAccount;
@@ -19,8 +19,7 @@ namespace WcfBankingService.Operation.Operations
                 return;
 
             _targetAccount.AddToBalance(_amount);
-            //TODO
-            //SetBalanceAfterOperation(_targetAccount.getBalanceValue());
+            SetBalanceAfterOperation(_targetAccount.GetBalanceValue());
 
             Executed = true;
         }
