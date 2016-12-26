@@ -18,6 +18,8 @@ namespace BankTest.User
         private const string MockLogin = "NieAdmin132";
         private const string MockAccessToken = "accessToken142";
 
+        private readonly AccountNumber _accountNumber;
+
         private readonly IAccount _account;
 
         private readonly UserManager _userManager;
@@ -30,7 +32,8 @@ namespace BankTest.User
                 new UserMock(MockLogin, MockAccessToken)
             };
             _userManager = new UserManager(userList);
-            _account = new WcfBankingService.Accounts.Account(new AccountNumber("", "", ""), new Balance(122m));
+            _accountNumber = new AccountNumber("12345678", "1234567891234321", "12");
+            _account = new WcfBankingService.Accounts.Account(_accountNumber, new Balance(122m));
         }
 
 
@@ -80,7 +83,7 @@ namespace BankTest.User
         }
         
         [TestMethod]
-        public void GetAllAccountsFromUser_CorrectAccessTokenAndLogin_ReturnsAccountNumbers()
+        public void GetAllAccountsFromUser_CorrectAccessTokenAndLogin_ReturnsAccounts()
         {
             Assert.IsNotNull(_userManager.GetAllAccounts(MockLogin, MockAccessToken));
         }
@@ -95,6 +98,24 @@ namespace BankTest.User
         public void GetAllAccountFromUser_WrongAccessToken_ReturnsNull()
         {
             Assert.IsNull(_userManager.GetAllAccounts(MockLogin, "Wrong token"));
+        }
+
+        [TestMethod]
+        public void GetAccount_CorrectAccessTokenAndAccountNumber_ReturnsAccount()
+        {
+            Assert.IsNotNull(_userManager.GetAccount(MockAccessToken, _accountNumber));
+        }
+
+        [TestMethod]
+        public void GetAccount_IncorrectAccessToken_ReturnsNull()
+        {
+            Assert.IsNull(_userManager.GetAccount("wrong token nie wow", _accountNumber));
+        }
+
+        [TestMethod]
+        public void GetAccount_CorrectAccessTokenIncorrectAccountNumber_ReturnsNull()
+        {
+            Assert.IsNull(_userManager.GetAccount(MockAccessToken, new AccountNumber("13456222", "1232222222222222", "12")));
         }
 
         [TestMethod]

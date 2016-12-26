@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using WcfBankingService.Accounts.Number;
+using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.operation;
+using WcfBankingService.Operation.Operations;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
@@ -12,11 +15,13 @@ namespace WcfBankingService.SoapService
     {
         private readonly IServiceInputValidator _inputValidator;
         private readonly UserManager _userManager;
+        private readonly AccountNumberFactory _accountNumberFactory;
 
         public BankingService()
         {
             _inputValidator = new ServiceInputValidator();
             _userManager = new UserManager();
+            _accountNumberFactory = new AccountNumberFactory("11216900", new StandardControlSumCalculator());
         }
 
         public LogInResponse SignIn(string login, string password)
@@ -28,6 +33,8 @@ namespace WcfBankingService.SoapService
         public PaymentResponse Deposit(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
+            var account = _userManager.GetAccount(paymentData.AccessToken, _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber));
+            var a = new Deposit(account, paymentData.Amount, paymentData.OperationTitle);
             return new PaymentResponse();
         }
 

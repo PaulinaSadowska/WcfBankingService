@@ -50,9 +50,9 @@ namespace WcfBankingService.User
             return user?.GetAllAccounts(accessToken);
         }
 
-        public IAccount GetAccount(string login, string accessToken, AccountNumber accoutNumber)
+        public IAccount GetAccount(string accessToken, AccountNumber accoutNumber)
         {
-            var user = GetUser(login);
+            var user = new User("a", "s");// = GetUser(login);
             return user?.GetAccount(accessToken, accoutNumber);
         }
 

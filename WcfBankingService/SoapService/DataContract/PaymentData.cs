@@ -8,12 +8,15 @@ namespace WcfBankingService.SOAPService.DataContract
     public class PaymentData
     {
         [DataMember]
-        private string AccountNumber { get; set; }
+        public string AccountNumber { get; set; }
 
         [DataMember]
-        private string AccessToken { get; set; }
+        public string AccessToken { get; set; }
 
         [DataMember]
-        private decimal Amount { get; set; }
+         public decimal Amount { get; set; }
+
+        [DataMember]
+        public string OperationTitle { get; set; }
     }
 }
