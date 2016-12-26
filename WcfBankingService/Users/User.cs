@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 
@@ -32,24 +33,31 @@ namespace WcfBankingService.Users
 
         public IEnumerable<IAccount> GetAllAccounts(string accessToken)
         {
-            return ContainsAccessToken(accessToken) ? _accouts : null;
+            Authorize(accessToken);
+            return _accouts;
         }
 
         public IAccount GetAccount(string accessToken, AccountNumber accountNumber)
         {
-            return ContainsAccessToken(accessToken) ? _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber)) : null;
+            Authorize(accessToken);
+            return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber));
         }
 
         public bool AddAccount(string accessToken, IAccount account)
         {
-            if (!ContainsAccessToken(accessToken) || _accouts.Contains(account)) return false;
+            Authorize(accessToken);
+            if (_accouts.Contains(account))
+            {
+                return false;
+            }
             _accouts.Add(account);
             return true;
         }
 
-        protected bool ContainsAccessToken(string accessToken)
+        private void Authorize(string accessToken)
         {
-            return _accessTokens.Contains(accessToken);
+            if(!_accessTokens.Contains(accessToken))
+                throw new AuthenticationException("Wrong access token");
         }
     }
 }

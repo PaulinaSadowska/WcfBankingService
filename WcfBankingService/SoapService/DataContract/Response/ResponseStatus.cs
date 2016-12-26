@@ -17,10 +17,7 @@ namespace WcfBankingService.SoapService.DataContract.Response
         AccountNumberDoesntExist = -21,
 
         [Description("Wrong account number format")]
-        WrongAccountNumberFormat = -22,
-
-        [Description("Account number does not belong to this bank")]
-        AccountNumberFromOtherBank = -23,
+        WrongAccountNumber = -22,
 
         [Description("Access Denied")]
         AccessDenied = -41,

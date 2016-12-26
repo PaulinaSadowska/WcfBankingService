@@ -28,8 +28,7 @@ namespace WcfBankingService.SoapService
         public PaymentResponse Deposit(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
-            _bank.Deposit(paymentData); // TODO - add return type (operation status)
-            return new PaymentResponse();
+            return new PaymentResponse(_bank.Deposit(paymentData));
         }
 
         public PaymentResponse Transfer(TransferData transferData)
@@ -41,7 +40,7 @@ namespace WcfBankingService.SoapService
         {
             _inputValidator.CheckPaymentData(paymentData);
             _bank.Withdraw(paymentData);
-            return new PaymentResponse();
+            return new PaymentResponse(ResponseStatus.Success);
         }
 
         public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)

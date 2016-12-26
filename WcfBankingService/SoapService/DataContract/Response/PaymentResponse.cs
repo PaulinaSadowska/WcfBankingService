@@ -8,10 +8,9 @@ namespace WcfBankingService.SoapService.DataContract.Response
         [DataMember]
         public ResponseStatus ResponseStatus { get; }
 
-        public PaymentResponse()
+        public PaymentResponse(ResponseStatus responseStatus)
         {
-            ResponseStatus = ResponseStatus.Success;
-            //ResponseStatus = ResponseStatus.InsufficientFunds; //TODO
+            ResponseStatus = responseStatus;
         }
     }
 }

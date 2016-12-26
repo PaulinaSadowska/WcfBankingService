@@ -24,7 +24,7 @@ namespace BankingSoapServiceTest
 
 
         [TestMethod]
-        public void DepositMoney_ValidData_ReturnsSuccess()
+        public void Deposit_ValidData_ReturnsSuccess()
         {
             var paymentData = new PaymentData()
             {
@@ -62,7 +62,7 @@ namespace BankingSoapServiceTest
                 OperationTitle = "WOW deposit"
             };
             var response = _service.Deposit(paymentData);
-            Assert.AreEqual(ResponseStatus.WrongAccountNumberFormat, response.ResponseStatus);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void DepositMoney_AccountNumberFromOtherBank_ReturnsAccountNumberFromOtherBank()
+        public void Deposit_AccountNumberFromOtherBank_ReturnWrongAccountNumberFormat()
         {
             var paymentData = new PaymentData()
             {
@@ -90,7 +90,7 @@ namespace BankingSoapServiceTest
                 OperationTitle = "WOW deposit"
             };
             var response = _service.Deposit(paymentData);
-            Assert.AreEqual(ResponseStatus.AccountNumberFromOtherBank, response.ResponseStatus);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
         }
 
         [TestMethod]

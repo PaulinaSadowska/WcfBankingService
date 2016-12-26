@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.Authentication;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.operation;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 using WcfBankingService.Users;
 
@@ -27,10 +29,25 @@ namespace WcfBankingService
             return _userManager.SignIn(login, password);
         }
 
-        public void Deposit(PaymentData paymentData)
+        public ResponseStatus Deposit(PaymentData paymentData)
         {
-            var account = _userManager.GetAccount(paymentData.AccessToken, _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber));
-            new Deposit(account, paymentData.Amount, paymentData.OperationTitle).Execute();
+            var accountNumber = _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber);
+            if(accountNumber==null)
+                return ResponseStatus.WrongAccountNumber;
+            try
+            {
+                var account = _userManager.GetAccount(paymentData.AccessToken, accountNumber);
+                if (account == null)
+                {
+                    return ResponseStatus.AccountNumberDoesntExist;
+                }
+                new Deposit(account, paymentData.Amount, paymentData.OperationTitle).Execute();
+                return ResponseStatus.Success;
+            }
+            catch (AuthenticationException)
+            {
+                return ResponseStatus.AccessDenied;
+            }
         }
 
         public void Withdraw(PaymentData paymentData)
