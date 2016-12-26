@@ -2,10 +2,16 @@
 
 namespace WcfBankingService.SoapService.Validation
 {
-    interface IServiceInputValidator
+    internal interface IServiceInputValidator
     {
-        //throws exception when sign in data are not valid
-        void CheckSignInDataValid(string login, string password);
-        void CheckPaymentData(PaymentData paymentData);
+        void ValidateLogin(string login);
+
+        void ValidatePassword(string password);
+
+        void ValidateAccessToken(string accessToken);
+
+        void ValidateAccountNumber(string accountNumber);
+
+        void ValidatePaymentData(PaymentData paymentData);
     }
 }

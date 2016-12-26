@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using WcfBankingService.operation;
-using WcfBankingService.SoapService.DataContract.Response;
 
-namespace WcfBankingService.SoapService.DataContract
+namespace WcfBankingService.SoapService.DataContract.Response
 {
     [DataContract]
-    public class OperationHistoryResponse
+    public class OperationHistoryResponse : IResponse
     {
         [DataMember]
         public ResponseStatus ResponseStatus { get; }

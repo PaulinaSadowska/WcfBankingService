@@ -116,10 +116,11 @@
     <Compile Include="SoapService\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
-    <Compile Include="SoapService\DataContract\OperationHistoryResponse.cs" />
+    <Compile Include="SoapService\DataContract\Response\OperationHistoryResponse.cs" />
     <Compile Include="SoapService\DataContract\Response\EnumExtensions.cs" />
     <Compile Include="SoapService\DataContract\Response\LogInResponse.cs" />
     <Compile Include="SoapService\DataContract\Response\PaymentResponse.cs" />
+    <Compile Include="SoapService\DataContract\Response\IResponse.cs" />
     <Compile Include="SoapService\IBankingService.cs" />
     <Compile Include="Operation\OperationRecord.cs" />
     <Compile Include="SoapService\DataContract\Response\ResponseStatus.cs" />

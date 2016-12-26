@@ -1,5 +1,4 @@
-﻿using System;
-using WcfBankingService.Accounts.Number.ControlSum;
+﻿using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace WcfBankingService.Accounts.Number
 {

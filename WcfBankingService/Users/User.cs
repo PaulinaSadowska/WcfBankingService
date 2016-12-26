@@ -8,7 +8,7 @@ namespace WcfBankingService.Users
 {
     public class User : IUser
     {
-        private const int AccessTokenLength = 12;
+        public static readonly int AccessTokenLength = 12;
         private readonly string _password;
         private readonly List<IAccount> _accouts;
         private readonly List<string> _accessTokens;

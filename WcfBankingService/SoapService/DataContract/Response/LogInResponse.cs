@@ -7,13 +7,13 @@ using System.Web;
 namespace WcfBankingService.SoapService.DataContract.Response
 {
     [DataContract]
-    public class LogInResponse
+    public class LogInResponse : IResponse
     {
         [DataMember]
-        public ResponseStatus ResponseStatus { get; }
+        public ResponseStatus ResponseStatus { get; set; }
 
         [DataMember]
-        public string AccessToken { get; }
+        public string AccessToken { get; set; }
 
         public LogInResponse(string accessToken)
         {

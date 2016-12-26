@@ -22,13 +22,14 @@ namespace WcfBankingService.SoapService
 
         public LogInResponse SignIn(string login, string password)
         {
-            _inputValidator.CheckSignInDataValid(login, password);
+            _inputValidator.ValidateLogin(login);
+            _inputValidator.ValidatePassword(password);
             return _bank.SignIn(login, password);
         }
 
         public PaymentResponse Deposit(PaymentData paymentData)
         {
-            _inputValidator.CheckPaymentData(paymentData);
+            _inputValidator.ValidatePaymentData(paymentData);
             return _bank.Deposit(paymentData);
         }
 
@@ -39,13 +40,14 @@ namespace WcfBankingService.SoapService
 
         public PaymentResponse Withdraw(PaymentData paymentData)
         {
-            _inputValidator.CheckPaymentData(paymentData);
+            _inputValidator.ValidatePaymentData(paymentData);
             return _bank.Withdraw(paymentData);
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
         {
-           //TODO - validate input data
+            _inputValidator.ValidateAccessToken(accessToken);
+            _inputValidator.ValidateAccountNumber(accountNumber);
             return _bank.GetOperationHistory(accessToken, accountNumber);
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using WcfBankingService.Accounts.Number.ControlSum;
 
 namespace WcfBankingService.Accounts.Number.ControlSum
 {
