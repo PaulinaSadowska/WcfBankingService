@@ -25,22 +25,23 @@ namespace WcfBankingService.SoapService
             return new LogInResponse(_userManager.SignIn(login, password));
         }
         
-        public ResponseStatus Deposit(PaymentData paymentData)
+        public PaymentResponse Deposit(PaymentData paymentData)
+        {
+            _inputValidator.CheckPaymentData(paymentData);
+            return new PaymentResponse();
+        }
+
+        public PaymentResponse Transfer(TransferData transferData)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<OperationRecord> GetOperationHistory(String accountNumber)
+        public PaymentResponse Withdraw(PaymentData paymentData)
         {
             throw new NotImplementedException();
         }
 
-        public ResponseStatus Transfer(TransferData transferData)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ResponseStatus Withdraw(PaymentData paymentData)
+        public IEnumerable<OperationRecord> GetOperationHistory(string accountNumber)
         {
             throw new NotImplementedException();
         }

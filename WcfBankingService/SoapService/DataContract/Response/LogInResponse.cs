@@ -12,15 +12,11 @@ namespace WcfBankingService.SoapService.DataContract.Response
         [DataMember]
         public ResponseStatus ResponseStatus { get; }
 
-        [DataMember]
-        public string AccessToken { get; }
-
         public LogInResponse(string accessToken)
         {
             if (accessToken != null)
             {
                 ResponseStatus = ResponseStatus.Success;
-                AccessToken = accessToken;
                 return;
             }
             ResponseStatus = ResponseStatus.IncorrectLoginOrPassword;

@@ -16,13 +16,13 @@ namespace WcfBankingService.SoapService
         IEnumerable<OperationRecord> GetOperationHistory(string accountNumber);
 
         [OperationContract]
-        ResponseStatus Transfer(TransferData transferData);
+        PaymentResponse Transfer(TransferData transferData);
 
         [OperationContract]
-        ResponseStatus Deposit(PaymentData paymentData);
+        PaymentResponse Deposit(PaymentData paymentData);
 
         [OperationContract]
-        ResponseStatus Withdraw(PaymentData paymentData);
+        PaymentResponse Withdraw(PaymentData paymentData);
 
     }
 

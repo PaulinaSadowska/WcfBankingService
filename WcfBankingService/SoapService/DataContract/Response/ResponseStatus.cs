@@ -9,5 +9,8 @@ namespace WcfBankingService.SoapService.DataContract.Response
 
         [Description("Incorrect Login or Password")]
         IncorrectLoginOrPassword = -1,
+
+        [Description("Insufficient funds on the account to perform the operation")]
+        InsufficientFunds = -2,
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService.SoapService.Validation
 {
@@ -6,5 +6,6 @@ namespace WcfBankingService.SoapService.Validation
     {
         //throws exception when sign in data are not valid
         void CheckSignInDataValid(string login, string password);
+        void CheckPaymentData(PaymentData paymentData);
     }
 }

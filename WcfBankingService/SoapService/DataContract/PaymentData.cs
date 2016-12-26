@@ -11,6 +11,9 @@ namespace WcfBankingService.SOAPService.DataContract
         private string AccountNumber { get; set; }
 
         [DataMember]
-        private BigInteger Amount { get; set; }
+        private string AccessToken { get; set; }
+
+        [DataMember]
+        private decimal Amount { get; set; }
     }
 }

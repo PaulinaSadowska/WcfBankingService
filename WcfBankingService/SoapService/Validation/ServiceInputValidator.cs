@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService.SoapService.Validation
 {
@@ -25,6 +26,14 @@ namespace WcfBankingService.SoapService.Validation
             {
                 throw new FaultException($"password must contains at least {MinPasswordLength} characters");
             }
+        }
+
+        public void CheckPaymentData(PaymentData paymentData)
+        {
+            if (paymentData == null)
+            {
+                throw new FaultException("payment data can't be null!");
+            }//TODO - further validation
         }
     }
 }
