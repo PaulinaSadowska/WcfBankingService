@@ -10,6 +10,9 @@ namespace BankingSoapServiceTest
     public class BankingServiceDepositTest
     {
         private const string ValidAccountNumber = "";
+        private const string NotExistingAccountNumber = "04112169001234567891234567";
+        private const string InvalidAccountNumber = "12112169001234567891234567";
+        private const string OtherBankAccountNumber = "04112168661234567891234567";
         private readonly string _accessToken;
         private readonly IBankingService _service;
 
@@ -46,6 +49,48 @@ namespace BankingSoapServiceTest
             };
             var response = _service.Deposit(paymentData);
             Assert.AreEqual(ResponseStatus.AccessDenied, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void DepositMoney_InvalidAccountNumber_ReturnsWrongAccountNumberFormat()
+        {
+            var paymentData = new PaymentData()
+            {
+                AccountNumber = InvalidAccountNumber,
+                AccessToken = _accessToken,
+                Amount = 200,
+                OperationTitle = "WOW deposit"
+            };
+            var response = _service.Deposit(paymentData);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumberFormat, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void DepositMoney_AccountNumberDoesNotExists_ReturnsAccountNumberDoesntExist()
+        {
+            var paymentData = new PaymentData()
+            {
+                AccountNumber = NotExistingAccountNumber,
+                AccessToken = _accessToken,
+                Amount = 200,
+                OperationTitle = "WOW deposit"
+            };
+            var response = _service.Deposit(paymentData);
+            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void DepositMoney_AccountNumberFromOtherBank_ReturnsAccountNumberFromOtherBank()
+        {
+            var paymentData = new PaymentData()
+            {
+                AccountNumber = OtherBankAccountNumber,
+                AccessToken = _accessToken,
+                Amount = 200,
+                OperationTitle = "WOW deposit"
+            };
+            var response = _service.Deposit(paymentData);
+            Assert.AreEqual(ResponseStatus.AccountNumberFromOtherBank, response.ResponseStatus);
         }
 
         [TestMethod]
