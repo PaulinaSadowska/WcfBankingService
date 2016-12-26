@@ -9,7 +9,7 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class BankingServiceDepositTest
     {
-        private const string ValidAccountNumber = "";
+        private const string ValidAccountNumber = "11111111111111112222222222";
         private const string NotExistingAccountNumber = "04112169001234567891234567";
         private const string InvalidAccountNumber = "12112169001234567891234567";
         private const string OtherBankAccountNumber = "04112168661234567891234567";
@@ -19,7 +19,7 @@ namespace BankingSoapServiceTest
         public BankingServiceDepositTest()
         {
             _service = new BankingService();
-            _accessToken = "";//TODO - assign correct value from predefined accounts
+            _accessToken = "111111111111";//TODO - assign correct value from predefined accounts
         }
 
 
@@ -43,7 +43,7 @@ namespace BankingSoapServiceTest
             var paymentData = new PaymentData()
             {
                 AccountNumber = ValidAccountNumber,
-                AccessToken = "wrong access Token",
+                AccessToken = "wrongAcTok3n",
                 Amount = 200,
                 OperationTitle = "WOW deposit"
             };
