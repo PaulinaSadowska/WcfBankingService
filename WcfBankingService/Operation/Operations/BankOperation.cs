@@ -19,7 +19,7 @@ namespace WcfBankingService.Operation.Operations
             };
         }
 
-        public void SetBalanceAfterOperation(decimal balance)
+        public void RecordBalanceAfterOperation(decimal balance)
         {
             if (Executed)
                 OperationRecord.BalanceAfterOperation = balance;

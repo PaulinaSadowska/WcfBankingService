@@ -25,7 +25,7 @@ namespace WcfBankingService.operation.operations
                 throw new BankException(ResponseStatus.InsufficientFunds);
 
             _targetAccount.SubstractFromBalance(_amount);
-            SetBalanceAfterOperation(_targetAccount.GetBalanceValue());
+            RecordBalanceAfterOperation(_targetAccount.GetBalanceValue());
             _targetAccount.AddOperationToHistory(OperationRecord);
 
             Executed = true;

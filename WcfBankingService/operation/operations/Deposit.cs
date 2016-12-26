@@ -19,7 +19,7 @@ namespace WcfBankingService.Operation.Operations
                 return;
 
             _targetAccount.AddToBalance(_amount);
-            SetBalanceAfterOperation(_targetAccount.GetBalanceValue());
+            RecordBalanceAfterOperation(_targetAccount.GetBalanceValue());
             _targetAccount.AddOperationToHistory(OperationRecord);
 
             Executed = true;
