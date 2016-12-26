@@ -107,6 +107,7 @@
     <Compile Include="Accounts\Number\ControlSum\IControlSumCalculator.cs" />
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />
+    <Compile Include="BankException.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\OperationManager.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />

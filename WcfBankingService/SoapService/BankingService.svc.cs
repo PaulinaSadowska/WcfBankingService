@@ -39,8 +39,7 @@ namespace WcfBankingService.SoapService
         public PaymentResponse Withdraw(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
-            _bank.Withdraw(paymentData);
-            return new PaymentResponse(ResponseStatus.Success);
+            return new PaymentResponse(_bank.Withdraw(paymentData));
         }
 
         public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)

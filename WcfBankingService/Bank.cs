@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Authentication;
+using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.operation;
@@ -31,29 +32,52 @@ namespace WcfBankingService
 
         public ResponseStatus Deposit(PaymentData paymentData)
         {
-            var accountNumber = _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber);
-            if(accountNumber==null)
-                return ResponseStatus.WrongAccountNumber;
             try
             {
-                var account = _userManager.GetAccount(paymentData.AccessToken, accountNumber);
+                new Deposit(GetAccount(paymentData.AccessToken, paymentData.AccountNumber), paymentData.Amount,
+                    paymentData.OperationTitle).Execute();
+            }
+            catch (BankException exception)
+            {
+                return exception.ResponseStatus;
+            }
+            return ResponseStatus.Success;
+        }
+
+        private IAccount GetAccount(string accessToken, string accountNumberStr)
+        {
+            var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
+            if (accountNumber == null)
+                throw new BankException(ResponseStatus.WrongAccountNumber);
+            try
+            {
+                var account = _userManager.GetAccount(accessToken, accountNumber);
                 if (account == null)
                 {
-                    return ResponseStatus.AccountNumberDoesntExist;
+                    throw new BankException(ResponseStatus.AccountNumberDoesntExist);
                 }
-                new Deposit(account, paymentData.Amount, paymentData.OperationTitle).Execute();
-                return ResponseStatus.Success;
+                return account;
+
             }
             catch (AuthenticationException)
             {
-                return ResponseStatus.AccessDenied;
+                throw new BankException(ResponseStatus.AccessDenied);
             }
         }
 
-        public void Withdraw(PaymentData paymentData)
+        public ResponseStatus Withdraw(PaymentData paymentData)
         {
-            var account = _userManager.GetAccount(paymentData.AccessToken, _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber));
-            new Withdraw(account, paymentData.Amount, paymentData.OperationTitle).Execute();
+            try
+            {
+                new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber), 
+                    paymentData.Amount, paymentData.OperationTitle).Execute();
+            }
+            catch (BankException exception)
+            {
+                return exception.ResponseStatus;
+            }
+            return ResponseStatus.Success;
+            
         }
 
         public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)
