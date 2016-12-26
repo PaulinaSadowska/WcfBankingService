@@ -38,7 +38,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void DepositMoney_WrongAccessToken_ReturnsAccessDenied()
+        public void Deposit_WrongAccessToken_ReturnsAccessDenied()
         {
             var paymentData = new PaymentData()
             {
@@ -52,7 +52,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void DepositMoney_InvalidAccountNumber_ReturnsWrongAccountNumberFormat()
+        public void Deposit_InvalidAccountNumber_ReturnsWrongAccountNumberFormat()
         {
             var paymentData = new PaymentData()
             {
@@ -66,7 +66,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void DepositMoney_AccountNumberDoesNotExists_ReturnsAccountNumberDoesntExist()
+        public void Deposit_AccountNumberDoesNotExists_ReturnsAccountNumberDoesntExist()
         {
             var paymentData = new PaymentData()
             {
@@ -95,7 +95,7 @@ namespace BankingSoapServiceTest
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
-        public void Deposit_paymentDataNull_throwsException()
+        public void Deposit_PaymentDataNull_ThrowsException()
         {
             _service.Deposit(null);
         }
@@ -129,7 +129,7 @@ namespace BankingSoapServiceTest
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
-        public void Deposit_accessTokenNull_throwsException()
+        public void Deposit_AccessTokenNull_throwsException()
         {
             var paymentData = new PaymentData()
             {
@@ -142,7 +142,7 @@ namespace BankingSoapServiceTest
 
         [TestMethod]
         [ExpectedException(typeof(FaultException))]
-        public void Deposit_operationTitleNull_throwsException()
+        public void Deposit_OperationTitleNull_ThrowsException()
         {
             var paymentData = new PaymentData()
             {
