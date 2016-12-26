@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ServiceModel;
-using WcfBankingService.operation;
+﻿using System.ServiceModel;
+using WcfBankingService.SoapService.DataContract;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 
@@ -22,7 +21,7 @@ namespace WcfBankingService.SoapService
         PaymentResponse Transfer(TransferData transferData);
 
         [OperationContract]
-        IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber);
+        OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber);
 
     }
 

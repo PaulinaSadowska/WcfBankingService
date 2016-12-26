@@ -6,6 +6,7 @@ using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.operation;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.SoapService.DataContract;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 using WcfBankingService.Users;
@@ -25,12 +26,12 @@ namespace WcfBankingService
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
         }
 
-        public string SignIn(string login, string password)
+        public LogInResponse SignIn(string login, string password)
         {
-            return _userManager.SignIn(login, password);
+            return new LogInResponse(_userManager.SignIn(login, password));
         }
 
-        public ResponseStatus Deposit(PaymentData paymentData)
+        public PaymentResponse Deposit(PaymentData paymentData)
         {
             try
             {
@@ -39,9 +40,37 @@ namespace WcfBankingService
             }
             catch (BankException exception)
             {
-                return exception.ResponseStatus;
+                return new PaymentResponse(exception.ResponseStatus);
             }
-            return ResponseStatus.Success;
+            return new PaymentResponse(ResponseStatus.Success);
+        }
+
+        public PaymentResponse Withdraw(PaymentData paymentData)
+        {
+            try
+            {
+                new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber), 
+                    paymentData.Amount, paymentData.OperationTitle).Execute();
+            }
+            catch (BankException exception)
+            {
+                return new PaymentResponse(exception.ResponseStatus);
+            }
+            return new PaymentResponse(ResponseStatus.Success);
+            
+        }
+
+        public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
+        {
+            try
+            {
+                var account = GetAccount(accessToken, accountNumber);
+                return new OperationHistoryResponse(account.GetOperationHistory());
+            }
+            catch (BankException exception)
+            {
+                return new OperationHistoryResponse(exception.ResponseStatus);
+            }
         }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
@@ -63,27 +92,6 @@ namespace WcfBankingService
             {
                 throw new BankException(ResponseStatus.AccessDenied);
             }
-        }
-
-        public ResponseStatus Withdraw(PaymentData paymentData)
-        {
-            try
-            {
-                new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber), 
-                    paymentData.Amount, paymentData.OperationTitle).Execute();
-            }
-            catch (BankException exception)
-            {
-                return exception.ResponseStatus;
-            }
-            return ResponseStatus.Success;
-            
-        }
-
-        public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)
-        {
-            var account = _userManager.GetAccount(accessToken, _accountNumberFactory.GetAccountNumber(accountNumber));
-            return account.GetOperationHistory();
         }
     }
 }

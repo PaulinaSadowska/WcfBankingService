@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WcfBankingService.operation;
+using WcfBankingService.SoapService.DataContract;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
@@ -22,13 +23,13 @@ namespace WcfBankingService.SoapService
         public LogInResponse SignIn(string login, string password)
         {
             _inputValidator.CheckSignInDataValid(login, password);
-            return new LogInResponse(_bank.SignIn(login, password));
+            return _bank.SignIn(login, password);
         }
 
         public PaymentResponse Deposit(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
-            return new PaymentResponse(_bank.Deposit(paymentData));
+            return _bank.Deposit(paymentData);
         }
 
         public PaymentResponse Transfer(TransferData transferData)
@@ -39,14 +40,13 @@ namespace WcfBankingService.SoapService
         public PaymentResponse Withdraw(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
-            return new PaymentResponse(_bank.Withdraw(paymentData));
+            return _bank.Withdraw(paymentData);
         }
 
-        public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)
+        public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
         {
            //TODO - validate input data
             return _bank.GetOperationHistory(accessToken, accountNumber);
-            //TODO - change type to OperationHistoryResponse to send error codes
         }
     }
 }
