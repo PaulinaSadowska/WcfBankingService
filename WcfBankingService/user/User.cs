@@ -48,7 +48,7 @@ namespace WcfBankingService.User
             return true;
         }
 
-        private bool ContainsAccessToken(string accessToken)
+        protected bool ContainsAccessToken(string accessToken)
         {
             return _accessTokens.Contains(accessToken);
         }

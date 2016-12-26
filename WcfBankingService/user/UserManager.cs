@@ -52,8 +52,14 @@ namespace WcfBankingService.User
 
         public IAccount GetAccount(string accessToken, AccountNumber accoutNumber)
         {
-            var user = new User("a", "s");// = GetUser(login);
-            return user?.GetAccount(accessToken, accoutNumber);
+            IAccount searchedAccount = null;
+            foreach (var user in _users)
+            {
+                var a = user.GetAccount(accessToken, accoutNumber);
+                if (a != null)
+                    searchedAccount = a;
+            }
+            return searchedAccount;
         }
 
         private IUser GetUser(string login)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
+﻿using System.Collections.Generic;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.operation;
-using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.Accounts
 {
