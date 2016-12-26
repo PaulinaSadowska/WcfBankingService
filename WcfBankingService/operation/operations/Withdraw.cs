@@ -22,6 +22,7 @@ namespace WcfBankingService.operation.operations
 
             _targetAccount.SubstractFromBalance(_amount);
             SetBalanceAfterOperation(_targetAccount.GetBalanceValue());
+            _targetAccount.AddOperationToHistory(OperationRecord);
 
             Executed = true;
         }

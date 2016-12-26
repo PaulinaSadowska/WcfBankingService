@@ -11,12 +11,14 @@ namespace WcfBankingService.Accounts
 
         public IBalance Balance { get; }
 
-        private IEnumerable<OperationRecord> _operationHistory;
+        private IList<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)
         {
-            this.AccountNumber = accountNumber;
-            this.Balance = balance;
+            AccountNumber = accountNumber;
+            Balance = balance;
+            _operationHistory = new List<OperationRecord>();
+
         }
 
         public void AddToBalance(decimal amount)
@@ -29,9 +31,19 @@ namespace WcfBankingService.Accounts
             Balance.SubstractFromBalance(amount);
         }
 
+        public void AddOperationToHistory(OperationRecord operationRecord)
+        {
+            _operationHistory.Add(operationRecord);
+        }
+
         public decimal GetBalanceValue()
         {
             return Balance.GetValue();
+        }
+
+        public IEnumerable<OperationRecord> GetOperationHistory()
+        {
+            return _operationHistory;
         }
     }
 }

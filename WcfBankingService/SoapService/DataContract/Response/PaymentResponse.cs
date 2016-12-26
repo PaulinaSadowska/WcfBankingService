@@ -10,12 +10,8 @@ namespace WcfBankingService.SoapService.DataContract.Response
 
         public PaymentResponse()
         {
-            if (this != null) // TODO - how to know if operation performed correctly
-            {
-                ResponseStatus = ResponseStatus.Success;
-                return;
-            }
-            ResponseStatus = ResponseStatus.InsufficientFunds;
+            ResponseStatus = ResponseStatus.Success;
+            //ResponseStatus = ResponseStatus.InsufficientFunds; //TODO
         }
     }
 }

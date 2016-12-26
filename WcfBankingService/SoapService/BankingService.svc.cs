@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.operation;
+using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
@@ -34,7 +35,7 @@ namespace WcfBankingService.SoapService
         {
             _inputValidator.CheckPaymentData(paymentData);
             var account = _userManager.GetAccount(paymentData.AccessToken, _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber));
-            var a = new Deposit(account, paymentData.Amount, paymentData.OperationTitle);
+            new Deposit(account, paymentData.Amount, paymentData.OperationTitle).Execute();
             return new PaymentResponse();
         }
 
@@ -45,12 +46,18 @@ namespace WcfBankingService.SoapService
 
         public PaymentResponse Withdraw(PaymentData paymentData)
         {
-            throw new NotImplementedException();
+            _inputValidator.CheckPaymentData(paymentData);
+            var account = _userManager.GetAccount(paymentData.AccessToken, _accountNumberFactory.GetAccountNumber(paymentData.AccountNumber));
+            new Withdraw(account, paymentData.Amount, paymentData.OperationTitle).Execute();
+            return new PaymentResponse();
         }
 
-        public IEnumerable<OperationRecord> GetOperationHistory(string accountNumber)
+        public IEnumerable<OperationRecord> GetOperationHistory(string accessToken, string accountNumber)
         {
-            throw new NotImplementedException();
+           //TODO - validate account number
+            var account = _userManager.GetAccount(accessToken, _accountNumberFactory.GetAccountNumber(accountNumber));
+            return account.GetOperationHistory();
+            //TODO - change type to OperationHistoryResponse to send error codes
         }
     }
 }
