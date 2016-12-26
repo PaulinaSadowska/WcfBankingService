@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;

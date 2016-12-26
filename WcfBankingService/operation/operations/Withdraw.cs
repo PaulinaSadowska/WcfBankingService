@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using WcfBankingService.Accounts;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.operation.operations
 {
@@ -19,6 +20,9 @@ namespace WcfBankingService.operation.operations
         {
             if (Executed)
                 return;
+
+            if (_targetAccount.GetBalanceValue() < _amount)
+                throw new BankException(ResponseStatus.InsufficientFunds);
 
             _targetAccount.SubstractFromBalance(_amount);
             SetBalanceAfterOperation(_targetAccount.GetBalanceValue());
