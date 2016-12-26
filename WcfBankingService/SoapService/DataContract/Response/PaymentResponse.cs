@@ -6,7 +6,7 @@ namespace WcfBankingService.SoapService.DataContract.Response
     public class PaymentResponse : IResponse
     {
         [DataMember]
-        public ResponseStatus ResponseStatus { get; }
+        public ResponseStatus ResponseStatus { get; set; }
 
         public PaymentResponse(ResponseStatus responseStatus)
         {

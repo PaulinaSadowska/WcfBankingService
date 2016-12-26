@@ -9,10 +9,10 @@ namespace WcfBankingService.SoapService.DataContract.Response
     public class OperationHistoryResponse : IResponse
     {
         [DataMember]
-        public ResponseStatus ResponseStatus { get; }
+        public ResponseStatus ResponseStatus { get; set; }
 
         [DataMember]
-        public IEnumerable<OperationRecord> OperationRecords { get; }
+        public IEnumerable<OperationRecord> OperationRecords { get; set; }
 
         public OperationHistoryResponse(ResponseStatus responseStatus)
         {

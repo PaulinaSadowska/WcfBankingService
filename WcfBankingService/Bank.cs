@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Security.Authentication;
+﻿using System.Security.Authentication;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
-using WcfBankingService.operation;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
-using WcfBankingService.SoapService.DataContract;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 using WcfBankingService.Users;
