@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
@@ -34,7 +35,6 @@ namespace BankTest.User
             };
 
             _userManager = new UserManager(userList);
-          
         }
 
 
@@ -82,7 +82,7 @@ namespace BankTest.User
         {
             Assert.IsFalse(_userManager.SignUp(Login, "Wow"));
         }
-        
+
         [TestMethod]
         public void GetAllAccountsFromUser_CorrectAccessTokenAndLogin_ReturnsAccounts()
         {
@@ -96,9 +96,10 @@ namespace BankTest.User
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
         public void GetAllAccountFromUser_WrongAccessToken_ReturnsNull()
         {
-            Assert.IsNull(_userManager.GetAllAccounts(Login, "Wrong token"));
+            _userManager.GetAllAccounts(Login, "Wrong token");
         }
 
         [TestMethod]
@@ -108,9 +109,10 @@ namespace BankTest.User
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
         public void GetAccount_IncorrectAccessToken_ReturnsNull()
         {
-            Assert.IsNull(_userManager.GetAccount("wrong token nie wow", _accountNumber));
+            _userManager.GetAccount("wrong token nie wow", _accountNumber);
         }
 
         [TestMethod]
@@ -135,17 +137,20 @@ namespace BankTest.User
         [TestMethod]
         public void AddAccountNumber_WrongLogin_ReturnsFalse()
         {
-            var account = new WcfBankingService.Accounts.Account(new AccountNumber("122222", "11", "1"), new Balance(123));
+            var account = new WcfBankingService.Accounts.Account(new AccountNumber("122222", "11", "1"),
+                new Balance(123));
             var accessToken = _userManager.SignIn(Login, Password);
             Assert.IsNotNull(accessToken);
             Assert.IsFalse(_userManager.AddAccount("Wow", accessToken, account));
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AuthenticationException))]
         public void AddAccountNumber_WrongAccessToken_ReturnsFalse()
         {
-            var account = new WcfBankingService.Accounts.Account(new AccountNumber("122222", "11", "1"), new Balance(123));
-            Assert.IsFalse(_userManager.AddAccount(Login, "nie wow", account));
+            var account = new WcfBankingService.Accounts.Account(new AccountNumber("122222", "11", "1"),
+                new Balance(123));
+            _userManager.AddAccount(Login, "nie wow", account);
         }
     }
 }

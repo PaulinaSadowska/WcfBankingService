@@ -14,15 +14,15 @@ namespace WcfBankingService.SoapService.Validation
             {
                 throw new FaultException("login can't be null");
             }
-            else if(password == null)
+            if(password == null)
             {
                 throw new FaultException("login can't be null");
             }
-            else if(login.Length < MinLoginLength)
+            if(login.Length < MinLoginLength)
             {
                 throw new FaultException($"login must contains at least {MinLoginLength} characters");
             }
-            else if (password.Length < MinPasswordLength)
+            if (password.Length < MinPasswordLength)
             {
                 throw new FaultException($"password must contains at least {MinPasswordLength} characters");
             }
@@ -33,7 +33,23 @@ namespace WcfBankingService.SoapService.Validation
             if (paymentData == null)
             {
                 throw new FaultException("payment data can't be null!");
-            }//TODO - further validation
+            }
+            if (paymentData.AccountNumber == null)
+            {
+                throw new FaultException("Account number can't be null!");
+            }
+            if (paymentData.AccessToken == null)
+            {
+                throw new FaultException("Access token can't be null!");
+            }
+            if (paymentData.OperationTitle == null)
+            {
+                throw new FaultException("Operation title can't be null!");
+            }
+            if (paymentData.Amount<0)
+            {
+                throw new FaultException("Amount must be greater or equal to 0");
+            }
         }
     }
 }
