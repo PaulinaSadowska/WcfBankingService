@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BankingServiceDepositTest.cs" />
     <Compile Include="BankingServiceSignIn.cs" />
+    <Compile Include="BankingServiceWithdrawTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
