@@ -2,9 +2,8 @@
 using System.Linq;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
-using WcfBankingService.user;
 
-namespace WcfBankingService.User
+namespace WcfBankingService.Users
 {
     public class User : IUser
     {

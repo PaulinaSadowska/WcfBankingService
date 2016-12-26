@@ -3,7 +3,7 @@ using System.Linq;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 
-namespace WcfBankingService.User
+namespace WcfBankingService.Users
 {
     public class UserManager : IUserManager
     {

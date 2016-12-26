@@ -11,7 +11,7 @@ namespace WcfBankingService.Accounts
 
         public IBalance Balance { get; }
 
-        private IList<OperationRecord> _operationHistory;
+        private readonly IList<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)
         {

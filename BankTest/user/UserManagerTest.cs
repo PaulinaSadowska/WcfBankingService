@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
-using WcfBankingService.User;
+using WcfBankingService.Users;
 
 namespace BankTest.User
 {
@@ -22,7 +21,7 @@ namespace BankTest.User
 
         public UserManagerTest()
         {
-            IUser user = new WcfBankingService.User.User(Login, Password);
+            IUser user = new WcfBankingService.Users.User(Login, Password);
             _accessToken = user.GenerateAccessToken(Password);
             Assert.IsNotNull(_accessToken);
 

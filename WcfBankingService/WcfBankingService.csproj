@@ -127,11 +127,11 @@
     <Compile Include="SoapService\DataContract\TransferData.cs" />
     <Compile Include="SoapService\Validation\IServiceInputValidator.cs" />
     <Compile Include="SoapService\Validation\ServiceInputValidator.cs" />
-    <Compile Include="User\AccessTokenGenerator.cs" />
-    <Compile Include="User\IUser.cs" />
-    <Compile Include="User\IUserManager.cs" />
-    <Compile Include="User\User.cs" />
-    <Compile Include="User\UserManager.cs" />
+    <Compile Include="Users\AccessTokenGenerator.cs" />
+    <Compile Include="Users\IUser.cs" />
+    <Compile Include="Users\IUserManager.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

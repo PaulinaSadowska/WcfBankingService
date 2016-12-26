@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.user;
+using WcfBankingService.Users;
 
 namespace BankTest.User
 {

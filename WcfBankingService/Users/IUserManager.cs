@@ -2,7 +2,7 @@
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 
-namespace WcfBankingService.User
+namespace WcfBankingService.Users
 {
     public interface IUserManager
     {

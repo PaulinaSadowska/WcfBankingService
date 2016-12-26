@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace WcfBankingService.user
+namespace WcfBankingService.Users
 {
     public class AccessTokenGenerator
     {

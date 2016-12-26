@@ -8,7 +8,7 @@ using WcfBankingService.Operation.Operations;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
-using WcfBankingService.User;
+using WcfBankingService.Users;
 
 namespace WcfBankingService.SoapService
 {
@@ -30,7 +30,7 @@ namespace WcfBankingService.SoapService
             _inputValidator.CheckSignInDataValid(login, password);
             return new LogInResponse(_userManager.SignIn(login, password));
         }
-        
+
         public PaymentResponse Deposit(PaymentData paymentData)
         {
             _inputValidator.CheckPaymentData(paymentData);
