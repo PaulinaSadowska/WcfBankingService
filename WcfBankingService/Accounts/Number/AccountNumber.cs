@@ -1,4 +1,6 @@
-﻿namespace WcfBankingService.Accounts.Number
+﻿using System;
+
+namespace WcfBankingService.Accounts.Number
 {
     public class AccountNumber
     {
@@ -11,6 +13,12 @@
             BankId = bankId;
             InnerNumber = innerNumber;
             ControlSum = controlSum;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var number = obj as AccountNumber;
+            return number != null && number.ToString().Equals(ToString());
         }
 
         public override int GetHashCode()

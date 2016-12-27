@@ -19,7 +19,7 @@ namespace BankingSoapServiceTest
         public BankingServiceDepositTest()
         {
             _service = new BankingService();
-            _accessToken = "111111111111";//TODO - assign correct value from predefined accounts
+            _accessToken = "876123456433";
         }
 
 

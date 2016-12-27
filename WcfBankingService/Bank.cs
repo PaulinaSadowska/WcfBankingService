@@ -21,12 +21,8 @@ namespace WcfBankingService
         public Bank()
         {
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
-            _userManager = new UserManager(
-                new DbDataProvider(
-                    _accountNumberFactory
-                    )
-                );
-             }
+            _userManager = new UserManager(new DbDataProvider(_accountNumberFactory));
+        }
 
         public LogInResponse SignIn(string login, string password)
         {
@@ -51,7 +47,7 @@ namespace WcfBankingService
         {
             try
             {
-                new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber), 
+                new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber),
                     paymentData.Amount, paymentData.OperationTitle).Execute();
             }
             catch (BankException exception)
@@ -59,7 +55,6 @@ namespace WcfBankingService
                 return new PaymentResponse(exception.ResponseStatus);
             }
             return new PaymentResponse(ResponseStatus.Success);
-            
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
@@ -88,7 +83,6 @@ namespace WcfBankingService
                     throw new BankException(ResponseStatus.AccountNumberDoesntExist);
                 }
                 return account;
-
             }
             catch (AuthenticationException)
             {

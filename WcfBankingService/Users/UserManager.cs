@@ -58,6 +58,7 @@ namespace WcfBankingService.Users
             IAccount searchedAccount = null;
             foreach (var user in _users)
             {
+                if (!user.ContainsAccount(accoutNumber)) continue;
                 var a = user.GetAccount(accessToken, accoutNumber);
                 if (a != null)
                     searchedAccount = a;

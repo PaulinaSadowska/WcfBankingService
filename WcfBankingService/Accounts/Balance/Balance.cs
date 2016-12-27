@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 
 namespace WcfBankingService.Accounts.Balance
 {
@@ -14,12 +13,14 @@ namespace WcfBankingService.Accounts.Balance
 
         public IBalance AddToBalance(decimal amount)
         {
-            throw new NotImplementedException();
+            _balanceValue += amount;
+            return this;
         }
 
         public IBalance SubstractFromBalance(decimal amount)
         {
-            throw new NotImplementedException();
+            _balanceValue -= amount;
+            return this;
         }
 
         public decimal GetValue()

@@ -15,7 +15,7 @@ namespace BankingSoapServiceTest
         public BankingServiceWithdrawTest()
         {
             _service = new BankingService();
-            _accessToken = "123456789876";//TODO - assign correct value from predefined accounts
+            _accessToken = "876123456433";//TODO - assign correct value from predefined accounts
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace BankingSoapServiceTest
             {
                 AccountNumber = ValidAccountNumber,
                 AccessToken = _accessToken,
-                Amount = 200,
+                Amount = 2,
                 OperationTitle = "WOW withdraw"
             };
             var response = _service.Withdraw(paymentData);

@@ -31,9 +31,14 @@ namespace WcfBankingService.Database.DataProvider
                 var query = from p in db.Users
                             select p;
                 return query.ToList()
-                    .Select(user => new User(user.login, user.password, GetAccountsForUser(user.Id)))
-                    .Cast<IUser>().ToList();
+                    .Select(user => CreateUser(user.login, user.password, user.Id))
+                    .ToList();
             }
+        }
+
+        private static IUser CreateUser(string login, string password, int userId)
+        {
+            return new User(login, password, GetAccountsForUser(userId), GetAccessTokenForUser(userId));
         }
 
         private static List<IAccount> GetAccountsForUser(int id)
@@ -43,8 +48,10 @@ namespace WcfBankingService.Database.DataProvider
                 var query = from p in db.Accounts
                             where p.UserId == id
                             select p;
-                return query.ToList().Select(CreateAccount)
-                    .Cast<IAccount>().ToList();
+                return query.ToList()
+                    .Select(CreateAccount)
+                    .Cast<IAccount>()
+                    .ToList();
             }
         }
 
@@ -52,6 +59,19 @@ namespace WcfBankingService.Database.DataProvider
         {
             var number = _accountNumberFactory.CreateAccountNumber(account.InnerAccountNumber);
             return new Account(number, new Balance(account.BalanceValue));
+        }
+
+        private static List<string> GetAccessTokenForUser(int id)
+        {
+            using (var db = new DbBank())
+            {
+                var query = from p in db.AccessTokens
+                            where p.UserId == id
+                            select p;
+                return query.ToList()
+                    .Select(token => token.Token)
+                    .ToList();
+            }
         }
     }
 }

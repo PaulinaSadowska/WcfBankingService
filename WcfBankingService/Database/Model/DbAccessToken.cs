@@ -14,10 +14,5 @@ namespace WcfBankingService.Database.Model
         public int UserId;
         [Column(Name = "accessToken"), NotNull]
         public string Token;
-
-        public DbAccessToken()
-        {
-
-        }
     }
 }
