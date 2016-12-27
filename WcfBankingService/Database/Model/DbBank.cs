@@ -1,6 +1,5 @@
 ﻿using LinqToDB;
 using LinqToDB.Data;
-using WcfBankingService.Users;
 
 namespace WcfBankingService.Database.Model
 {
@@ -9,6 +8,6 @@ namespace WcfBankingService.Database.Model
         public DbBank() : base("bank") { }
 
         public ITable<DbAccessToken> AccessTokens => GetTable<DbAccessToken>();
-        public ITable<User> Users => GetTable<User>();
+        public ITable<DbUser> Users => GetTable<DbUser>();
     }
 }

@@ -76,6 +76,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net451\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -125,7 +126,6 @@
     <Content Include="LinqToDB.Templates\DataModel.ttinclude" />
     <Content Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <Content Include="LinqToDB.Templates\!ReadMe.LinqToDB.md" />
-    <None Include="UsersAndAccounts.json" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +140,7 @@
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
+    <Compile Include="Database\DataProvider\DbDataProvider.cs" />
     <Compile Include="Database\DataProvider\MockDataProvider.cs" />
     <Compile Include="Database\Model\DbAccessToken.cs" />
     <Compile Include="Database\Model\DbBank.cs" />
@@ -188,6 +189,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>

@@ -2,6 +2,7 @@
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
+using WcfBankingService.Database.DataProvider;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.SoapService.DataContract.Response;
@@ -19,7 +20,7 @@ namespace WcfBankingService
 
         public Bank()
         {
-            _userManager = new UserManager();
+            _userManager = new UserManager(new DbDataProvider());
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
         }
 
