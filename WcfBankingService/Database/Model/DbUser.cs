@@ -7,7 +7,7 @@ namespace WcfBankingService.Database.Model
     public class DbUser
     {
         [PrimaryKey] public int Id;
-        [Column(Name = "login"), NotNull] public string login;
-        [Column(Name = "password"), NotNull] public string password;
+        [Column(Name = "login"), NotNull] public string Login;
+        [Column(Name = "password"), NotNull] public string Password;
     }
 }

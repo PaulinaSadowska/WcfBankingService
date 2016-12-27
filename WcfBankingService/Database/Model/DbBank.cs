@@ -10,5 +10,6 @@ namespace WcfBankingService.Database.Model
         public ITable<DbUser> Users => GetTable<DbUser>();
         public ITable<DbAccount> Accounts => GetTable<DbAccount>();
         public ITable<DbAccessToken> AccessTokens => GetTable<DbAccessToken>();
+        public ITable<DbOperationRecord> OperationRecord => GetTable<DbOperationRecord>();
     }
 }

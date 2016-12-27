@@ -145,6 +145,7 @@
     <Compile Include="Database\DataProvider\MockDataProvider.cs" />
     <Compile Include="Database\Model\DbAccessToken.cs" />
     <Compile Include="Database\Model\DbBank.cs" />
+    <Compile Include="Database\Model\DbOperationRecord.cs" />
     <Compile Include="Database\Model\DbUser.cs" />
     <Compile Include="Database\DataProvider\IBankDataProvider.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />

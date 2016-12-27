@@ -5,6 +5,7 @@ using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.Model;
+using WcfBankingService.operation;
 using WcfBankingService.Users;
 
 namespace WcfBankingService.Database.DataProvider
@@ -20,8 +21,7 @@ namespace WcfBankingService.Database.DataProvider
 
         public List<IUser> GetStoredData()
         {
-            var users = GetUsersFromDb();
-            return users;
+            return GetUsersFromDb();
         }
 
         private static List<IUser> GetUsersFromDb()
@@ -31,7 +31,7 @@ namespace WcfBankingService.Database.DataProvider
                 var query = from p in db.Users
                             select p;
                 return query.ToList()
-                    .Select(user => CreateUser(user.login, user.password, user.Id))
+                    .Select(user => CreateUser(user.Login, user.Password, user.Id))
                     .ToList();
             }
         }
@@ -58,7 +58,31 @@ namespace WcfBankingService.Database.DataProvider
         private static Account CreateAccount(DbAccount account)
         {
             var number = _accountNumberFactory.CreateAccountNumber(account.InnerAccountNumber);
-            return new Account(number, new Balance(account.BalanceValue));
+            return new Account(number, new Balance(account.BalanceValue), GetOperationRecords(account.Id));
+        }
+
+        private static List<OperationRecord> GetOperationRecords(int id)
+        {
+            using (var db = new DbBank())
+            {
+                var query = from p in db.OperationRecord
+                            where p.AccountId == id
+                            select p;
+                return query.ToList()
+                    .Select(GetOperationRecord)
+                    .ToList();
+            }
+        }
+
+        private static OperationRecord GetOperationRecord(DbOperationRecord record)
+        {
+            return new OperationRecord
+            {
+                Title =  record.Title,
+                Source = record.Source,
+                Amount = record.Amount,
+                BalanceAfterOperation = record.BalanceAfterOperation
+            };
         }
 
         private static List<string> GetAccessTokenForUser(int id)
