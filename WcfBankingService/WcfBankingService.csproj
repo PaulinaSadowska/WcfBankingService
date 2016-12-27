@@ -140,6 +140,7 @@
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
+    <Compile Include="Database\Model\DbAccount.cs" />
     <Compile Include="Database\DataProvider\DbDataProvider.cs" />
     <Compile Include="Database\DataProvider\MockDataProvider.cs" />
     <Compile Include="Database\Model\DbAccessToken.cs" />

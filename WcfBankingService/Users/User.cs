@@ -14,12 +14,24 @@ namespace WcfBankingService.Users
         private readonly List<string> _accessTokens;
         public string Login { get; }
 
-        public User(string login, string password)
+        public User(string login, string password) 
+            : this(login, password, new List<IAccount>(), new List<string>())
+        {
+            
+        }
+
+        public User(string login, string password, List<IAccount> accounts) 
+            : this(login, password, accounts, new List<string>())
+        {
+
+        }
+
+        public User(string login, string password, List<IAccount> accounts, List<string> accessTokens )
         {
             Login = login;
             _password = password;
-            _accouts = new List<IAccount>();
-            _accessTokens = new List<string>();
+            _accouts = accounts;
+            _accessTokens = accessTokens;
         }
 
         public string GenerateAccessToken(string password)

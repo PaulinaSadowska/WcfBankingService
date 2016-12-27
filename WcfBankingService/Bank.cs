@@ -20,9 +20,13 @@ namespace WcfBankingService
 
         public Bank()
         {
-            _userManager = new UserManager(new DbDataProvider());
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
-        }
+            _userManager = new UserManager(
+                new DbDataProvider(
+                    _accountNumberFactory
+                    )
+                );
+             }
 
         public LogInResponse SignIn(string login, string password)
         {
