@@ -10,17 +10,18 @@ namespace WcfBankingService.Database.DataProvider
     {
         public List<IUser> GetStoredData()
         {
+            var users = GetUsersFromDb();
+            return users;
+        }
+
+        private static List<IUser> GetUsersFromDb()
+        {
             using (var db = new DbBank())
             {
                 var query = from p in db.Users
                             select p;
-                var dbUsers = query.ToList();
-                var users = new List<IUser>();
-                foreach (var user in dbUsers)
-                {
-                    users.Add(new User(user.login, user.password));
-                }
-                return users;
+                return query.ToList().Select(user => new User(user.login, user.password))
+                    .Cast<IUser>().ToList();
             }
         }
     }
