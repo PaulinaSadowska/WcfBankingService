@@ -140,6 +140,7 @@
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
+    <Compile Include="Database\AccessToken.cs" />
     <Compile Include="Database\DbBank.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />
@@ -182,6 +183,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

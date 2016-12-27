@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using LinqToDB;
+using LinqToDB.Data;
 
 namespace WcfBankingService.Database
 {
-    public class DbBank
+    public class DbBank : DataConnection
     {
+        public DbBank() : base("bank") { }
+
+        public ITable<AccessToken> AccessTokens => GetTable<AccessToken>();
+
+        // ... other tables ...
     }
 }
