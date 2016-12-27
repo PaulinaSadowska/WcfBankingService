@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LinqToDB.DataProvider;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
+using WcfBankingService.Database;
+using WcfBankingService.Database.DataProvider;
 
 namespace WcfBankingService.Users
 {
@@ -14,9 +17,9 @@ namespace WcfBankingService.Users
             _users = new List<IUser>();
         }
 
-        public UserManager(List<IUser> users)
+        public UserManager(IBankDataProvider dataProvider)
         {
-            _users = users;
+            _users = dataProvider.GetStoredData();
         }
 
         public string SignIn(string login, string password)

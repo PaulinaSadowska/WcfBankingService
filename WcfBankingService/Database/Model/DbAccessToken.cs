@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using LinqToDB.Mapping;
 
-namespace WcfBankingService.Database
+namespace WcfBankingService.Database.Model
 {
     [Table(Name = "AccessTokens")]
-    public class AccessToken
+    public class DbAccessToken
     {
         [PrimaryKey]
         public int Id;
@@ -16,7 +15,7 @@ namespace WcfBankingService.Database
         [Column(Name = "accessToken"), NotNull]
         public string Token;
 
-        public AccessToken()
+        public DbAccessToken()
         {
 
         }
