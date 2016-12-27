@@ -6,7 +6,7 @@ using WcfBankingService.operation;
 namespace WcfBankingService.Accounts
 {
     public class Account : IAccount
-    { 
+    {
         public AccountNumber AccountNumber { get; }
 
         public IBalance Balance { get; }
@@ -14,11 +14,15 @@ namespace WcfBankingService.Accounts
         private readonly IList<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)
+            : this(accountNumber, balance, new List<OperationRecord>())
+        {
+        }
+
+        public Account(AccountNumber accountNumber, IBalance balance, List<OperationRecord> operationRecord)
         {
             AccountNumber = accountNumber;
             Balance = balance;
-            _operationHistory = new List<OperationRecord>();
-
+            _operationHistory = operationRecord;
         }
 
         public void AddToBalance(decimal amount)

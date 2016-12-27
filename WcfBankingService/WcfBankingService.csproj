@@ -22,6 +22,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="linq2db, Version=1.0.7.5, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
+      <HintPath>..\packages\linq2db.1.7.5\lib\net45\linq2db.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +76,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.104.0\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -90,10 +101,31 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
     <Content Include="SoapService\BankingService.svc" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <None Include="UsersAndAccounts.json" />
+    <Content Include="LinqToDB.Templates\Validation.ttinclude" />
+    <Content Include="LinqToDB.Templates\T4Model.ttinclude" />
+    <Content Include="LinqToDB.Templates\PluralizationService.ttinclude" />
+    <Content Include="LinqToDB.Templates\NotifyPropertyChanged.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Sybase.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.SqlServer.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.SQLite.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.SqlCe.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.PostgreSQL.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Oracle.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.MySql.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Informix.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Firebird.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.DB2.ttinclude" />
+    <Content Include="LinqToDB.Templates\LinqToDB.Access.ttinclude" />
+    <Content Include="LinqToDB.Templates\EditableObject.ttinclude" />
+    <Content Include="LinqToDB.Templates\DataModel.ttinclude" />
+    <Content Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
+    <Content Include="LinqToDB.Templates\!ReadMe.LinqToDB.md" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +140,14 @@
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
+    <Compile Include="Database\Model\DbAccount.cs" />
+    <Compile Include="Database\DataProvider\DbDataProvider.cs" />
+    <Compile Include="Database\DataProvider\MockDataProvider.cs" />
+    <Compile Include="Database\Model\DbAccessToken.cs" />
+    <Compile Include="Database\Model\DbBank.cs" />
+    <Compile Include="Database\Model\DbOperationRecord.cs" />
+    <Compile Include="Database\Model\DbUser.cs" />
+    <Compile Include="Database\DataProvider\IBankDataProvider.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />
     <Compile Include="Operation\Operations\IBankCommand.cs" />
@@ -150,6 +190,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -175,6 +219,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.104.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net451\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.104.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.104.0\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

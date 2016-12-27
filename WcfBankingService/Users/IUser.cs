@@ -14,6 +14,8 @@ namespace WcfBankingService.Users
 
         IAccount GetAccount(string accessToken, AccountNumber accountNumber);
 
+        bool ContainsAccount(AccountNumber accountNumber);
+
         bool AddAccount(string accessToken, IAccount account);
     }
 }

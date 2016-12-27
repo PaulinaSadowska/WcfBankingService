@@ -8,13 +8,14 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class BankingServiceSignIn
     {
-        private const string CorrectLogin = "Admin";
+        private const string CorrectLogin = "Login";
         private const string CorrectPassword = "Pass";
 
         private readonly IBankingService _service;
 
         public BankingServiceSignIn()
         {
+            
             _service = new BankingService();
         }
     
