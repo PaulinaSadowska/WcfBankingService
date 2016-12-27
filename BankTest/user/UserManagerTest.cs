@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
+using WcfBankingService.Database.DataProvider;
 using WcfBankingService.Users;
 
 namespace BankTest.User
@@ -33,8 +34,9 @@ namespace BankTest.User
             {
                 user
             };
+            _userManager = new UserManager(new MockDataProvider(userList));
 
-            _userManager = new UserManager(userList);
+
         }
 
 
