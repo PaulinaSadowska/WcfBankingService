@@ -1,4 +1,6 @@
-﻿using WcfBankingService.Accounts;
+﻿using LinqToDB;
+using WcfBankingService.Accounts;
+using WcfBankingService.Database.Model;
 using WcfBankingService.operation;
 
 namespace WcfBankingService.Database.SavingData.Helper
@@ -7,7 +9,15 @@ namespace WcfBankingService.Database.SavingData.Helper
     {
         public void SaveToken(int userId, string accessToken)
         {
-            throw new System.NotImplementedException();
+            var token = new DbAccessToken
+            {
+                UserId = userId,
+                Token = accessToken
+            };
+            using (var db = new DbBank())
+            {
+                db.Insert(token);
+            }
         }
 
         public void SaveAccountBalance(IAccount account)
