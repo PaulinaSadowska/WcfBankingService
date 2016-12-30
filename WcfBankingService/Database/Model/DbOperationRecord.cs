@@ -1,12 +1,11 @@
 ﻿using LinqToDB.Mapping;
+using WcfBankingService.operation;
 
 namespace WcfBankingService.Database.Model
 {
     [Table(Name = "OperationHistory")]
     public class DbOperationRecord
     {
-        [PrimaryKey] public int Id;
-
         [Column(Name = "account_id"), NotNull] public int AccountId;
 
         [Column(Name = "source"), NotNull] public string Source;
@@ -16,5 +15,19 @@ namespace WcfBankingService.Database.Model
         [Column(Name = "amount"), NotNull] public decimal Amount;
 
         [Column(Name = "balanceAfterOperation")] public decimal BalanceAfterOperation;
+
+        public DbOperationRecord()
+        {
+            
+        }
+
+        public DbOperationRecord(int accountId, OperationRecord operationRecord)
+        {
+            AccountId = accountId;
+            Amount = operationRecord.Amount;
+            BalanceAfterOperation = operationRecord.BalanceAfterOperation;
+            Source = operationRecord.Source;
+            Title = operationRecord.Title;
+        }
     }
 }

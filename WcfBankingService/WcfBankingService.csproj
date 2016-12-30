@@ -138,6 +138,7 @@
     <Compile Include="Accounts\Number\ControlSum\StandardControlSumCalculator.cs" />
     <Compile Include="Accounts\Number\ControlSum\IControlSumCalculator.cs" />
     <Compile Include="Accounts\Balance\IBalance.cs" />
+    <Compile Include="Accounts\Number\MockAccountNumberFactory.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
     <Compile Include="Database\Model\DbAccount.cs" />
@@ -148,6 +149,11 @@
     <Compile Include="Database\Model\DbOperationRecord.cs" />
     <Compile Include="Database\Model\DbUser.cs" />
     <Compile Include="Database\DataProvider\IBankDataProvider.cs" />
+    <Compile Include="Database\SavingData\DbDataInserter.cs" />
+    <Compile Include="Database\SavingData\Helper\DataSaver.cs" />
+    <Compile Include="Database\SavingData\Helper\IndexesFinder.cs" />
+    <Compile Include="Database\SavingData\MockDataInserter.cs" />
+    <Compile Include="Database\SavingData\IBankDataInserter.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />
     <Compile Include="Operation\Operations\IBankCommand.cs" />

@@ -3,7 +3,7 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Operation.Operations
 {
-    public class BankOperation
+    public abstract class BankOperation : IBankCommand
     {
         public OperationRecord OperationRecord { get; }
 
@@ -32,5 +32,7 @@ namespace WcfBankingService.Operation.Operations
             if(Executed)
                 throw new Exception("Operation can't be executed more than once");
         }
+
+        public abstract void Execute();
     }
 }

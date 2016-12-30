@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
+using WcfBankingService.SOAPService.DataContract;
 
 namespace BankingSoapServiceTest
 {

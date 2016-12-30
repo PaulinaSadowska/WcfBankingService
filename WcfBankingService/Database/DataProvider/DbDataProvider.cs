@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
@@ -85,7 +84,7 @@ namespace WcfBankingService.Database.DataProvider
             };
         }
 
-        private static List<string> GetAccessTokenForUser(int id)
+        public static List<string> GetAccessTokenForUser(int id)
         {
             using (var db = new DbBank())
             {
