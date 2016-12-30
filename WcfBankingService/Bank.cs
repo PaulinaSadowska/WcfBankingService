@@ -20,11 +20,11 @@ namespace WcfBankingService
         private readonly AccountNumberFactory _accountNumberFactory;
         private readonly IBankDataInserter _dataInserter;
 
-        public Bank()
+        public Bank(IBankDataInserter dataInserter)
         {
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
             _userManager = new UserManager(new DbDataProvider(_accountNumberFactory));
-            _dataInserter = new MockDataInserter();
+            _dataInserter = dataInserter;
         }
 
         public LogInResponse SignIn(string login, string password)

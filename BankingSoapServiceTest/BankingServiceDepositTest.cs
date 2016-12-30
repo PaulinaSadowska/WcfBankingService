@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WcfBankingService.Database.SavingData;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
@@ -18,7 +19,7 @@ namespace BankingSoapServiceTest
 
         public BankingServiceDepositTest()
         {
-            _service = new BankingService();
+            _service = new BankingService(new MockDataInserter());
             _accessToken = "876123456433";
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using WcfBankingService.operation;
-using WcfBankingService.SoapService.DataContract;
+using WcfBankingService.Database.SavingData;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
@@ -17,7 +15,13 @@ namespace WcfBankingService.SoapService
         public BankingService()
         {
             _inputValidator = new ServiceInputValidator();
-            _bank = new Bank();
+            _bank = new Bank(new DbDataInserter());
+        }
+
+        public BankingService(IBankDataInserter dataInserter)
+        {
+            _inputValidator = new ServiceInputValidator();
+            _bank = new Bank(dataInserter);
         }
 
         public LogInResponse SignIn(string login, string password)
