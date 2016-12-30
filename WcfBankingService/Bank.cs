@@ -39,7 +39,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle));
+                ExecuteAndSave(account, new Deposit(account, paymentData.Amount, paymentData.OperationTitle));
             }
             catch (BankException exception)
             {
@@ -52,9 +52,8 @@ namespace WcfBankingService
         {
             try
             {
-                ExecuteAndSave(new Withdraw(GetAccount(paymentData.AccessToken, paymentData.AccountNumber),
-                    paymentData.Amount, paymentData.OperationTitle));
-
+                var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
+                ExecuteAndSave(account, new Withdraw(account, paymentData.Amount, paymentData.OperationTitle));
             }
             catch (BankException exception)
             {
@@ -76,10 +75,10 @@ namespace WcfBankingService
             }
         }
 
-        private void ExecuteAndSave(BankOperation operation)
+        private void ExecuteAndSave(IAccount account, BankOperation operation)
         {
             operation.Execute();
-            _dataInserter.SaveOperation(operation);
+            _dataInserter.SaveOperation(account, operation);
         }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
