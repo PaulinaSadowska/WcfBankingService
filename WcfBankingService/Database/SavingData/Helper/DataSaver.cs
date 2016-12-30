@@ -32,9 +32,13 @@ namespace WcfBankingService.Database.SavingData.Helper
             }
         }
 
-        public void SaveOperationToHistory(int accountId, OperationRecord operationOperationRecord)
+        public void SaveOperationToHistory(int accountId, OperationRecord operationRecord)
         {
-            throw new System.NotImplementedException();
+            using (var db = new DbBank())
+            {
+                db.Insert(new DbOperationRecord(accountId, operationRecord));
+
+            }
         }
     }
 }

@@ -38,18 +38,17 @@ namespace BankingSoapServiceTest.Database
         [TestMethod]
         public void SaveAccessToken_validUserId_savesData()
         {
-            
-            Assert.IsFalse(ContainsToken());
+            Assert.IsFalse(ContainsToken(ValidUserId));
             _dataSaver.SaveToken(ValidUserId, NewAccessToken);
-            Assert.IsTrue(ContainsToken());
+            Assert.IsTrue(ContainsToken(ValidUserId));
         }
 
         [TestMethod]
         public void SaveAccessToken_notValidUserId_savesData()
         {
-            Assert.IsFalse(ContainsToken());
+            Assert.IsFalse(ContainsToken(NotValidUserId));
             _dataSaver.SaveToken(NotValidUserId, NewAccessToken);
-            Assert.IsTrue(ContainsToken());
+            Assert.IsTrue(ContainsToken(NotValidUserId));
         }
 
         [TestMethod]
@@ -57,9 +56,9 @@ namespace BankingSoapServiceTest.Database
         {
             Assert.AreNotEqual(ExpectedBalanceValue, GetBalanceValue());
             var account = new Account(
-                new AccountNumber("", ValidInnerAccountNumber, ""), 
+                new AccountNumber("", ValidInnerAccountNumber, ""),
                 new Balance(ExpectedBalanceValue)
-                );
+            );
             _dataSaver.SaveAccountBalance(account);
             Assert.AreEqual(ExpectedBalanceValue, GetBalanceValue());
         }
@@ -82,9 +81,8 @@ namespace BankingSoapServiceTest.Database
             Assert.AreEqual(ExpectedAmount, savedRecord.Amount);
             Assert.AreEqual(ValidInnerAccountNumber, savedRecord.Source);
             Assert.AreEqual(NewOperationTitle, savedRecord.Title);
-
         }
-    
+
 
         [TestCleanup]
         public void Cleanup()
@@ -95,6 +93,7 @@ namespace BankingSoapServiceTest.Database
                 db.Accounts.Where(p => p.InnerAccountNumber == ValidInnerAccountNumber)
                     .Set(p => p.BalanceValue, PreviousBalanceValue)
                     .Update();
+                db.OperationRecord.Where(p => p.Title == NewOperationTitle).Delete();
             }
         }
 
@@ -103,12 +102,11 @@ namespace BankingSoapServiceTest.Database
             using (var db = new DbBank())
             {
                 var query = from p in db.Accounts
-                where p.InnerAccountNumber == ValidInnerAccountNumber
-                select p;
+                    where p.InnerAccountNumber == ValidInnerAccountNumber
+                    select p;
 
                 var account = query.ToList().FirstOrDefault();
                 return account?.BalanceValue ?? 0.0m;
-
             }
         }
 
@@ -117,17 +115,16 @@ namespace BankingSoapServiceTest.Database
             using (var db = new DbBank())
             {
                 var query = from p in db.OperationRecord
-                            where p.Title == operationRecord.Title
-                            select p;
+                    where p.Title == operationRecord.Title
+                    select p;
 
                 return query.ToList().FirstOrDefault();
-
             }
         }
 
-        private static bool ContainsToken()
+        private static bool ContainsToken(int userId)
         {
-            return DbDataProvider.GetAccessTokenForUser(ValidUserId).Contains(NewAccessToken);
+            return DbDataProvider.GetAccessTokenForUser(userId).Contains(NewAccessToken);
         }
     }
 }
