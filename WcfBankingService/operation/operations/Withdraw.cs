@@ -16,7 +16,7 @@ namespace WcfBankingService.operation.operations
             _amount = amount;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             if (Executed)
                 return;

@@ -2,7 +2,7 @@
 
 namespace WcfBankingService.Operation.Operations
 {
-    public class Deposit : BankOperation, IBankCommand
+    public class Deposit : BankOperation
     {
         private readonly IAccount _targetAccount;
         private readonly decimal _amount;
@@ -13,7 +13,7 @@ namespace WcfBankingService.Operation.Operations
             _amount = amount;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             if(Executed)
                 return;
