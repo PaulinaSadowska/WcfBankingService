@@ -29,9 +29,16 @@ namespace WcfBankingService
 
         public LogInResponse SignIn(string login, string password)
         {
-            var accessToken = _userManager.SignIn(login, password);
-            _dataInserter.SaveAccessToken(login, accessToken);
-            return new LogInResponse(accessToken);
+            try
+            {
+                var accessToken = _userManager.SignIn(login, password);
+                _dataInserter.SaveAccessToken(login, accessToken);
+                return new LogInResponse(accessToken);
+            }
+            catch (BankException exception)
+            {
+                return new LogInResponse(exception.ResponseStatus);
+            }
         }
 
         public PaymentResponse Deposit(PaymentData paymentData)

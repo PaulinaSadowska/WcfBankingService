@@ -25,5 +25,10 @@ namespace WcfBankingService.SoapService.DataContract.Response
             }
             ResponseStatus = ResponseStatus.IncorrectLoginOrPassword;
         }
+
+        public LogInResponse(ResponseStatus responseStatus)
+        {
+            ResponseStatus = responseStatus != ResponseStatus.Success ? responseStatus : ResponseStatus.AccessDenied;
+        }
     }
 }
