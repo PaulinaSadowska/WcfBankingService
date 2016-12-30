@@ -1,7 +1,5 @@
 ﻿using System.ServiceModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService;
-using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.SavingData.Helper;
 
 namespace BankingSoapServiceTest.Database
