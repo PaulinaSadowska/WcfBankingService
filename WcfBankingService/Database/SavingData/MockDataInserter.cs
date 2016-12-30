@@ -1,4 +1,5 @@
-﻿using WcfBankingService.Operation.Operations;
+﻿using WcfBankingService.Accounts;
+using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.Database.SavingData
 {
@@ -9,7 +10,7 @@ namespace WcfBankingService.Database.SavingData
 
         }
 
-        public void SaveOperation(BankOperation operation)
+        public void SaveOperation(IAccount account, BankOperation operation)
         {
 
         }

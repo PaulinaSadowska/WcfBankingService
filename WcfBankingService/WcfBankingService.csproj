@@ -148,6 +148,9 @@
     <Compile Include="Database\Model\DbOperationRecord.cs" />
     <Compile Include="Database\Model\DbUser.cs" />
     <Compile Include="Database\DataProvider\IBankDataProvider.cs" />
+    <Compile Include="Database\SavingData\DbDataInserter.cs" />
+    <Compile Include="Database\SavingData\Helper\DataSaver.cs" />
+    <Compile Include="Database\SavingData\Helper\IndexesFinder.cs" />
     <Compile Include="Database\SavingData\MockDataInserter.cs" />
     <Compile Include="Database\SavingData\IBankDataInserter.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
