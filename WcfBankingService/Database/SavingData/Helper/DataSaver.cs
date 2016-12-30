@@ -1,4 +1,5 @@
-﻿using LinqToDB;
+﻿using System.Linq;
+using LinqToDB;
 using WcfBankingService.Accounts;
 using WcfBankingService.Database.Model;
 using WcfBankingService.operation;
@@ -22,7 +23,13 @@ namespace WcfBankingService.Database.SavingData.Helper
 
         public void SaveAccountBalance(IAccount account)
         {
-            throw new System.NotImplementedException();
+            using (var db = new DbBank())
+            {
+                db.Accounts
+                    .Where(p => p.InnerAccountNumber == account.AccountNumber.InnerNumber)
+                    .Set(p=> p.BalanceValue, account.GetBalanceValue())
+                    .Update();
+            }
         }
 
         public void SaveOperationToHistory(int accountId, OperationRecord operationOperationRecord)
