@@ -9,6 +9,7 @@ using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.DataProvider;
 using WcfBankingService.Database.Model;
 using WcfBankingService.Database.SavingData.Helper;
+using WcfBankingService.operation;
 
 namespace BankingSoapServiceTest.Database
 {
@@ -21,7 +22,11 @@ namespace BankingSoapServiceTest.Database
 
         private const string ValidInnerAccountNumber = "1112223334445556";
         private const decimal ExpectedBalanceValue = 666.67m;
-        private decimal PreviousBalanceValue = 111.11m;
+        private const decimal PreviousBalanceValue = 111.11m;
+
+        private const int ValidAccountId = 1;
+        private const string NewOperationTitle = "New Operation";
+        private const decimal ExpectedAmount = 112.86m;
 
         private readonly DataSaver _dataSaver;
 
@@ -58,6 +63,27 @@ namespace BankingSoapServiceTest.Database
             _dataSaver.SaveAccountBalance(account);
             Assert.AreEqual(ExpectedBalanceValue, GetBalanceValue());
         }
+
+        [TestMethod]
+        public void SaveOperationRecord_validAccountId_savesData()
+        {
+            var operationRecord = new OperationRecord
+            {
+                BalanceAfterOperation = ExpectedBalanceValue,
+                Amount = ExpectedAmount,
+                Source = ValidInnerAccountNumber,
+                Title = NewOperationTitle
+            };
+            Assert.IsNull(GetSavedOperation(operationRecord));
+            _dataSaver.SaveOperationToHistory(ValidAccountId, operationRecord);
+            var savedRecord = GetSavedOperation(operationRecord);
+            Assert.IsNotNull(savedRecord);
+            Assert.AreEqual(ExpectedBalanceValue, savedRecord.BalanceAfterOperation);
+            Assert.AreEqual(ExpectedAmount, savedRecord.Amount);
+            Assert.AreEqual(ValidInnerAccountNumber, savedRecord.Source);
+            Assert.AreEqual(NewOperationTitle, savedRecord.Title);
+
+        }
     
 
         [TestCleanup]
@@ -82,6 +108,19 @@ namespace BankingSoapServiceTest.Database
 
                 var account = query.ToList().FirstOrDefault();
                 return account?.BalanceValue ?? 0.0m;
+
+            }
+        }
+
+        private static DbOperationRecord GetSavedOperation(OperationRecord operationRecord)
+        {
+            using (var db = new DbBank())
+            {
+                var query = from p in db.OperationRecord
+                            where p.Title == operationRecord.Title
+                            select p;
+
+                return query.ToList().FirstOrDefault();
 
             }
         }

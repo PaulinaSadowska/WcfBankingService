@@ -5,8 +5,6 @@ namespace WcfBankingService.Database.Model
     [Table(Name = "OperationHistory")]
     public class DbOperationRecord
     {
-        [PrimaryKey] public int Id;
-
         [Column(Name = "account_id"), NotNull] public int AccountId;
 
         [Column(Name = "source"), NotNull] public string Source;
