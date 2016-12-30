@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WcfBankingService.Database.SavingData;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
@@ -14,8 +15,8 @@ namespace BankingSoapServiceTest
 
         public BankingServiceWithdrawTest()
         {
-            _service = new BankingService();
-            _accessToken = "876123456433";//TODO - assign correct value from predefined accounts
+            _service = new BankingService(new MockDataInserter());
+            _accessToken = "876123456433";
         }
 
         [TestMethod]
