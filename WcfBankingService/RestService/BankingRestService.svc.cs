@@ -1,27 +1,27 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Net;
+using System.Runtime.Serialization;
+using System.ServiceModel.Web;
+using WcfBankingService.SoapService.DataContract.Response;
+using WcfBankingService.SOAPService.DataContract;
 using static System.Int32;
 
 namespace WcfBankingService.RestService
 {
     public class BankingRestService : IBankingRestService
     {
-        public Output JsonData(string id)
+    
+        public string Transfer(TransferData transferData)
         {
-            return new Output
+            if (transferData != null)
             {
-                Index = Parse(id),
-                ServiceName = "DupaDupa"
-            };
+                if (WebOperationContext.Current != null)
+                    WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Created;
+                return $"{transferData.Amount} {transferData.SenderAccountNumber} receiver: {transferData.AccountNumber} {transferData.Title}";
+            }
+            if (WebOperationContext.Current != null)
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
+            return "";
         }
     }
 
-    [DataContract]
-    public class Output
-    {
-        [DataMember]
-        public int Index { get; set; }
-
-        [DataMember]
-        public string ServiceName { get; set; }
-    }
 }
