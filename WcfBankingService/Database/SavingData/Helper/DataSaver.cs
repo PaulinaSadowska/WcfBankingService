@@ -21,7 +21,7 @@ namespace WcfBankingService.Database.SavingData.Helper
             }
         }
 
-        public void SaveAccountBalance(IAccount account)
+        public void SaveAccountBalance(IPublicAccount account)
         {
             using (var db = new DbBank())
             {

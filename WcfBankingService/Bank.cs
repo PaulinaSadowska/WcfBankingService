@@ -69,6 +69,21 @@ namespace WcfBankingService
             return new PaymentResponse(ResponseStatus.Success);
         }
 
+        public PaymentResponse Transfer(TransferData transferData)
+        {
+            try
+            {
+                var account = GetAccount(transferData.AccountNumber);
+                var amount = transferData.Amount/100m;
+                ExecuteAndSave(account, new Transfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
+            }
+            catch (BankException exception)
+            {
+                return new PaymentResponse(exception.ResponseStatus);
+            }
+            return new PaymentResponse(ResponseStatus.Success);
+        }
+
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
         {
             try
@@ -92,7 +107,7 @@ namespace WcfBankingService
         private void ExecuteAndSave(IPublicAccount account, BankOperation operation)
         {
             operation.Execute();
-           // _dataInserter.SaveOperation(account, operation); - TODO
+            _dataInserter.SaveOperation(account, operation);
         }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)

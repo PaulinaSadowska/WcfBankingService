@@ -23,25 +23,33 @@ namespace WcfBankingService.Service.Rest
 
         public TransferResponse Transfer(TransferData transferData)
         {
-            //201 Created if succeess - DONE
-            //404 when there is no receiver - AUTOMATICALLY
-            //400 wrong format (missing field, amount <0) - DONE
             //403 not authorized (basic auth) - TODO
-            //500 server error - AUTOMATICALY
             try 
             {
                 _inputValidator.Validate(transferData);
             }
             catch (FaultException exception)
             {
-                if (WebOperationContext.Current != null) //400 wrong format
-                    WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
+                SetResponseCode(HttpStatusCode.BadRequest);
                 return new TransferResponse(exception.Message);
             }
+            try
+            {
+                _bank.Transfer(transferData);
+                SetResponseCode(HttpStatusCode.Created);
+                return new TransferResponse();
+            }
+            catch (BankException exception)
+            {
+                SetResponseCode(HttpStatusCode.InternalServerError);
+                return new TransferResponse(exception.Message);
+            }
+        }
+
+        private static void SetResponseCode(HttpStatusCode statusCode)
+        {
             if (WebOperationContext.Current != null)
                 WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Created;
-            return
-                new TransferResponse();
         }
     }
 }

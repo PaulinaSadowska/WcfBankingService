@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using WcfBankingService.Accounts;
+﻿using WcfBankingService.Accounts;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.SoapService.DataContract.Response;
 
@@ -10,7 +9,8 @@ namespace WcfBankingService.operation.operations
         private readonly IAccount _targetAccount;
         private readonly decimal _amount;
 
-        public Withdraw(IAccount targetAccount, decimal amount, string operationTitle) : base(operationTitle, amount, "Withdraw")
+        public Withdraw(IAccount targetAccount, decimal amount, string operationTitle) 
+            : base(operationTitle, amount, "Withdraw")
         {
             _targetAccount = targetAccount;
             _amount = amount;

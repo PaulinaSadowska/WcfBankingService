@@ -21,7 +21,7 @@ namespace WcfBankingService.Database.SavingData
             _dataSaver.SaveToken(userId, accessToken);
         }
 
-        public void SaveOperation(IAccount account, BankOperation operation)
+        public void SaveOperation(IPublicAccount account, BankOperation operation)
         {
             _dataSaver.SaveAccountBalance(account);
             var accountId = _indexesFinder.GetAccountId(account.AccountNumber.InnerNumber);
