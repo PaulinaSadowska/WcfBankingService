@@ -102,8 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
-    <Content Include="RestService\BankingRestService.svc" />
-    <Content Include="SoapService\BankingService.svc" />
+    <Content Include="Service\Rest\BankingRestService.svc" />
+    <Content Include="Service\Soap\BankingService.svc" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="LinqToDB.Templates\Validation.ttinclude" />
@@ -162,26 +162,27 @@
     <Compile Include="Operation\Operations\IBankCommand.cs" />
     <Compile Include="Operation\Operations\Transfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
-    <Compile Include="RestService\BankingRestService.svc.cs">
+    <Compile Include="Service\Rest\BankingRestService.svc.cs">
       <DependentUpon>BankingRestService.svc</DependentUpon>
     </Compile>
-    <Compile Include="RestService\IBankingRestService.cs" />
-    <Compile Include="SoapService\BankingService.svc.cs">
+    <Compile Include="Service\Rest\IBankingRestService.cs" />
+    <Compile Include="Service\DataContract\TransferResponse.cs" />
+    <Compile Include="Service\Soap\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
-    <Compile Include="SoapService\DataContract\Response\OperationHistoryResponse.cs" />
-    <Compile Include="SoapService\DataContract\Response\EnumExtensions.cs" />
-    <Compile Include="SoapService\DataContract\Response\LogInResponse.cs" />
-    <Compile Include="SoapService\DataContract\Response\PaymentResponse.cs" />
-    <Compile Include="SoapService\DataContract\Response\IResponse.cs" />
-    <Compile Include="SoapService\IBankingService.cs" />
+    <Compile Include="Service\DataContract\Response\OperationHistoryResponse.cs" />
+    <Compile Include="Service\DataContract\Response\EnumExtensions.cs" />
+    <Compile Include="Service\DataContract\Response\LogInResponse.cs" />
+    <Compile Include="Service\DataContract\Response\PaymentResponse.cs" />
+    <Compile Include="Service\DataContract\Response\IResponse.cs" />
+    <Compile Include="Service\Soap\IBankingService.cs" />
     <Compile Include="Operation\OperationRecord.cs" />
-    <Compile Include="SoapService\DataContract\Response\ResponseStatus.cs" />
-    <Compile Include="SoapService\DataContract\PaymentData.cs" />
+    <Compile Include="Service\DataContract\Response\ResponseStatus.cs" />
+    <Compile Include="Service\DataContract\PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoapService\DataContract\TransferData.cs" />
-    <Compile Include="SoapService\Validation\IServiceInputValidator.cs" />
-    <Compile Include="SoapService\Validation\ServiceInputValidator.cs" />
+    <Compile Include="Service\DataContract\TransferData.cs" />
+    <Compile Include="Service\Validation\IServiceInputValidator.cs" />
+    <Compile Include="Service\Validation\ServiceInputValidator.cs" />
     <Compile Include="Users\AccessTokenGenerator.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserManager.cs" />

@@ -1,9 +1,8 @@
 ﻿using System.ServiceModel;
-using System.ServiceModel.Web;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService.SoapService
+namespace WcfBankingService.Service.Soap
 {
     [ServiceContract]
     public interface IBankingService

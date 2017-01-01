@@ -3,7 +3,7 @@ using System.ServiceModel;
 using WcfBankingService.SOAPService.DataContract;
 using WcfBankingService.Users;
 
-namespace WcfBankingService.SoapService.Validation
+namespace WcfBankingService.Service.Validation
 {
     public class ServiceInputValidator : IServiceInputValidator
     {
@@ -47,7 +47,19 @@ namespace WcfBankingService.SoapService.Validation
             }
         }
 
-        private static void CheckNotNull(Object value, string tag)
+        public void ValidateTransferData(TransferData transferData)
+        {
+            CheckNotNull(transferData, "transferData");
+            ValidateAccountNumber(transferData.AccountNumber);
+            ValidateAccountNumber(transferData.SenderAccountNumber);
+            CheckNotNull(transferData.Title, "operation title");
+            if (transferData.Amount < 0)
+            {
+                throw new FaultException("Amount must be greater or equal to 0");
+            }
+        }
+
+        private static void CheckNotNull(object value, string tag)
         {
             if (value == null)
             {

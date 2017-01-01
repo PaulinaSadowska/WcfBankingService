@@ -1,9 +1,9 @@
 ﻿using WcfBankingService.Database.SavingData;
+using WcfBankingService.Service.Validation;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService.SoapService
+namespace WcfBankingService.Service.Soap
 {
     public class BankingService : IBankingService
     {

@@ -1,6 +1,6 @@
 ﻿using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService.SoapService.Validation
+namespace WcfBankingService.Service.Validation
 {
     internal interface IServiceInputValidator
     {
@@ -13,5 +13,7 @@ namespace WcfBankingService.SoapService.Validation
         void ValidateAccountNumber(string accountNumber);
 
         void ValidatePaymentData(PaymentData paymentData);
+
+        void ValidateTransferData(TransferData transferData);
     }
 }
