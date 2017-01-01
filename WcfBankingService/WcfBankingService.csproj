@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
+    <Content Include="RestService\BankingRestService.svc" />
     <Content Include="SoapService\BankingService.svc" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
@@ -126,7 +127,9 @@
     <Content Include="LinqToDB.Templates\DataModel.ttinclude" />
     <Content Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <Content Include="LinqToDB.Templates\!ReadMe.LinqToDB.md" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounts\Account.cs" />
@@ -159,6 +162,10 @@
     <Compile Include="Operation\Operations\IBankCommand.cs" />
     <Compile Include="Operation\Operations\Transfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
+    <Compile Include="RestService\BankingRestService.svc.cs">
+      <DependentUpon>BankingRestService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="RestService\IBankingRestService.cs" />
     <Compile Include="SoapService\BankingService.svc.cs">
       <DependentUpon>BankingService.svc</DependentUpon>
     </Compile>
@@ -188,6 +195,7 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

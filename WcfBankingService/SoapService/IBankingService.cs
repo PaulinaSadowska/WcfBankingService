@@ -1,5 +1,5 @@
 ﻿using System.ServiceModel;
-using WcfBankingService.SoapService.DataContract;
+using System.ServiceModel.Web;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SOAPService.DataContract;
 

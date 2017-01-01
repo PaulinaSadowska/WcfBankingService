@@ -1,5 +1,4 @@
-﻿using System;
-using WcfBankingService.Database.SavingData;
+﻿using WcfBankingService.Database.SavingData;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.SoapService.Validation;
 using WcfBankingService.SOAPService.DataContract;
@@ -39,7 +38,12 @@ namespace WcfBankingService.SoapService
 
         public PaymentResponse Transfer(TransferData transferData)
         {
-            throw new NotImplementedException();
+            return new PaymentResponse(ResponseStatus.Success);
+        }
+
+        public PaymentResponse Dupa()
+        {
+            return new PaymentResponse(ResponseStatus.Success);
         }
 
         public PaymentResponse Withdraw(PaymentData paymentData)
