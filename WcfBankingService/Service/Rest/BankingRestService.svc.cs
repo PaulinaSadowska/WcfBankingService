@@ -23,7 +23,6 @@ namespace WcfBankingService.Service.Rest
 
         public TransferResponse Transfer(TransferData transferData)
         {
-            //403 not authorized (basic auth) - TODO
             try
             {
                 _inputValidator.Validate(transferData);

@@ -23,7 +23,8 @@ namespace WcfBankingService.Service.Rest
                 {
                     return true;
                 }
-                PromptBasicAuth();
+                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Forbidden;
+                return false;
             }
             PromptBasicAuth();
             return false;
