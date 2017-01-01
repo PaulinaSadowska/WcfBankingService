@@ -1,5 +1,4 @@
 ﻿using WcfBankingService.Database.SavingData;
-using WcfBankingService.Service.DataContract;
 using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.Validation;
 using WcfBankingService.SoapService.DataContract.Response;

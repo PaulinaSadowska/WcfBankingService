@@ -5,12 +5,12 @@ using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract;
 using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.Validation;
+using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.Service.Rest
 {
     public class BankingRestService : IBankingRestService
     {
-
         private readonly IServiceInputValidator _inputValidator;
         private readonly Bank _bank;
 
@@ -18,13 +18,13 @@ namespace WcfBankingService.Service.Rest
         public BankingRestService()
         {
             _inputValidator = new ServiceInputValidator();
-            _bank = new Bank(new MockDataInserter());
+            _bank = new Bank(new DbDataInserter());
         }
 
         public TransferResponse Transfer(TransferData transferData)
         {
             //403 not authorized (basic auth) - TODO
-            try 
+            try
             {
                 _inputValidator.Validate(transferData);
             }
@@ -33,17 +33,9 @@ namespace WcfBankingService.Service.Rest
                 SetResponseCode(HttpStatusCode.BadRequest);
                 return new TransferResponse(exception.Message);
             }
-            try
-            {
-                _bank.Transfer(transferData);
-                SetResponseCode(HttpStatusCode.Created);
-                return new TransferResponse();
-            }
-            catch (BankException exception)
-            {
-                SetResponseCode(HttpStatusCode.InternalServerError);
-                return new TransferResponse(exception.Message);
-            }
+            var response = _bank.Transfer(transferData);
+            SetResponseCode(HttpStatusCode.Created);
+            return response.ResponseStatus == ResponseStatus.Success ? new TransferResponse() : new TransferResponse(response.ResponseStatus.ToString());
         }
 
         private static void SetResponseCode(HttpStatusCode statusCode)
