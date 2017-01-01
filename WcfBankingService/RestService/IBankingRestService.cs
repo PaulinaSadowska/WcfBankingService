@@ -1,5 +1,7 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
+using WcfBankingService.SoapService.DataContract.Response;
+using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService.RestService
 {
@@ -7,10 +9,10 @@ namespace WcfBankingService.RestService
     public interface IBankingRestService
     {
         [OperationContract]
-        [WebInvoke(Method = "GET",
-             RequestFormat = WebMessageFormat.Json,
+        [WebInvoke(Method = "POST",
+             BodyStyle = WebMessageBodyStyle.Bare,
              ResponseFormat = WebMessageFormat.Json,
-             UriTemplate = "json/{id}")]
-        Output JsonData(string id);
+             UriTemplate = "transfer")]
+        string Transfer(TransferData transferData);
     }
 }

@@ -5,22 +5,16 @@ namespace WcfBankingService.SOAPService.DataContract
     [DataContract]
     public class TransferData 
     {
-        [DataMember]
+        [DataMember(Name="amount")]
+        public int Amount { get; set; }
+
+        [DataMember(Name = "receiver_account")]
         public string AccountNumber { get; set; }
 
-        [DataMember]
-        public string AccessToken { get; set; }
-
-        [DataMember]
-        public decimal Amount { get; set; }
-
-        [DataMember]
-        public string OperationTitle { get; set; }
-
-        [DataMember]
+        [DataMember(Name = "sender_account")]
         public string SenderAccountNumber { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "title")]
         public string Title { get; set; }
 
     }
