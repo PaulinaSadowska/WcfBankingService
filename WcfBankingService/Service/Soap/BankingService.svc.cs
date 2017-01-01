@@ -41,11 +41,6 @@ namespace WcfBankingService.Service.Soap
             return new PaymentResponse(ResponseStatus.Success);
         }
 
-        public PaymentResponse Dupa()
-        {
-            return new PaymentResponse(ResponseStatus.Success);
-        }
-
         public PaymentResponse Withdraw(PaymentData paymentData)
         {
             _inputValidator.ValidatePaymentData(paymentData);

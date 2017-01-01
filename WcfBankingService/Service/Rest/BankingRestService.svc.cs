@@ -23,11 +23,11 @@ namespace WcfBankingService.Service.Rest
 
         public TransferResponse Transfer(TransferData transferData)
         {
-            //201 Created if succeess
-            //404 when there is no receiver
-            //400 wrong format (missing field, amount <0)
-            //403 not authorized (basic auth)
-            //500 server error
+            //201 Created if succeess - DONE
+            //404 when there is no receiver - AUTOMATICALLY
+            //400 wrong format (missing field, amount <0) - DONE
+            //403 not authorized (basic auth) - TODO
+            //500 server error - AUTOMATICALY
             try
             {
                 _inputValidator.ValidateTransferData(transferData);
