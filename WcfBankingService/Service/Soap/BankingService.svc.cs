@@ -38,7 +38,8 @@ namespace WcfBankingService.Service.Soap
 
         public PaymentResponse Transfer(TransferData transferData)
         {
-            return new PaymentResponse(ResponseStatus.Success);
+            _inputValidator.Validate(transferData);
+            return _bank.Transfer(transferData);
         }
 
         public PaymentResponse Withdraw(WithdrawData paymentData)
