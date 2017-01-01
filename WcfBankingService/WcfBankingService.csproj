@@ -164,6 +164,7 @@
     <Compile Include="Operation\Operations\Transfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
     <Compile Include="Service\DataContract\Request\DepositData.cs" />
+    <Compile Include="Service\Rest\AuthorizationManager.cs" />
     <Compile Include="Service\Rest\BankingRestService.svc.cs">
       <DependentUpon>BankingRestService.svc</DependentUpon>
     </Compile>
