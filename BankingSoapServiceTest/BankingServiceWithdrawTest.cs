@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Database.SavingData;
+using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.Soap;
-using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SOAPService.DataContract;
 
 namespace BankingSoapServiceTest
 {
@@ -23,7 +22,7 @@ namespace BankingSoapServiceTest
         [TestMethod]
         public void Withdraw_ValidData_ReturnsSuccess()
         {
-            var paymentData = new PaymentData()
+            var paymentData = new WithdrawData()
             {
                 AccountNumber = ValidAccountNumber,
                 AccessToken = _accessToken,
@@ -38,7 +37,7 @@ namespace BankingSoapServiceTest
         [TestMethod]
         public void Withdraw_AmountGreaterThanBalance_ReturnsInsufficientFunds()
         {
-            var paymentData = new PaymentData()
+            var paymentData = new WithdrawData()
             {
                 AccountNumber = ValidAccountNumber,
                 AccessToken = _accessToken,

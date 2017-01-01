@@ -6,8 +6,8 @@ using WcfBankingService.Database.DataProvider;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SOAPService.DataContract;
 using WcfBankingService.Users;
 
 namespace WcfBankingService
@@ -41,11 +41,11 @@ namespace WcfBankingService
             }
         }
 
-        public PaymentResponse Deposit(PaymentData paymentData)
+        public PaymentResponse Deposit(DepositData paymentData)
         {
             try
             {
-                var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
+                var account = GetAccount(paymentData.AccountNumber);
                 ExecuteAndSave(account, new Deposit(account, paymentData.Amount, paymentData.OperationTitle));
             }
             catch (BankException exception)
@@ -55,7 +55,7 @@ namespace WcfBankingService
             return new PaymentResponse(ResponseStatus.Success);
         }
 
-        public PaymentResponse Withdraw(PaymentData paymentData)
+        public PaymentResponse Withdraw(WithdrawData paymentData)
         {
             try
             {
@@ -88,6 +88,13 @@ namespace WcfBankingService
             _dataInserter.SaveOperation(account, operation);
         }
 
+
+        private void ExecuteAndSave(IPublicAccount account, BankOperation operation)
+        {
+            operation.Execute();
+           // _dataInserter.SaveOperation(account, operation); - TODO
+        }
+
         private IAccount GetAccount(string accessToken, string accountNumberStr)
         {
             var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
@@ -106,6 +113,20 @@ namespace WcfBankingService
             {
                 throw new BankException(ResponseStatus.AccessDenied);
             }
+        }
+
+        private IPublicAccount GetAccount(string accountNumberStr)
+        {
+            var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
+            if (accountNumber == null)
+                throw new BankException(ResponseStatus.WrongAccountNumber);
+
+            var account = _userManager.GetAccount(accountNumber);
+            if (account == null)
+            {
+                throw new BankException(ResponseStatus.AccountNumberDoesntExist);
+            }
+            return account;
         }
     }
 }

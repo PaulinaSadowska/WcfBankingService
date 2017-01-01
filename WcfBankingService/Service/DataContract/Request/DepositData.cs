@@ -1,18 +1,15 @@
 ﻿using System.Runtime.Serialization;
 
-namespace WcfBankingService.SOAPService.DataContract
+namespace WcfBankingService.Service.DataContract.Request
 {
     [DataContract]
-    public class PaymentData
+    public class DepositData
     {
         [DataMember]
         public string AccountNumber { get; set; }
 
         [DataMember]
-        public string AccessToken { get; set; }
-
-        [DataMember]
-         public decimal Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DataMember]
         public string OperationTitle { get; set; }

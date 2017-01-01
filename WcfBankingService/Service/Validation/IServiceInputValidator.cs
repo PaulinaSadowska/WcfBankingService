@@ -1,4 +1,5 @@
-﻿using WcfBankingService.SOAPService.DataContract;
+﻿using WcfBankingService.Service.DataContract;
+using WcfBankingService.Service.DataContract.Request;
 
 namespace WcfBankingService.Service.Validation
 {
@@ -12,8 +13,10 @@ namespace WcfBankingService.Service.Validation
 
         void ValidateAccountNumber(string accountNumber);
 
-        void ValidatePaymentData(PaymentData paymentData);
+        void Validate(WithdrawData paymentData);
 
-        void ValidateTransferData(TransferData transferData);
+        void Validate(DepositData paymentData);
+
+        void Validate(TransferData transferData);
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LinqToDB.DataProvider;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
-using WcfBankingService.Database;
 using WcfBankingService.Database.DataProvider;
 
 namespace WcfBankingService.Users
@@ -60,6 +58,19 @@ namespace WcfBankingService.Users
             {
                 if (!user.ContainsAccount(accoutNumber)) continue;
                 var a = user.GetAccount(accessToken, accoutNumber);
+                if (a != null)
+                    searchedAccount = a;
+            }
+            return searchedAccount;
+        }
+
+        public IPublicAccount GetAccount(AccountNumber accoutNumber)
+        {
+            IPublicAccount searchedAccount = null;
+            foreach (var user in _users)
+            {
+                if (!user.ContainsAccount(accoutNumber)) continue;
+                var a = user.GetAccount(accoutNumber);
                 if (a != null)
                     searchedAccount = a;
             }

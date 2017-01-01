@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace WcfBankingService.SOAPService.DataContract
+namespace WcfBankingService.Service.DataContract.Request
 {
     [DataContract]
     public class TransferData 

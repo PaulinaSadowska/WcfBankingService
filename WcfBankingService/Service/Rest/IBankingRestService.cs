@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 using WcfBankingService.Service.DataContract;
-using WcfBankingService.SOAPService.DataContract;
+using WcfBankingService.Service.DataContract.Request;
 
 namespace WcfBankingService.Service.Rest
 {

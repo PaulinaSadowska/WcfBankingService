@@ -1,6 +1,7 @@
 ﻿using System.ServiceModel;
+using WcfBankingService.Service.DataContract;
+using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService.Service.Soap
 {
@@ -11,10 +12,10 @@ namespace WcfBankingService.Service.Soap
         LogInResponse SignIn(string login, string password);
 
         [OperationContract]
-        PaymentResponse Deposit(PaymentData paymentData);
+        PaymentResponse Deposit(DepositData paymentData);
 
         [OperationContract]
-        PaymentResponse Withdraw(PaymentData paymentData);
+        PaymentResponse Withdraw(WithdrawData paymentData);
 
         [OperationContract]
         PaymentResponse Transfer(TransferData transferData);

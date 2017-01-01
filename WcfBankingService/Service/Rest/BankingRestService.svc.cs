@@ -3,8 +3,8 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract;
+using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.Validation;
-using WcfBankingService.SOAPService.DataContract;
 
 namespace WcfBankingService.Service.Rest
 {
@@ -28,13 +28,13 @@ namespace WcfBankingService.Service.Rest
             //400 wrong format (missing field, amount <0) - DONE
             //403 not authorized (basic auth) - TODO
             //500 server error - AUTOMATICALY
-            try
+            try 
             {
-                _inputValidator.ValidateTransferData(transferData);
+                _inputValidator.Validate(transferData);
             }
             catch (FaultException exception)
             {
-                if (WebOperationContext.Current != null)
+                if (WebOperationContext.Current != null) //400 wrong format
                     WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.BadRequest;
                 return new TransferResponse(exception.Message);
             }
