@@ -49,7 +49,7 @@ namespace WcfBankingService.Service.Rest
         private static void SetResponseCode(HttpStatusCode statusCode)
         {
             if (WebOperationContext.Current != null)
-                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Created;
+                WebOperationContext.Current.OutgoingResponse.StatusCode = statusCode;
         }
     }
 }
