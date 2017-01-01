@@ -18,5 +18,7 @@ namespace WcfBankingService.Users
 
         IAccount GetAccount(string accessToken, AccountNumber accoutNumber);
 
+        IPublicAccount GetAccount(AccountNumber accoutNumber);
+
     }
 }

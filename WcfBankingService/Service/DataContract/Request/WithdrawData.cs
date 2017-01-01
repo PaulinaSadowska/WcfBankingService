@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace WcfBankingService.SOAPService.DataContract
+namespace WcfBankingService.Service.DataContract.Request
 {
     [DataContract]
-    public class TransferData 
+    public class WithdrawData
     {
         [DataMember]
         public string AccountNumber { get; set; }
@@ -12,16 +12,9 @@ namespace WcfBankingService.SOAPService.DataContract
         public string AccessToken { get; set; }
 
         [DataMember]
-        public decimal Amount { get; set; }
+         public decimal Amount { get; set; }
 
         [DataMember]
         public string OperationTitle { get; set; }
-
-        [DataMember]
-        public string SenderAccountNumber { get; set; }
-
-        [DataMember]
-        public string Title { get; set; }
-
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ServiceModel;
 using WcfBankingService.Database.SavingData;
+using WcfBankingService.Service.Soap;
 using WcfBankingService.SoapService;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SOAPService.DataContract;
 
 namespace BankingSoapServiceTest
 {

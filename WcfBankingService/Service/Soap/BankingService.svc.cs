@@ -1,10 +1,9 @@
-﻿using System;
-using WcfBankingService.Database.SavingData;
+﻿using WcfBankingService.Database.SavingData;
+using WcfBankingService.Service.DataContract.Request;
+using WcfBankingService.Service.Validation;
 using WcfBankingService.SoapService.DataContract.Response;
-using WcfBankingService.SoapService.Validation;
-using WcfBankingService.SOAPService.DataContract;
 
-namespace WcfBankingService.SoapService
+namespace WcfBankingService.Service.Soap
 {
     public class BankingService : IBankingService
     {
@@ -31,20 +30,21 @@ namespace WcfBankingService.SoapService
             return _bank.SignIn(login, password);
         }
 
-        public PaymentResponse Deposit(PaymentData paymentData)
+        public PaymentResponse Deposit(DepositData paymentData)
         {
-            _inputValidator.ValidatePaymentData(paymentData);
+            _inputValidator.Validate(paymentData);
             return _bank.Deposit(paymentData);
         }
 
         public PaymentResponse Transfer(TransferData transferData)
         {
-            throw new NotImplementedException();
+            _inputValidator.Validate(transferData);
+            return _bank.Transfer(transferData);
         }
 
-        public PaymentResponse Withdraw(PaymentData paymentData)
+        public PaymentResponse Withdraw(WithdrawData paymentData)
         {
-            _inputValidator.ValidatePaymentData(paymentData);
+            _inputValidator.Validate(paymentData);
             return _bank.Withdraw(paymentData);
         }
 

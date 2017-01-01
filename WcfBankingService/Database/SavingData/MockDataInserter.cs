@@ -10,7 +10,7 @@ namespace WcfBankingService.Database.SavingData
 
         }
 
-        public void SaveOperation(IAccount account, BankOperation operation)
+        public void SaveOperation(IPublicAccount account, BankOperation operation)
         {
 
         }

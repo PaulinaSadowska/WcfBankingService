@@ -55,6 +55,11 @@ namespace WcfBankingService.Users
             return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber));
         }
 
+        public IPublicAccount GetAccount(AccountNumber accountNumber)
+        {
+            return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber));
+        }
+
         public bool ContainsAccount(AccountNumber accountNumber)
         {
             return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber)) != null;

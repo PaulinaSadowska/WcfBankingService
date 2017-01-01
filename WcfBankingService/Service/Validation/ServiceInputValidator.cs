@@ -1,9 +1,8 @@
-﻿using System;
-using System.ServiceModel;
-using WcfBankingService.SOAPService.DataContract;
+﻿using System.ServiceModel;
+using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Users;
 
-namespace WcfBankingService.SoapService.Validation
+namespace WcfBankingService.Service.Validation
 {
     public class ServiceInputValidator : IServiceInputValidator
     {
@@ -35,7 +34,7 @@ namespace WcfBankingService.SoapService.Validation
             CheckLength(accountNumber, AccountNumberLength, "acountNumber");
         }
 
-        public void ValidatePaymentData(PaymentData paymentData)
+        public void Validate(WithdrawData paymentData)
         {
             CheckNotNull(paymentData, "paymentData");
             ValidateAccountNumber(paymentData.AccountNumber);
@@ -47,7 +46,30 @@ namespace WcfBankingService.SoapService.Validation
             }
         }
 
-        private static void CheckNotNull(Object value, string tag)
+        public void Validate(DepositData paymentData)
+        {
+            CheckNotNull(paymentData, "paymentData");
+            ValidateAccountNumber(paymentData.AccountNumber);
+            CheckNotNull(paymentData.OperationTitle, "operation title");
+            if (paymentData.Amount < 0)
+            {
+                throw new FaultException("Amount must be greater or equal to 0");
+            }
+        }
+
+        public void Validate(TransferData transferData)
+        {
+            CheckNotNull(transferData, "transferData");
+            ValidateAccountNumber(transferData.AccountNumber);
+            ValidateAccountNumber(transferData.SenderAccountNumber);
+            CheckNotNull(transferData.Title, "operation title");
+            if (transferData.Amount < 0)
+            {
+                throw new FaultException("Amount must be greater or equal to 0");
+            }
+        }
+
+        private static void CheckNotNull(object value, string tag)
         {
             if (value == null)
             {
