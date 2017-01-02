@@ -73,26 +73,7 @@ namespace WcfBankingService
         {
             try
             {
-                var receiverNumber = _accountNumberFactory.GetBankAccountNumber(transferData.AccountNumber);
-                if (receiverNumber.BankId == BankId)
-                {
-                    var account = GetAccount(transferData.AccountNumber);
-                    var amount = transferData.Amount/100m;
-                    ExecuteAndSave(account,
-                        new Transfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
-                }
-            }
-            catch (BankException exception)
-            {
-                return new PaymentResponse(exception.ResponseStatus);
-            }
-            return new PaymentResponse(ResponseStatus.Success);
-        }
-
-        public PaymentResponse RestTransfer(TransferData transferData)
-        {
-            try
-            {
+                var receiverNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
                 ExecuteAndSave(account,
@@ -104,7 +85,6 @@ namespace WcfBankingService
             }
             return new PaymentResponse(ResponseStatus.Success);
         }
-
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
         {
@@ -134,7 +114,7 @@ namespace WcfBankingService
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
         {
-            var accountNumber = _accountNumberFactory.GetBankAccountNumber(accountNumberStr);
+            var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
             if (accountNumber == null)
                 throw new BankException(ResponseStatus.WrongAccountNumber);
             try
@@ -154,7 +134,7 @@ namespace WcfBankingService
 
         private IPublicAccount GetAccount(string accountNumberStr)
         {
-            var accountNumber = _accountNumberFactory.GetBankAccountNumber(accountNumberStr);
+            var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
             if (accountNumber == null)
                 throw new BankException(ResponseStatus.WrongAccountNumber);
 
