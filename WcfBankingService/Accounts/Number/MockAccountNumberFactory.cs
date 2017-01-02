@@ -7,7 +7,7 @@
             return new AccountNumber("", "", "");
         }
 
-        public AccountNumber GetAccountNumber(string accountNumber)
+        public AccountNumber GetBankAccountNumber(string accountNumber)
         {
             return new AccountNumber("", "", "");
         }

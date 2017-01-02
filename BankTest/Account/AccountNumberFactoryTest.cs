@@ -35,7 +35,7 @@ namespace BankTest.Account
         [TestMethod]
         public void GetAccountNumber_validData_ReturnsAccountNumber()
         {
-            var accountNumber = _accountNumberFactory.GetAccountNumber($"00{BankId}{InnerNumber}");
+            var accountNumber = _accountNumberFactory.GetBankAccountNumber($"00{BankId}{InnerNumber}");
             Assert.IsNotNull(accountNumber);
             Assert.AreEqual(BankId, accountNumber.BankId);
             Assert.AreEqual(InnerNumber, accountNumber.InnerNumber);
@@ -45,14 +45,14 @@ namespace BankTest.Account
         public void GetAccountNumber_wrongBankId_ReturnsNull()
         {
             const string wrongBankId = "11216976";
-            var accountNumber = _accountNumberFactory.GetAccountNumber($"00{wrongBankId}{InnerNumber}");
+            var accountNumber = _accountNumberFactory.GetBankAccountNumber($"00{wrongBankId}{InnerNumber}");
             Assert.IsNull(accountNumber);
         }
 
         [TestMethod]
         public void GetAccountNumber_accountNumberNull_ReturnsNull()
         {
-            var accountNumber = _accountNumberFactory.GetAccountNumber(null);
+            var accountNumber = _accountNumberFactory.GetBankAccountNumber(null);
             Assert.IsNull(accountNumber);
         }
 
@@ -60,7 +60,7 @@ namespace BankTest.Account
         public void GetAccountNumber_innerNumberToShort_ReturnsNull()
         {
             const string wrongInnerNumber = "00123456743";
-            var accountNumber = _accountNumberFactory.GetAccountNumber($"00{BankId}{wrongInnerNumber}");
+            var accountNumber = _accountNumberFactory.GetBankAccountNumber($"00{BankId}{wrongInnerNumber}");
             Assert.IsNull(accountNumber);
         }
     }
