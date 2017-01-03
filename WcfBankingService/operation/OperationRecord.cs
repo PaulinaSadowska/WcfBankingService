@@ -17,7 +17,5 @@ namespace WcfBankingService.operation
 
         [DataMember]
         public decimal BalanceAfterOperation { get; set; }
-
-        public AccountNumber AccountNumber;
     }
 }

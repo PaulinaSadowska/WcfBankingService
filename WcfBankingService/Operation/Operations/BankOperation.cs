@@ -8,6 +8,8 @@ namespace WcfBankingService.Operation.Operations
     {
         public OperationRecord OperationRecord { get; }
 
+        public AccountNumber AccountNumber;
+
         public bool Executed { get; set; }
 
         protected BankOperation(AccountNumber accountNumber, string operationTitle, decimal amount, string source)
@@ -17,8 +19,8 @@ namespace WcfBankingService.Operation.Operations
                 Title = operationTitle,
                 Amount = amount,
                 Source = source,
-                AccountNumber = accountNumber
             };
+            AccountNumber = accountNumber;
         }
 
         public void RecordBalanceAfterOperation(decimal balance)

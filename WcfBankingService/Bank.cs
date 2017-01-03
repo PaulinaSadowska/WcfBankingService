@@ -112,8 +112,7 @@ namespace WcfBankingService
                 try
                 {
                     var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount, transferData.Title);
-                    interTransfer.Execute();
-                    //TODO - save complex operation
+                    ExecuteAndSave(interTransfer, sender);
                     return new PaymentResponse(ResponseStatus.Success);
                 }
                 catch (BankException e)
@@ -125,8 +124,7 @@ namespace WcfBankingService
             try
             {
                 var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
-                innerTransfer.Execute();
-                //TODO - save complex operation
+                ExecuteAndSave(innerTransfer, sender, receiver);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException e)
@@ -152,14 +150,28 @@ namespace WcfBankingService
         private void ExecuteAndSave(IAccount account, BankOperation operation)
         {
             operation.Execute();
-            _dataInserter.SaveOperation(account, operation);
+            _dataInserter.SaveOperation(operation);
+            _dataInserter.SaveAccountBalance(account);
         }
 
+        private void ExecuteAndSave(ComplexCommand complexCommand, IPublicAccount sender, IPublicAccount receiver)
+        {
+            ExecuteAndSave(complexCommand, sender);
+            _dataInserter.SaveAccountBalance(receiver);
+        }
+
+        private void ExecuteAndSave(ComplexCommand complexCommand, IPublicAccount sender)
+        {
+            complexCommand.Execute();
+            _dataInserter.SaveOperations(complexCommand.GetExecutedOperations());
+            _dataInserter.SaveAccountBalance(sender);
+        }
 
         private void ExecuteAndSave(IPublicAccount account, BankOperation operation)
         {
             operation.Execute();
-            _dataInserter.SaveOperation(account, operation);
+            _dataInserter.SaveOperation(operation);
+            _dataInserter.SaveAccountBalance(account);
         }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
