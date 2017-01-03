@@ -62,10 +62,19 @@ namespace WcfBankingService.Service.Validation
             CheckNotNull(transferData, "transferData");
             ValidateAccountNumber(transferData.AccountNumber);
             ValidateAccountNumber(transferData.SenderAccountNumber);
+            CheckNotSame(transferData.AccountNumber, transferData.SenderAccountNumber, "Account Numbers");
             CheckNotNull(transferData.Title, "operation title");
             if (transferData.Amount < 0)
             {
                 throw new FaultException("Amount must be greater or equal to 0");
+            }
+        }
+
+        private static void CheckNotSame(string accountNumber, string senderAccountNumber, string tag)
+        {
+            if (senderAccountNumber == accountNumber)
+            {
+                throw new FaultException($"{tag} cannot be the same!");
             }
         }
 
