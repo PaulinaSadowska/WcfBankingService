@@ -12,7 +12,8 @@ namespace WcfBankingService.Operation.Operations
         { 
         }
 
-        public Deposit(IPublicAccount targetAccount, decimal amount, string operationTitle, string source) : base(operationTitle, amount, source)
+        public Deposit(IPublicAccount targetAccount, decimal amount, string operationTitle, string source) : 
+            base(targetAccount.AccountNumber, operationTitle, amount, source)
         {
             _targetAccount = targetAccount;
             _amount = amount;

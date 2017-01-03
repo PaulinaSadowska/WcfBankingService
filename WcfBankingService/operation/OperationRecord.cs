@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.operation
 {
@@ -16,5 +17,7 @@ namespace WcfBankingService.operation
 
         [DataMember]
         public decimal BalanceAfterOperation { get; set; }
+
+        public AccountNumber AccountNumber;
     }
 }

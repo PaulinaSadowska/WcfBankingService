@@ -1,4 +1,5 @@
 ﻿using System;
+using WcfBankingService.Accounts.Number;
 using WcfBankingService.operation;
 
 namespace WcfBankingService.Operation.Operations
@@ -9,13 +10,14 @@ namespace WcfBankingService.Operation.Operations
 
         public bool Executed { get; set; }
 
-        protected BankOperation(string operationTitle, decimal amount, string source)
+        protected BankOperation(AccountNumber accountNumber, string operationTitle, decimal amount, string source)
         {
             OperationRecord = new OperationRecord
             {
                 Title = operationTitle,
                 Amount = amount,
-                Source = source
+                Source = source,
+                AccountNumber = accountNumber
             };
         }
 

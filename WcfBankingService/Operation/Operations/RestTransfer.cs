@@ -7,7 +7,7 @@ namespace WcfBankingService.Operation.Operations
     {
         public RestTransfer(IAccount sender, decimal amount, 
             string operationTitle, AccountNumber receiverAccountNumber) : 
-            base(operationTitle, amount, "")
+            base(receiverAccountNumber, operationTitle, amount, $"RestTransfer to {receiverAccountNumber}")
         {
             //TODO - implement
         }
