@@ -1,4 +1,6 @@
-﻿using System.Security.Authentication;
+﻿using System;
+using System.Runtime.Remoting.Channels;
+using System.Security.Authentication;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
@@ -69,20 +71,49 @@ namespace WcfBankingService
             return new PaymentResponse(ResponseStatus.Success);
         }
 
-        public PaymentResponse Transfer(TransferData transferData)
+        public PaymentResponse IncomingTransfer(TransferData transferData)
         {
             try
             {
-                var receiverNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
                 ExecuteAndSave(account,
-                    new Transfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
+                    new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
             }
             catch (BankException exception)
             {
                 return new PaymentResponse(exception.ResponseStatus);
             }
+            return new PaymentResponse(ResponseStatus.Success);
+        }
+
+        public PaymentResponse SoapTransfer(TransferData transferData, string accessToken) //transfer from soap
+        {
+           /* try
+            {
+                var sender = GetAccount(transferData.SenderAccountNumber, accessToken);
+            }
+            catch (BankException exception)
+            {
+                //not my account or access denied
+                return new PaymentResponse(exception.ResponseStatus);
+            }
+            //access denied or unknown account bank exception
+            var amount = transferData.Amount/100m;
+            //TODO - check if sender has amount
+            try
+            {
+                var receiver = GetAccount(transferData.AccountNumber);
+
+            }
+            catch (BankException e)
+            {
+                //not my account
+                ExecuteAndSave(InterbankTransfer(sender, receiver, amount, transferData.Title));
+                return new PaymentResponse(ResponseStatus.Success);
+            }
+            ExecuteAndSave(InnerTransfer(sender, receiver, amount, transferData.Title).execute);
+            //sender has amount?*/
             return new PaymentResponse(ResponseStatus.Success);
         }
 

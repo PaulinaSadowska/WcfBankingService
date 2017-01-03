@@ -7,7 +7,12 @@ namespace WcfBankingService.Operation.Operations
         private readonly IPublicAccount _targetAccount;
         private readonly decimal _amount;
 
-        public Deposit(IPublicAccount targetAccount, decimal amount, string operationTitle) : base(operationTitle, amount, "Deposit")
+        public Deposit(IPublicAccount targetAccount, decimal amount, string operationTitle) :
+            this(targetAccount, amount, operationTitle, "Deposit")
+        { 
+        }
+
+        public Deposit(IPublicAccount targetAccount, decimal amount, string operationTitle, string source) : base(operationTitle, amount, source)
         {
             _targetAccount = targetAccount;
             _amount = amount;
