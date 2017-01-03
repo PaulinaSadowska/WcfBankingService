@@ -18,7 +18,7 @@ namespace WcfBankingService.Service.Soap
         PaymentResponse Withdraw(WithdrawData paymentData);
 
         [OperationContract]
-        PaymentResponse Transfer(TransferData transferData);
+        PaymentResponse Transfer(TransferData transferData, string accessToken);
 
         [OperationContract]
         OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber);

@@ -159,10 +159,14 @@
     <Compile Include="Database\SavingData\Helper\IndexesFinder.cs" />
     <Compile Include="Database\SavingData\MockDataInserter.cs" />
     <Compile Include="Database\SavingData\IBankDataInserter.cs" />
+    <Compile Include="Operation\Complex\ComplexCommand.cs" />
+    <Compile Include="Operation\Complex\InterBankTransfer.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />
     <Compile Include="Operation\Operations\IBankCommand.cs" />
     <Compile Include="Operation\Operations\IncomingTransfer.cs" />
+    <Compile Include="Operation\Complex\InnerBankTransfer.cs" />
+    <Compile Include="Operation\Operations\RestTransfer.cs" />
     <Compile Include="Operation\Operations\RollbackTransfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
     <Compile Include="Operation\Operations\OutgoingTransfer.cs" />
