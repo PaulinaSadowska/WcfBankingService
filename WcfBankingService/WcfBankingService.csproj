@@ -177,6 +177,7 @@
     <Compile Include="OutsideWorld\RestAdapter.cs" />
     <Compile Include="OutsideWorld\BankRestResponse.cs" />
     <Compile Include="OutsideWorld\RestTransferBody.cs" />
+    <Compile Include="PersistantExecutor.cs" />
     <Compile Include="Service\DataContract\Request\DepositData.cs" />
     <Compile Include="Service\Rest\AuthorizationManager.cs" />
     <Compile Include="Service\Rest\BankingRestService.svc.cs">

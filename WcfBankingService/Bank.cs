@@ -21,12 +21,14 @@ namespace WcfBankingService
 
         private readonly UserManager _userManager;
         private readonly AccountNumberFactory _accountNumberFactory;
+        private readonly PersistantExecutor _executor;
         private readonly IBankDataInserter _dataInserter;
 
         public Bank(IBankDataInserter dataInserter)
         {
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
             _userManager = new UserManager(new DbDataProvider(_accountNumberFactory));
+            _executor = new PersistantExecutor(dataInserter);
             _dataInserter = dataInserter;
         }
 
@@ -49,7 +51,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccountNumber);
-                ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -63,7 +65,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                ExecuteAndSave(new Withdraw(account, paymentData.Amount, paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Withdraw(account, paymentData.Amount, paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -78,7 +80,7 @@ namespace WcfBankingService
             {
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
-                ExecuteAndSave(new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber), account);
+                _executor.ExecuteAndSave(new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -112,7 +114,7 @@ namespace WcfBankingService
                 try
                 {
                     var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount, transferData.Title);
-                    ExecuteAndSave(interTransfer, sender);
+                    _executor.ExecuteAndSave(interTransfer, sender);
                     return new PaymentResponse(ResponseStatus.Success);
                 }
                 catch (BankException e)
@@ -124,7 +126,7 @@ namespace WcfBankingService
             try
             {
                 var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
-                ExecuteAndSave(innerTransfer, sender, receiver);
+                _executor.ExecuteAndSave(innerTransfer, sender, receiver);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException e)
@@ -147,25 +149,7 @@ namespace WcfBankingService
             }
         }
 
-        private void ExecuteAndSave(ComplexCommand complexCommand, IPublicAccount sender, IPublicAccount receiver)
-        {
-            ExecuteAndSave(complexCommand, sender);
-            _dataInserter.SaveAccountBalance(receiver);
-        }
 
-        private void ExecuteAndSave(ComplexCommand complexCommand, IPublicAccount sender)
-        {
-            complexCommand.Execute();
-            _dataInserter.SaveOperations(complexCommand.GetExecutedOperations());
-            _dataInserter.SaveAccountBalance(sender);
-        }
-
-        private void ExecuteAndSave(BankOperation operation, IPublicAccount account)
-        {
-            operation.Execute();
-            _dataInserter.SaveOperation(operation);
-            _dataInserter.SaveAccountBalance(account);
-        }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
         {
