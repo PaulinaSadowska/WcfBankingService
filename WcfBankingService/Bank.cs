@@ -49,7 +49,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccountNumber);
-                ExecuteAndSave(account, new Deposit(account, paymentData.Amount, paymentData.OperationTitle));
+                ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -63,7 +63,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                ExecuteAndSave(account, new Withdraw(account, paymentData.Amount, paymentData.OperationTitle));
+                ExecuteAndSave(new Withdraw(account, paymentData.Amount, paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -78,8 +78,7 @@ namespace WcfBankingService
             {
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
-                ExecuteAndSave(account,
-                    new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
+                ExecuteAndSave(new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -148,13 +147,6 @@ namespace WcfBankingService
             }
         }
 
-        private void ExecuteAndSave(IAccount account, BankOperation operation)
-        {
-            operation.Execute();
-            _dataInserter.SaveOperation(operation);
-            _dataInserter.SaveAccountBalance(account);
-        }
-
         private void ExecuteAndSave(ComplexCommand complexCommand, IPublicAccount sender, IPublicAccount receiver)
         {
             ExecuteAndSave(complexCommand, sender);
@@ -168,7 +160,7 @@ namespace WcfBankingService
             _dataInserter.SaveAccountBalance(sender);
         }
 
-        private void ExecuteAndSave(IPublicAccount account, BankOperation operation)
+        private void ExecuteAndSave(BankOperation operation, IPublicAccount account)
         {
             operation.Execute();
             _dataInserter.SaveOperation(operation);
