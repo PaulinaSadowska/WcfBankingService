@@ -21,5 +21,8 @@ namespace WcfBankingService.Service.DataContract.Response
 
         [Description("Access Denied")]
         AccessDenied = -41,
+
+        [Description("Sending transfer to other bank failed")]
+        InterbankTransferFailed = -61,
     }
 }

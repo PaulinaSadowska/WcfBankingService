@@ -131,7 +131,6 @@
     <Content Include="LinqToDB.Templates\DataModel.ttinclude" />
     <Content Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <Content Include="LinqToDB.Templates\!ReadMe.LinqToDB.md" />
-    <Content Include="services.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -174,6 +173,10 @@
     <Compile Include="Operation\Operations\RollbackTransfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
     <Compile Include="Operation\Operations\OutgoingTransfer.cs" />
+    <Compile Include="OutsideWorld\IRestAdapter.cs" />
+    <Compile Include="OutsideWorld\RestAdapter.cs" />
+    <Compile Include="OutsideWorld\BankRestResponse.cs" />
+    <Compile Include="OutsideWorld\RestTransferBody.cs" />
     <Compile Include="Service\DataContract\Request\DepositData.cs" />
     <Compile Include="Service\Rest\AuthorizationManager.cs" />
     <Compile Include="Service\Rest\BankingRestService.svc.cs">

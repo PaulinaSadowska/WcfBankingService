@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Web.UI;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.operation.Complex;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.Service.DataContract.Response;
-using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.Operation.Complex
 {
@@ -27,7 +25,7 @@ namespace WcfBankingService.Operation.Complex
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiverAccountNumber.ToString()),
-                new RestTransfer(sender, amount, operationTitle, receiverAccountNumber)
+                new RestTransfer(sender.AccountNumber, amount, operationTitle, receiverAccountNumber)
             };
             _sender = sender;
             _receiverAccountNumber = receiverAccountNumber;
