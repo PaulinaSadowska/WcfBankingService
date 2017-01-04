@@ -4,9 +4,12 @@ using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
 using WcfBankingService.Database.DataProvider;
 using WcfBankingService.Database.SavingData;
+using WcfBankingService.operation.Complex;
 using WcfBankingService.operation.operations;
+using WcfBankingService.Operation.Complex;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.Service.DataContract.Request;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.Users;
 
@@ -18,12 +21,14 @@ namespace WcfBankingService
 
         private readonly UserManager _userManager;
         private readonly AccountNumberFactory _accountNumberFactory;
+        private readonly PersistantExecutor _executor;
         private readonly IBankDataInserter _dataInserter;
 
         public Bank(IBankDataInserter dataInserter)
         {
             _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
             _userManager = new UserManager(new DbDataProvider(_accountNumberFactory));
+            _executor = new PersistantExecutor(dataInserter);
             _dataInserter = dataInserter;
         }
 
@@ -46,13 +51,13 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccountNumber);
-                ExecuteAndSave(account, new Deposit(account, paymentData.Amount, paymentData.OperationTitle));
+                _executor.ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle), account);
+                return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
             {
                 return new PaymentResponse(exception.ResponseStatus);
             }
-            return new PaymentResponse(ResponseStatus.Success);
         }
 
         public PaymentResponse Withdraw(WithdrawData paymentData)
@@ -60,28 +65,75 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                ExecuteAndSave(account, new Withdraw(account, paymentData.Amount, paymentData.OperationTitle));
+                _executor.ExecuteAndSave(new Withdraw(account, paymentData.Amount, paymentData.OperationTitle), account);
+                return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
             {
                 return new PaymentResponse(exception.ResponseStatus);
             }
-            return new PaymentResponse(ResponseStatus.Success);
         }
 
-        public PaymentResponse Transfer(TransferData transferData)
+        public PaymentResponse IncomingTransfer(TransferData transferData)
         {
             try
             {
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
-                ExecuteAndSave(account, new Transfer(account, amount, transferData.Title, transferData.SenderAccountNumber));
+                _executor.ExecuteAndSave(new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber), account);
+                return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
             {
                 return new PaymentResponse(exception.ResponseStatus);
             }
-            return new PaymentResponse(ResponseStatus.Success);
+        }
+
+        public PaymentResponse SoapTransfer(TransferData transferData, string accessToken) //transfer from soap
+        {
+            AccountNumber receiverAccountNumber;
+            IAccount sender;
+            IPublicAccount receiver;
+            try
+            {
+                 sender = GetAccount(transferData.SenderAccountNumber, accessToken);
+                receiverAccountNumber = _accountNumberFactory.CreateAccountNumber(transferData.AccountNumber);
+            }
+            catch (BankException exception)
+            {
+                //not my account, access denied, or wrong receiver account number
+                return new PaymentResponse(exception.ResponseStatus);
+            }
+            try
+            {
+                receiver = GetAccount(transferData.AccountNumber);
+            }
+            catch (BankException)
+            {
+                //receiver is not from this bank
+                try
+                {
+                    var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount, transferData.Title);
+                    _executor.ExecuteAndSave(interTransfer, sender);
+                    return new PaymentResponse(ResponseStatus.Success);
+                }
+                catch (BankException e)
+                {
+                    return new PaymentResponse(e.ResponseStatus);
+                }
+            }
+            //sender and receiver from my bank
+            try
+            {
+                var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
+                _executor.ExecuteAndSave(innerTransfer, sender, receiver);
+                return new PaymentResponse(ResponseStatus.Success);
+            }
+            catch (BankException e)
+            {
+                return new PaymentResponse(e.ResponseStatus);
+            }
+
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
@@ -97,18 +149,7 @@ namespace WcfBankingService
             }
         }
 
-        private void ExecuteAndSave(IAccount account, BankOperation operation)
-        {
-            operation.Execute();
-            _dataInserter.SaveOperation(account, operation);
-        }
 
-
-        private void ExecuteAndSave(IPublicAccount account, BankOperation operation)
-        {
-            operation.Execute();
-            _dataInserter.SaveOperation(account, operation);
-        }
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
         {

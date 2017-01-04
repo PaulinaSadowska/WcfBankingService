@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using WcfBankingService.operation;
+using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.SoapService.DataContract.Response
 {

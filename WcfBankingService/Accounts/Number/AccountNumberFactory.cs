@@ -21,6 +21,12 @@ namespace WcfBankingService.Accounts.Number
             return new AccountNumber(_bankId, innerNumber, checksum);
         }
 
+        public AccountNumber GetBankAccountNumber(string accountNumber)
+        {
+            var number = GetAccountNumber(accountNumber);
+            return (number != null && number.BankId == _bankId) ? number : null;
+        }
+
         public AccountNumber GetAccountNumber(string accountNumber)
         {
             if (accountNumber == null || !_controlSumCalculator.IsValid(accountNumber))
@@ -28,8 +34,8 @@ namespace WcfBankingService.Accounts.Number
             var checksum = accountNumber.Substring(0, 2);
             var bankId = accountNumber.Substring(2, 8);
             var innerNumber = accountNumber.Substring(10);
-            return (_controlSumCalculator.IsValid(accountNumber) && bankId == _bankId) ?
-                new AccountNumber(_bankId, innerNumber, checksum) : null;
+            return (_controlSumCalculator.IsValid(accountNumber)) ?
+                new AccountNumber(bankId, innerNumber, checksum) : null;
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿using WcfBankingService.Accounts;
+﻿using System.Collections.Generic;
+using WcfBankingService.Accounts;
+using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.SavingData.Helper;
+using WcfBankingService.operation;
 using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.Database.SavingData
@@ -21,11 +24,25 @@ namespace WcfBankingService.Database.SavingData
             _dataSaver.SaveToken(userId, accessToken);
         }
 
-        public void SaveOperation(IPublicAccount account, BankOperation operation)
+        public void SaveOperation(BankOperation operation)
         {
-            _dataSaver.SaveAccountBalance(account);
-            var accountId = _indexesFinder.GetAccountId(account.AccountNumber.InnerNumber);
+            var accountId = _indexesFinder.GetAccountId(operation.AccountNumber.InnerNumber);
             _dataSaver.SaveOperationToHistory(accountId, operation.OperationRecord);
         }
+
+        public void SaveOperations(List<BankOperation> operations)
+        {
+            foreach (var operation in operations)
+            {
+                SaveOperation(operation);
+            }
+        }
+
+
+        public void SaveAccountBalance(IPublicAccount account)
+        {
+            _dataSaver.SaveAccountBalance(account);
+        }
+
     }
 }

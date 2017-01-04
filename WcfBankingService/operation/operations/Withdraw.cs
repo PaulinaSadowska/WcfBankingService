@@ -1,16 +1,22 @@
 ﻿using WcfBankingService.Accounts;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.operation.operations
 {
-    public class Withdraw : BankOperation, IBankCommand
+    public class Withdraw : BankOperation
     {
         private readonly IAccount _targetAccount;
         private readonly decimal _amount;
 
-        public Withdraw(IAccount targetAccount, decimal amount, string operationTitle) 
-            : base(operationTitle, amount, "Withdraw")
+        public Withdraw(IAccount targetAccount, decimal amount, string operationTitle)
+            : this(targetAccount, amount, operationTitle, "Withdraw")
+        {
+        }
+
+        public Withdraw(IAccount targetAccount, decimal amount, string operationTitle, string source)
+            : base(targetAccount.AccountNumber, operationTitle, amount, source)
         {
             _targetAccount = targetAccount;
             _amount = amount;

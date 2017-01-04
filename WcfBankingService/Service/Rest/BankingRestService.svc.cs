@@ -4,6 +4,7 @@ using System.ServiceModel.Web;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract;
 using WcfBankingService.Service.DataContract.Request;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.Service.Validation;
 using WcfBankingService.SoapService.DataContract.Response;
 
@@ -32,7 +33,7 @@ namespace WcfBankingService.Service.Rest
                 SetResponseCode(HttpStatusCode.BadRequest);
                 return new TransferResponse(exception.Message);
             }
-            var response = _bank.Transfer(transferData);
+            var response = _bank.IncomingTransfer(transferData);
             SetResponseCode(HttpStatusCode.Created);
             return response.ResponseStatus == ResponseStatus.Success ? new TransferResponse() : new TransferResponse(response.ResponseStatus.ToString());
         }

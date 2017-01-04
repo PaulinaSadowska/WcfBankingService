@@ -1,4 +1,6 @@
-﻿namespace WcfBankingService.SoapService.DataContract.Response
+﻿using WcfBankingService.Service.DataContract.Response;
+
+namespace WcfBankingService.SoapService.DataContract.Response
 {
     public interface IResponse
     {

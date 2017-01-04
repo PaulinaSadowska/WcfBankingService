@@ -36,10 +36,10 @@ namespace WcfBankingService.Service.Soap
             return _bank.Deposit(paymentData);
         }
 
-        public PaymentResponse Transfer(TransferData transferData)
+        public PaymentResponse Transfer(TransferData transferData, string accessToken)
         {
             _inputValidator.Validate(transferData);
-            return _bank.Transfer(transferData);
+            return _bank.SoapTransfer(transferData, accessToken);
         }
 
         public PaymentResponse Withdraw(WithdrawData paymentData)

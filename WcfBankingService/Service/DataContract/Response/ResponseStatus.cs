@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WcfBankingService.SoapService.DataContract.Response
+namespace WcfBankingService.Service.DataContract.Response
 {
     public enum ResponseStatus
     {
@@ -21,5 +21,8 @@ namespace WcfBankingService.SoapService.DataContract.Response
 
         [Description("Access Denied")]
         AccessDenied = -41,
+
+        [Description("Sending transfer to other bank failed")]
+        InterbankTransferFailed = -61,
     }
 }
