@@ -3,6 +3,7 @@ using System.Linq;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.DataProvider;
+using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.Users
 {
@@ -22,7 +23,10 @@ namespace WcfBankingService.Users
 
         public string SignIn(string login, string password)
         {
-            return GetUser(login)?.GenerateAccessToken(password);
+            var token = GetUser(login)?.GenerateAccessToken(password);
+            if(token == null)
+                throw new BankException(ResponseStatus.IncorrectLoginOrPassword);
+            return token;
         }
 
         public bool SignUp(string login, string password)
