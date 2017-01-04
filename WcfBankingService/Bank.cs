@@ -9,6 +9,7 @@ using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Complex;
 using WcfBankingService.Operation.Operations;
 using WcfBankingService.Service.DataContract.Request;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.SoapService.DataContract.Response;
 using WcfBankingService.Users;
 

@@ -1,5 +1,6 @@
 ﻿using WcfBankingService.Accounts;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.operation.operations

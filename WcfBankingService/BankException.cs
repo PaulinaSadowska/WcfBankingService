@@ -1,4 +1,5 @@
 ﻿using System;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WcfBankingService.SoapService.DataContract.Response
+namespace WcfBankingService.Service.DataContract.Response
 {
     public enum ResponseStatus
     {
