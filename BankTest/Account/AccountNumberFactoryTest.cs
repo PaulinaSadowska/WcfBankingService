@@ -19,7 +19,7 @@ namespace BankTest.Account
         [TestMethod]
         public void CreateAccountNumber_validInputData_ReturnsAccountNumber()
         {
-            var accountNumber = _accountNumberFactory.CreateAccountNumber(InnerNumber);
+            var accountNumber = _accountNumberFactory.GetAccountNumberFromInner(InnerNumber);
             Assert.IsNotNull(accountNumber);
             Assert.AreEqual(accountNumber.BankId, BankId);
             Assert.AreEqual(accountNumber.InnerNumber, InnerNumber);
@@ -28,7 +28,7 @@ namespace BankTest.Account
         [TestMethod]
         public void CreateAccountNumber_InnerNumberNull_ReturnsNull()
         {
-            var accountNumber = _accountNumberFactory.CreateAccountNumber(null);
+            var accountNumber = _accountNumberFactory.GetAccountNumberFromInner(null);
             Assert.IsNull(accountNumber);
         }
 

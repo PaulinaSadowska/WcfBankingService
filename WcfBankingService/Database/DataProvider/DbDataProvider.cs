@@ -56,7 +56,7 @@ namespace WcfBankingService.Database.DataProvider
 
         private static Account CreateAccount(DbAccount account)
         {
-            var number = _accountNumberFactory.CreateAccountNumber(account.InnerAccountNumber);
+            var number = _accountNumberFactory.GetAccountNumberFromInner(account.InnerAccountNumber);
             return new Account(number, new Balance(account.BalanceValue), GetOperationRecords(account.Id));
         }
 

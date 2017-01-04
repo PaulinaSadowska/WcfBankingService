@@ -13,7 +13,7 @@ namespace WcfBankingService.Accounts.Number
             _controlSumCalculator = controlSumCalculator;
         }
 
-        public AccountNumber CreateAccountNumber(string innerNumber)
+        public AccountNumber GetAccountNumberFromInner(string innerNumber)
         {
             if (innerNumber == null)
                 return null;

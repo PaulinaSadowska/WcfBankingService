@@ -96,8 +96,8 @@ namespace WcfBankingService
             IPublicAccount receiver;
             try
             {
-                 sender = GetAccount(transferData.SenderAccountNumber, accessToken);
-                receiverAccountNumber = _accountNumberFactory.CreateAccountNumber(transferData.AccountNumber);
+                 sender = GetAccount(accessToken, transferData.SenderAccountNumber);
+                 receiverAccountNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
             }
             catch (BankException exception)
             {

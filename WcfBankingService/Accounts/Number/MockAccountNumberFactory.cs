@@ -2,7 +2,7 @@
 {
     public class MockAccountNumberFactory : IAccountNumberFactory
     {
-        public AccountNumber CreateAccountNumber(string innerNumber)
+        public AccountNumber GetAccountNumberFromInner(string innerNumber)
         {
             return new AccountNumber("", "", "");
         }
