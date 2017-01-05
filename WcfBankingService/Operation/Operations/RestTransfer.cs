@@ -29,7 +29,8 @@ namespace WcfBankingService.Operation.Operations
 
         private static void ValidateResponse(IRestResponse<BankRestResponse> response)
         {
-            if (!(response?.StatusCode == HttpStatusCode.Created || response?.Data.error == null))
+            if(response == null || response.StatusCode != HttpStatusCode.Created || 
+                response.Data == null || response.Data.error != null)
                 throw new BankException(ResponseStatus.InterbankTransferFailed);
         }
     }
