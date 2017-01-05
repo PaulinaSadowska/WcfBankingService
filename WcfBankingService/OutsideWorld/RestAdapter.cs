@@ -3,6 +3,7 @@ using System.Web.Configuration;
 using RestSharp;
 using RestSharp.Authenticators;
 using WcfBankingService.Accounts.Number;
+using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;
 
 namespace WcfBankingService.OutsideWorld
 {
@@ -47,7 +48,10 @@ namespace WcfBankingService.OutsideWorld
 
         private static string GetBankAddress(string receiverBankId)
         {
-            return "https://github.com/PaulinaSadowska/"; // TODO read from config
+            var bankAddress = WebConfigurationManager.AppSettings[receiverBankId];
+            if(bankAddress == null)
+                throw new BankException(ResponseStatus.BankNotExists);
+            return bankAddress;
         }
     }
 }
