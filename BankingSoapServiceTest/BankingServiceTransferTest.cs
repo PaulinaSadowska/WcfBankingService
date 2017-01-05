@@ -70,5 +70,60 @@ namespace BankingSoapServiceTest
             Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
         }
 
+        [TestMethod]
+        public void Transfer_InvalidReceiverNumber_ReturnsWrongAccountNumber()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = InvalidAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void Transfer_InvalidSenderNumber_ReturnsWrongAccountNumber()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = ValidReceiverAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = InvalidAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void Transfer_ValidAccounts_SenderHasNotEnoughMoney_ReturnsInsufficientFunds()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = ValidReceiverAccountNumber,
+                Amount = 2000000000,
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.InsufficientFunds, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void Transfer_NotListedBanksReceiverNumber_ReturnsBankNotExists()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = NotListedBankAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.BankNotExists, response.ResponseStatus);
+        }
     }
 }
