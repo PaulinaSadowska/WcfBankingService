@@ -19,6 +19,11 @@ namespace WcfBankingService.Service.DataContract.Response
         [Description("Wrong account number format")]
         WrongAccountNumber = -22,
 
+
+        [Description("Account number from other bank")]
+        OtherBankAccount = -23,
+        
+
         [Description("Access Denied")]
         AccessDenied = -41,
 

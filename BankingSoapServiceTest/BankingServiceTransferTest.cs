@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Database.SavingData;
+using WcfBankingService.Service.DataContract.Request;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.Service.Soap;
 
 namespace BankingSoapServiceTest
@@ -17,6 +19,7 @@ namespace BankingSoapServiceTest
         private const string ListedBankAccountNumber = "66112241001122334455667788";
         private const string NotListedBankAccountNumber = "38333241001122334455667788";
 
+        private const string ValidAccessToken = "QJAMYUPWOBXS";
         private readonly IBankingService _service;
 
         public BankingServiceTransferTest()
@@ -28,9 +31,44 @@ namespace BankingSoapServiceTest
         [TestMethod]
         public void Transfer_BothAccountsFromThisBank_ReturnsSuccess()
         {
-
+            var transferData = new TransferData()
+            {
+                AccountNumber = ValidReceiverAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.Success, response.ResponseStatus);
         }
 
+        [TestMethod]
+        public void Transfer_BothAccountsFromThisBank_nonExistingReceiver_ReturnsAccountNumberDoesntExist()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = NotExistingAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
+        }
+
+        [TestMethod]
+        public void Transfer_BothAccountsFromThisBank_nonExistingSender_ReturnsAccountNumberDoesntExist()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = ValidReceiverAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = NotExistingAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData, ValidAccessToken);
+            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
+        }
 
     }
 }

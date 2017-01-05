@@ -107,12 +107,14 @@ namespace WcfBankingService
             {
                 receiver = GetAccount(transferData.AccountNumber);
             }
-            catch (BankException)
+            catch (BankException exception)
             {
-                //receiver is not from this bank
+                if (exception.ResponseStatus != ResponseStatus.OtherBankAccount)
+                    return new PaymentResponse(exception.ResponseStatus);
                 try
                 {
-                    var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount, transferData.Title);
+                    var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount,
+                        transferData.Title);
                     _executor.ExecuteAndSave(interTransfer, sender);
                     return new PaymentResponse(ResponseStatus.Success);
                 }
@@ -175,6 +177,8 @@ namespace WcfBankingService
             var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
             if (accountNumber == null)
                 throw new BankException(ResponseStatus.WrongAccountNumber);
+            if(accountNumber.BankId != BankId)
+                throw new BankException(ResponseStatus.OtherBankAccount);
 
             var account = _userManager.GetAccount(accountNumber);
             if (account == null)
