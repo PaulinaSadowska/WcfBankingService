@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Web.Configuration;
 
 namespace WcfBankingService.Service.Rest
 {
     public class AuthorizationManager : ServiceAuthorizationManager
     {
-        private const string Login = "Admin";
-        private const string Password = "Pass";
+        private readonly string _login = WebConfigurationManager.AppSettings["BasicAuthLogin"];
+        private readonly string _password = WebConfigurationManager.AppSettings["BasicAuthPassword"];
+
 
         protected override bool CheckAccessCore(OperationContext operationContext)
         {
@@ -19,7 +22,7 @@ namespace WcfBankingService.Service.Rest
             {
                 var svcCredentials = GetCredentialsFromHeader(authHeader);
                 var user = new {Name = svcCredentials[0], Password = svcCredentials[1]};
-                if (user.Name == Login && user.Password == Password)
+                if (user.Name == _login && user.Password == _password)
                 {
                     return true;
                 }
