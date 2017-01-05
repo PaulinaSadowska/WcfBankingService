@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WcfBankingService.Accounts;
+﻿using WcfBankingService.Accounts;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.operation.Complex;
 using WcfBankingService.Operation.Operations;

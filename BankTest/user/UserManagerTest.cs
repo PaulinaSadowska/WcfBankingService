@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WcfBankingService;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
@@ -48,17 +49,17 @@ namespace BankTest.User
         }
 
         [TestMethod]
-        public void SignInUser_WrongLogin_returnsNull()
+        [ExpectedException(typeof(BankException))]
+        public void SignInUser_WrongLogin_throwsException()
         {
-            var accessToken = _userManager.SignIn("Doge", Password);
-            Assert.IsNull(accessToken);
+            _userManager.SignIn("Doge", Password);
         }
 
         [TestMethod]
-        public void SignInUser_WrongPassword_returnsNull()
+        [ExpectedException(typeof(BankException))]
+        public void SignInUser_WrongPassword_throwsException()
         {
-            var accessToken = _userManager.SignIn(Login, "Wow");
-            Assert.IsNull(accessToken);
+            _userManager.SignIn(Login, "Wow");
         }
 
         [TestMethod]

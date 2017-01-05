@@ -1,11 +1,6 @@
-﻿using System.ServiceModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WcfBankingService.Accounts.Number;
-using WcfBankingService.Accounts.Number.ControlSum;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Database.SavingData;
-using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.Soap;
-using WcfBankingService.SoapService.DataContract.Response;
 
 namespace BankingSoapServiceTest
 

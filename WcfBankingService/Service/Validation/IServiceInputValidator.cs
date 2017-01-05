@@ -1,5 +1,4 @@
-﻿using WcfBankingService.Service.DataContract;
-using WcfBankingService.Service.DataContract.Request;
+﻿using WcfBankingService.Service.DataContract.Request;
 
 namespace WcfBankingService.Service.Validation
 {

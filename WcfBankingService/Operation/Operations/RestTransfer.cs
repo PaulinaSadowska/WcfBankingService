@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using RestSharp;
-using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.OutsideWorld;
 using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;

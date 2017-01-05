@@ -3,7 +3,6 @@ using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.Service.Soap;
-using WcfBankingService.SoapService.DataContract.Response;
 
 namespace BankingSoapServiceTest
 {

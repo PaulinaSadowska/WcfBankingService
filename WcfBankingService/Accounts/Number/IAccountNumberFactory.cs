@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WcfBankingService.Accounts.Number
+﻿namespace WcfBankingService.Accounts.Number
 {
     public interface IAccountNumberFactory
     {

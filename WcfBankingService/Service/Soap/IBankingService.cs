@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
-using WcfBankingService.Service.DataContract;
 using WcfBankingService.Service.DataContract.Request;
-using WcfBankingService.SoapService.DataContract.Response;
+using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.Service.Soap
 {
