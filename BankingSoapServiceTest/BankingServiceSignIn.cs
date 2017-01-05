@@ -63,7 +63,6 @@ namespace BankingSoapServiceTest
         public void signIn_LoginToShort_ThrowsFaultException()
         {
             _service.SignIn("", CorrectPassword);
-            //todo - how short login can be?
         }
 
         [TestMethod]
@@ -71,7 +70,6 @@ namespace BankingSoapServiceTest
         public void signIn_PasswordToShort_ThrowsFaultException()
         {
             _service.SignIn(CorrectLogin, "");
-            //todo - how short password can be?
         }
 
     }
