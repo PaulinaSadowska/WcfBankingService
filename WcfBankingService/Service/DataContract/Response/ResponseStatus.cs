@@ -24,5 +24,8 @@ namespace WcfBankingService.Service.DataContract.Response
 
         [Description("Sending transfer to other bank failed")]
         InterbankTransferFailed = -61,
+
+        [Description("The bank you want to transfer the money to does not exist")]
+        BankNotExists = -62,
     }
 }

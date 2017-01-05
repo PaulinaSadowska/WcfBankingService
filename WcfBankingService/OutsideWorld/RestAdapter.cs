@@ -1,6 +1,9 @@
-﻿using RestSharp;
+﻿using System.Configuration;
+using System.Web.Configuration;
+using RestSharp;
 using RestSharp.Authenticators;
 using WcfBankingService.Accounts.Number;
+using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;
 
 namespace WcfBankingService.OutsideWorld
 {
@@ -18,8 +21,12 @@ namespace WcfBankingService.OutsideWorld
 
         public IRestResponse<BankRestResponse> Execute(decimal amountToSend, string operationTitle)
         {
-            var client = new RestClient(GetBankAddress(_receiver.BankId));
-            client.Authenticator = new SimpleAuthenticator("username", "admin", "password", "admin"); //TODO - read from config
+            var basicAuthLogin = WebConfigurationManager.AppSettings["BasicAuthLogin"];
+            var basicAuthPassword = WebConfigurationManager.AppSettings["BasicAuthPassword"];
+            var client = new RestClient(GetBankAddress(_receiver.BankId))
+            {
+                Authenticator = new SimpleAuthenticator("username", basicAuthLogin, "password", basicAuthPassword)
+            };
             return client.Execute<BankRestResponse>(CreateRequest(amountToSend, operationTitle));
         }
 
@@ -31,7 +38,7 @@ namespace WcfBankingService.OutsideWorld
             };
             request.AddBody(new RestTransferBody()
             {
-                amount = (int)amountToSend * 100,
+                amount = (int) amountToSend*100,
                 receiver_account = _receiver.ToString(),
                 sender_account = _sender.ToString(),
                 title = operationTitle
@@ -41,7 +48,10 @@ namespace WcfBankingService.OutsideWorld
 
         private static string GetBankAddress(string receiverBankId)
         {
-            return "https://github.com/PaulinaSadowska/"; // TODO read from config
+            var bankAddress = WebConfigurationManager.AppSettings[receiverBankId];
+            if(bankAddress == null)
+                throw new BankException(ResponseStatus.BankNotExists);
+            return bankAddress;
         }
     }
 }
