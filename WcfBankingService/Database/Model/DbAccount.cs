@@ -1,5 +1,4 @@
-﻿using System.Data;
-using LinqToDB.Mapping;
+﻿using LinqToDB.Mapping;
 
 namespace WcfBankingService.Database.Model
 {

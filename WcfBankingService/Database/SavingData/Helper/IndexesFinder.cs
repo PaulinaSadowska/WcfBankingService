@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using System.ServiceModel;
-using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.Model;
-using WcfBankingService.SoapService.DataContract.Response;
 
 namespace WcfBankingService.Database.SavingData.Helper
 {

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using WcfBankingService.Accounts;
-using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.SavingData.Helper;
-using WcfBankingService.operation;
 using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.Database.SavingData

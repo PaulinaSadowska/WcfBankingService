@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Web.Configuration;
+﻿using System.Web.Configuration;
 using RestSharp;
 using RestSharp.Authenticators;
 using WcfBankingService.Accounts.Number;

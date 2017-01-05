@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.OutsideWorld
 {

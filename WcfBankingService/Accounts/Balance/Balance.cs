@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WcfBankingService.Accounts.Balance
+﻿namespace WcfBankingService.Accounts.Balance
 {
     public class Balance : IBalance
     {

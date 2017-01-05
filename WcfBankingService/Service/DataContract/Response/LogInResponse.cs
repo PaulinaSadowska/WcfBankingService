@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-using WcfBankingService.Service.DataContract.Response;
+﻿using System.Runtime.Serialization;
 
-namespace WcfBankingService.SoapService.DataContract.Response
+namespace WcfBankingService.Service.DataContract.Response
 {
     [DataContract]
     public class LogInResponse : IResponse
