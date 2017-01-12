@@ -126,17 +126,11 @@ namespace WcfBankingService
             {
                 if (exception.ResponseStatus != ResponseStatus.OtherBankAccount)
                     return new PaymentResponse(exception.ResponseStatus);
-                try
-                {
-                    var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount,
-                        transferData.Title);
-                    _executor.ExecuteAndSave(interTransfer, sender);
-                    return new PaymentResponse(ResponseStatus.Success);
-                }
-                catch (BankException e)
-                {
-                    return new PaymentResponse(e.ResponseStatus);
-                }
+
+                var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount,
+                    transferData.Title);
+                _executor.ExecuteAndSave(interTransfer, sender);
+                return new PaymentResponse(interTransfer.ResponseStatus);
             }
             //sender and receiver from my bank
             try

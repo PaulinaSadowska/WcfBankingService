@@ -16,7 +16,6 @@ namespace WcfBankingService.Operation.Complex
         private readonly AccountNumber _receiverAccountNumber;
         private readonly decimal _amount;
         private readonly string _operationTitle;
-        private ResponseStatus _responseStatus;
 
         public InterBankTransfer(IAccount sender, AccountNumber receiverAccountNumber,
             int amountInCents, string operationTitle)
@@ -31,25 +30,10 @@ namespace WcfBankingService.Operation.Complex
             _receiverAccountNumber = receiverAccountNumber;
             _operationTitle = operationTitle;
             _amount = amount;
-            _responseStatus = ResponseStatus.Success;
+            ResponseStatus = ResponseStatus.Success;
         }
 
-        public new void Execute()
-        {
-            try
-            {
-                base.Execute();
-            }
-            catch (BankException e)
-            {
-                Rollback();
-                _responseStatus = e.ResponseStatus;
-            }
-            if (_responseStatus!=ResponseStatus.Success)
-                throw new BankException(_responseStatus);
-        }
-
-        private void Rollback()
+        protected override void Rollback()
         {
             if (!_operations[0].Executed) return;
 

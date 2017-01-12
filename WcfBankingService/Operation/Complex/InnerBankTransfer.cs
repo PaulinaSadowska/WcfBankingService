@@ -2,6 +2,7 @@
 using WcfBankingService.Accounts;
 using WcfBankingService.operation.operations;
 using WcfBankingService.Operation.Operations;
+using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.operation.Complex
 {
@@ -14,6 +15,7 @@ namespace WcfBankingService.operation.Complex
             int amountInCents, string operationTitle)
         {
             var amount = amountInCents / 100m;
+            ResponseStatus = ResponseStatus.Success;
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiver.AccountNumber.ToString()),
@@ -25,6 +27,11 @@ namespace WcfBankingService.operation.Complex
         protected override List<BankOperation> GetOperations()
         {
             return _operations;
+        }
+
+        protected override void Rollback()
+        {
+            // do nothing
         }
     }
 }
