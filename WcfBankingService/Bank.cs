@@ -133,16 +133,10 @@ namespace WcfBankingService
                 return new PaymentResponse(interTransfer.ResponseStatus);
             }
             //sender and receiver from my bank
-            try
-            {
-                var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
-                _executor.ExecuteAndSave(innerTransfer, sender, receiver);
-                return new PaymentResponse(ResponseStatus.Success);
-            }
-            catch (BankException e)
-            {
-                return new PaymentResponse(e.ResponseStatus);
-            }
+
+            var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
+            _executor.ExecuteAndSave(innerTransfer, sender, receiver);
+            return new PaymentResponse(innerTransfer.ResponseStatus);
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
