@@ -79,7 +79,8 @@ namespace WcfBankingService.Database.DataProvider
             {
                 Title =  record.Title,
                 Source = record.Source,
-                Amount = record.Amount,
+                Debet = record.Debet,
+                Credit =  record.Credit,
                 BalanceAfterOperation = record.BalanceAfterOperation
             };
         }

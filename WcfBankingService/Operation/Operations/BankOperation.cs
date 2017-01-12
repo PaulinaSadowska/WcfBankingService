@@ -12,14 +12,9 @@ namespace WcfBankingService.Operation.Operations
 
         public bool Executed { get; set; }
 
-        protected BankOperation(AccountNumber accountNumber, string operationTitle, decimal amount, string source)
+        protected BankOperation(AccountNumber accountNumber, OperationRecord record)
         {
-            OperationRecord = new OperationRecord
-            {
-                Title = operationTitle,
-                Amount = amount,
-                Source = source,
-            };
+            OperationRecord = record;
             AccountNumber = accountNumber;
         }
 

@@ -69,7 +69,7 @@ namespace BankingSoapServiceTest.Database
             var operationRecord = new OperationRecord
             {
                 BalanceAfterOperation = ExpectedBalanceValue,
-                Amount = ExpectedAmount,
+                Debet = ExpectedAmount,
                 Source = ValidInnerAccountNumber,
                 Title = NewOperationTitle
             };
@@ -78,7 +78,8 @@ namespace BankingSoapServiceTest.Database
             var savedRecord = GetSavedOperation(operationRecord);
             Assert.IsNotNull(savedRecord);
             Assert.AreEqual(ExpectedBalanceValue, savedRecord.BalanceAfterOperation);
-            Assert.AreEqual(ExpectedAmount, savedRecord.Amount);
+            Assert.AreEqual(ExpectedAmount, savedRecord.Debet);
+            Assert.AreEqual(0, savedRecord.Credit);
             Assert.AreEqual(ValidInnerAccountNumber, savedRecord.Source);
             Assert.AreEqual(NewOperationTitle, savedRecord.Title);
         }

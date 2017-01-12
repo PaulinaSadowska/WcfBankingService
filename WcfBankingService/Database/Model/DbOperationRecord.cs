@@ -12,7 +12,10 @@ namespace WcfBankingService.Database.Model
 
         [Column(Name = "title"), NotNull] public string Title;
 
-        [Column(Name = "amount"), NotNull] public decimal Amount;
+        [Column(Name = "dt"), NotNull] public decimal Debet;
+
+        [Column(Name = "ct"), NotNull]
+        public decimal Credit;
 
         [Column(Name = "balanceAfterOperation")] public decimal BalanceAfterOperation;
 
@@ -24,7 +27,8 @@ namespace WcfBankingService.Database.Model
         public DbOperationRecord(int accountId, OperationRecord operationRecord)
         {
             AccountId = accountId;
-            Amount = operationRecord.Amount;
+            Debet = operationRecord.Debet;
+            Credit = operationRecord.Credit;
             BalanceAfterOperation = operationRecord.BalanceAfterOperation;
             Source = operationRecord.Source;
             Title = operationRecord.Title;

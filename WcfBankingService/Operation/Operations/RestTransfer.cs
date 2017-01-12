@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using RestSharp;
 using WcfBankingService.Accounts.Number;
+using WcfBankingService.operation;
 using WcfBankingService.OutsideWorld;
 using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;
 
@@ -14,7 +15,12 @@ namespace WcfBankingService.Operation.Operations
 
         public RestTransfer(AccountNumber sender, decimal amount, 
             string operationTitle, AccountNumber receiver) 
-            : base(receiver, operationTitle, amount, $"RestTransfer to {receiver}")
+            : base(receiver, new OperationRecord
+            {
+                Title = operationTitle,
+                Debet = amount,
+                Source = receiver.ToString()
+            })
         {
             _restAdapter = new RestAdapter(receiver, sender);
             _amount = amount;

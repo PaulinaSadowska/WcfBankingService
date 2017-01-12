@@ -15,7 +15,12 @@ namespace WcfBankingService.operation.operations
         }
 
         public Withdraw(IAccount targetAccount, decimal amount, string operationTitle, string source)
-            : base(targetAccount.AccountNumber, operationTitle, amount, source)
+            : base(targetAccount.AccountNumber, new OperationRecord
+            {
+                Title = operationTitle,
+                Debet = amount,
+                Source = source
+            })
         {
             _targetAccount = targetAccount;
             _amount = amount;

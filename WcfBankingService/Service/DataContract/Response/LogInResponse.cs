@@ -13,6 +13,7 @@ namespace WcfBankingService.Service.DataContract.Response
 
         public LogInResponse(string accessToken)
         {
+
             if (accessToken != null)
             {
                 ResponseStatus = ResponseStatus.Success;

@@ -12,7 +12,10 @@ namespace WcfBankingService.operation
         public string Title { get; set; }
 
         [DataMember]
-        public decimal Amount { get; set; }
+        public decimal Debet { get; set; }
+
+        [DataMember]
+        public decimal Credit { get; set; }
 
         [DataMember]
         public decimal BalanceAfterOperation { get; set; }
