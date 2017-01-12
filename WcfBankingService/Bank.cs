@@ -73,14 +73,29 @@ namespace WcfBankingService
             }
         }
 
-        public PaymentResponse IncomingTransfer(TransferData transferData)
+        public PaymentResponse RestTransfer(TransferData transferData)
         {
             try
             {
                 var account = GetAccount(transferData.AccountNumber);
                 var amount = transferData.Amount/100m;
-                _executor.ExecuteAndSave(new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber), account);
-                return new PaymentResponse(ResponseStatus.Success);
+                try
+                {
+                    GetAccount(transferData.AccountNumber);
+                    GetAccount(transferData.SenderAccountNumber);
+                    return new PaymentResponse(ResponseStatus.AccessDenied);
+                }
+                catch (BankException exception)
+                {
+                    if (exception.ResponseStatus != ResponseStatus.AccountNumberDoesntExist &&
+                        exception.ResponseStatus != ResponseStatus.OtherBankAccount)
+                        return new PaymentResponse(exception.ResponseStatus);
+
+                    _executor.ExecuteAndSave(
+                        new IncomingTransfer(account, amount, transferData.Title, transferData.SenderAccountNumber),
+                        account);
+                    return new PaymentResponse(ResponseStatus.Success);
+                }
             }
             catch (BankException exception)
             {
@@ -95,8 +110,8 @@ namespace WcfBankingService
             IPublicAccount receiver;
             try
             {
-                 sender = GetAccount(accessToken, transferData.SenderAccountNumber);
-                 receiverAccountNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
+                sender = GetAccount(accessToken, transferData.SenderAccountNumber);
+                receiverAccountNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
             }
             catch (BankException exception)
             {
@@ -134,7 +149,6 @@ namespace WcfBankingService
             {
                 return new PaymentResponse(e.ResponseStatus);
             }
-
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
@@ -149,7 +163,6 @@ namespace WcfBankingService
                 return new OperationHistoryResponse(exception.ResponseStatus);
             }
         }
-
 
 
         private IAccount GetAccount(string accessToken, string accountNumberStr)
@@ -177,7 +190,7 @@ namespace WcfBankingService
             var accountNumber = _accountNumberFactory.GetAccountNumber(accountNumberStr);
             if (accountNumber == null)
                 throw new BankException(ResponseStatus.WrongAccountNumber);
-            if(accountNumber.BankId != BankId)
+            if (accountNumber.BankId != BankId)
                 throw new BankException(ResponseStatus.OtherBankAccount);
 
             var account = _userManager.GetAccount(accountNumber);

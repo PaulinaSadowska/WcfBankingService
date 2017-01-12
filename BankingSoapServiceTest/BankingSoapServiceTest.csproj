@@ -63,7 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="RestTransfertest.cs" />
+    <Compile Include="RestTransferTest.cs" />
     <Compile Include="SoapDepositTest.cs" />
     <Compile Include="SoapSignInTest.cs" />
     <Compile Include="SoapTransferTest.cs" />

@@ -37,7 +37,7 @@ namespace WcfBankingService.Service.Rest
                 SetResponseCode(HttpStatusCode.BadRequest);
                 return new TransferResponse(exception.Message);
             }
-            var response = _bank.IncomingTransfer(transferData);
+            var response = _bank.RestTransfer(transferData);
             SetResponseCode(HttpStatusCode.Created);
             return response.ResponseStatus == ResponseStatus.Success ? new TransferResponse() : new TransferResponse(response.ResponseStatus.ToString());
         }

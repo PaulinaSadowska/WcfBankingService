@@ -28,13 +28,27 @@ namespace BankingSoapServiceTest
 
 
         [TestMethod]
-        public void Transfer_BothAccountsFromThisBank_ReturnsSuccess()
+        public void Transfer_BothAccountsFromThisBank_ReturnsAccessDenied()
         {
             var transferData = new TransferData()
             {
                 AccountNumber = ValidReceiverAccountNumber,
                 Amount = 2000,
                 SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum"
+            };
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.AccessDenied.ToString(), response.Error);
+        }
+
+        [TestMethod]
+        public void Transfer_SenderFromOtherBankBank_ReceiverFromThisBank_ReturnsErrorNull()
+        {
+            var transferData = new TransferData()
+            {
+                AccountNumber = ValidReceiverAccountNumber,
+                Amount = 2000,
+                SenderAccountNumber = ListedBankAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -56,7 +70,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Transfer_BothAccountsFromThisBank_nonExistingSender_ReturnsAccountNumberDoesntExist()
+        public void Transfer_ReceiverFromThisBank_nonExistingSender_ReturnsErrorNull()
         {
             var transferData = new TransferData()
             {
@@ -66,7 +80,7 @@ namespace BankingSoapServiceTest
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
-            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist.ToString(), response.Error);
+            Assert.AreEqual(null, response.Error);
         }
 
         [TestMethod]
@@ -84,7 +98,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Transfer_InvalidSenderNumber_ReturnsWrongAccountNumber()
+        public void Transfer_InvalidSenderNumber_ReturnsAccessDenied()
         {
             var transferData = new TransferData()
             {
@@ -98,20 +112,6 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Transfer_ValidAccounts_SenderHasNotEnoughMoney_ReturnsInsufficientFunds()
-        {
-            var transferData = new TransferData()
-            {
-                AccountNumber = ValidReceiverAccountNumber,
-                Amount = 2000000000,
-                SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
-            };
-            var response = _service.Transfer(transferData);
-            Assert.AreEqual(ResponseStatus.InsufficientFunds.ToString(), response.Error);
-        }
-
-        [TestMethod]
         public void Transfer_NotListedBanksReceiverNumber_ReturnsBankNotExists()
         {
             var transferData = new TransferData()
@@ -122,7 +122,7 @@ namespace BankingSoapServiceTest
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
-            Assert.AreEqual(ResponseStatus.BankNotExists.ToString(), response.Error);
+            Assert.AreEqual(ResponseStatus.OtherBankAccount.ToString(), response.Error);
         }
     }
 }
