@@ -7,14 +7,14 @@ using WcfBankingService.Service.Soap;
 namespace BankingSoapServiceTest
 {
     [TestClass]
-    public class BankingServiceSignIn
+    public class SoapSignInTest
     {
         private const string CorrectLogin = "Login";
         private const string CorrectPassword = "Pass";
 
         private readonly IBankingService _service;
 
-        public BankingServiceSignIn()
+        public SoapSignInTest()
         {
             
             _service = new BankingService(new MockDataInserter());

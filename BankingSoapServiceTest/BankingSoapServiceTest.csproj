@@ -63,10 +63,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BankingServiceDepositTest.cs" />
-    <Compile Include="BankingServiceSignIn.cs" />
-    <Compile Include="BankingServiceTransferTest.cs" />
-    <Compile Include="BankingServiceWithdrawTest.cs" />
+    <Compile Include="RestTransfertest.cs" />
+    <Compile Include="SoapDepositTest.cs" />
+    <Compile Include="SoapSignInTest.cs" />
+    <Compile Include="SoapTransferTest.cs" />
+    <Compile Include="SoapWithdrawTest.cs" />
     <Compile Include="Database\DataSaverTest.cs" />
     <Compile Include="Database\IndexesFinderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

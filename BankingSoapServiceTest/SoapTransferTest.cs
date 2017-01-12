@@ -8,7 +8,7 @@ namespace BankingSoapServiceTest
 
 {
     [TestClass]
-    public class BankingServiceTransferTest
+    public class SoapTransferTest
     {
         private const string ValidSenderAccountNumber = "39112169001234567890987654";
         private const string ValidReceiverAccountNumber = "86112169001234567898765432";
@@ -22,7 +22,7 @@ namespace BankingSoapServiceTest
         private const string ValidAccessToken = "QJAMYUPWOBXS";
         private readonly IBankingService _service;
 
-        public BankingServiceTransferTest()
+        public SoapTransferTest()
         {
             _service = new BankingService(new MockDataInserter());
         }

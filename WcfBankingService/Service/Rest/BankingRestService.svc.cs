@@ -15,10 +15,16 @@ namespace WcfBankingService.Service.Rest
 
 
         public BankingRestService()
+            :this(new DbDataInserter())
+        {
+        }
+
+        public BankingRestService(IBankDataInserter dataInserter)
         {
             _inputValidator = new ServiceInputValidator();
-            _bank = new Bank(new DbDataInserter());
+            _bank = new Bank(dataInserter);
         }
+
 
         public TransferResponse Transfer(TransferData transferData)
         {

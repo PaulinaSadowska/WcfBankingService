@@ -12,9 +12,8 @@ namespace WcfBankingService.Service.Soap
 
 
         public BankingService()
+            : this(new DbDataInserter())
         {
-            _inputValidator = new ServiceInputValidator();
-            _bank = new Bank(new DbDataInserter());
         }
 
         public BankingService(IBankDataInserter dataInserter)

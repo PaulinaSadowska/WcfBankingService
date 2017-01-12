@@ -7,13 +7,13 @@ using WcfBankingService.Service.Soap;
 namespace BankingSoapServiceTest
 {
     [TestClass]
-    public class BankingServiceWithdrawTest
+    public class SoapWithdrawTest
     {
         private const string ValidAccountNumber = "39112169001234567890987654";
         private readonly string _accessToken;
         private readonly IBankingService _service;
 
-        public BankingServiceWithdrawTest()
+        public SoapWithdrawTest()
         {
             _service = new BankingService(new MockDataInserter());
             _accessToken = "876123456433";

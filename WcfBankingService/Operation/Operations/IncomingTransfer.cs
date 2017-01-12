@@ -8,7 +8,7 @@ namespace WcfBankingService.operation.operations
     {
 
         public IncomingTransfer(IPublicAccount account, decimal amount, string title, string senderAccountNumber)
-            : base(account, amount, title, $"Incoming transfer from: {senderAccountNumber}")
+            : base(account, amount, title, $"{senderAccountNumber}")
         {
         }
     }

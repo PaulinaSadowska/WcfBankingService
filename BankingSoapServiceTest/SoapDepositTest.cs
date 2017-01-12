@@ -8,7 +8,7 @@ using WcfBankingService.Service.Soap;
 namespace BankingSoapServiceTest
 {
     [TestClass]
-    public class BankingServiceDepositTest
+    public class SoapDepositTest
     {
         private const string ValidAccountNumber = "39112169001234567890987654";
         private const string NotExistingAccountNumber = "04112169001234567891234567";
@@ -16,7 +16,7 @@ namespace BankingSoapServiceTest
         private const string OtherBankAccountNumber = "04112168661234567891234567";
         private readonly IBankingService _service;
 
-        public BankingServiceDepositTest()
+        public SoapDepositTest()
         {
             _service = new BankingService(new MockDataInserter());
         }
