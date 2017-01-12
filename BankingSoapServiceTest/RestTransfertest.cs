@@ -32,12 +32,13 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = NotExistingAccountNumber,
+                AccountNumber = ValidReceiverAccountNumber,
                 Amount = 2000,
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(null, response.Error);
         }
 
         [TestMethod]
@@ -50,7 +51,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist.ToString(), response.Error);
         }
 
         [TestMethod]
@@ -63,7 +65,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = NotExistingAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist.ToString(), response.Error);
         }
 
         [TestMethod]
@@ -76,7 +79,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber.ToString(), response.Error);
         }
 
         [TestMethod]
@@ -89,7 +93,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = InvalidAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.WrongAccountNumber.ToString(), response.Error);
         }
 
         [TestMethod]
@@ -102,7 +107,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.InsufficientFunds.ToString(), response.Error);
         }
 
         [TestMethod]
@@ -115,7 +121,8 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            Assert.Fail();
+            var response = _service.Transfer(transferData);
+            Assert.AreEqual(ResponseStatus.BankNotExists.ToString(), response.Error);
         }
     }
 }
