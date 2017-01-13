@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.ServiceModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.DataContract.Response;
@@ -35,7 +36,8 @@ namespace BankingSoapServiceTest
 
 
         [TestMethod]
-        public void Withdraw_AmountGreaterThanBalance_ReturnsInsufficientFunds()
+        [ExpectedException(typeof(FaultException), "Insufficient funds on the account to perform the operation")]
+        public void Withdraw_AmountGreaterThanBalance_ThrowsFaultException_InsufficientFunds()
         {
             var paymentData = new WithdrawData()
             {
@@ -44,8 +46,7 @@ namespace BankingSoapServiceTest
                 Amount = 20000000000000000,
                 OperationTitle = "WOW withdraw"
             };
-            var response = _service.Withdraw(paymentData);
-            Assert.AreEqual(ResponseStatus.InsufficientFunds, response.ResponseStatus);
+            _service.Withdraw(paymentData);
         }
     }
 }

@@ -37,7 +37,8 @@ namespace BankingSoapServiceTest
 
 
         [TestMethod]
-        public void Deposit_InvalidAccountNumber_ReturnsWrongAccountNumberFormat()
+        [ExpectedException(typeof(FaultException), "Wrong account number format")]
+        public void Deposit_InvalidAccountNumber_ThrowsFaultException_WrongAccountNumberFormat()
         {
             var paymentData = new DepositData()
             {
@@ -50,7 +51,8 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Deposit_AccountNumberDoesNotExists_ReturnsAccountNumberDoesntExist()
+        [ExpectedException(typeof(FaultException), "Account number does not exist")]
+        public void Deposit_AccountNumberDoesNotExists_ThrowsFaultException_AccountNumberDoesntExist()
         {
             var paymentData = new DepositData()
             {
@@ -63,7 +65,8 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Deposit_AccountNumberFromOtherBank_ReturnWrongAccountNumberFormat()
+        [ExpectedException(typeof(FaultException), "Wrong account number format")]
+        public void Deposit_AccountNumberFromOtherBank_ThrowsFaultException_WrongAccountNumberFormat()
         {
             var paymentData = new DepositData()
             {
@@ -71,8 +74,7 @@ namespace BankingSoapServiceTest
                 Amount = 200,
                 OperationTitle = "WOW deposit"
             };
-            var response = _service.Deposit(paymentData);
-            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
+            _service.Deposit(paymentData);
         }
 
         [TestMethod]

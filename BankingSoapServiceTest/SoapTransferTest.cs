@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.ServiceModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Database.SavingData;
 using WcfBankingService.Service.DataContract.Request;
 using WcfBankingService.Service.DataContract.Response;
@@ -43,7 +44,8 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Transfer_BothAccountsFromThisBank_nonExistingReceiver_ReturnsAccountNumberDoesntExist()
+        [ExpectedException(typeof(FaultException), "Account number does not exist")]
+        public void Transfer_BothAccountsFromThisBank_nonExistingReceiver_ThrowsFaultException_AccountNumberDoesntExist()
         {
             var transferData = new TransferData()
             {
@@ -52,12 +54,12 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
+            _service.Transfer(transferData, ValidAccessToken);
         }
 
         [TestMethod]
-        public void Transfer_BothAccountsFromThisBank_nonExistingSender_ReturnsAccountNumberDoesntExist()
+        [ExpectedException(typeof(FaultException), "Account number does not exist")]
+        public void Transfer_BothAccountsFromThisBank_nonExistingSender_ThrowsFaultException_AccountNumberDoesntExist()
         {
             var transferData = new TransferData()
             {
@@ -66,12 +68,12 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = NotExistingAccountNumber,
                 Title = "lorem ipsum"
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.AccountNumberDoesntExist, response.ResponseStatus);
+            _service.Transfer(transferData, ValidAccessToken);
         }
 
         [TestMethod]
-        public void Transfer_InvalidReceiverNumber_ReturnsWrongAccountNumber()
+        [ExpectedException(typeof(FaultException), "Wrong account number format")]
+        public void Transfer_InvalidReceiverNumber_ThrowsFaultException_WrongAccountNumber()
         {
             var transferData = new TransferData()
             {
@@ -80,12 +82,12 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
+            _service.Transfer(transferData, ValidAccessToken);
         }
 
         [TestMethod]
-        public void Transfer_InvalidSenderNumber_ReturnsWrongAccountNumber()
+        [ExpectedException(typeof(FaultException), "Wrong account number format")]
+        public void Transfer_InvalidSenderNumber_ThrowsFaultException_WrongAccountNumber()
         {
             var transferData = new TransferData()
             {
@@ -94,12 +96,12 @@ namespace BankingSoapServiceTest
                 SenderAccountNumber = InvalidAccountNumber,
                 Title = "lorem ipsum"
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.WrongAccountNumber, response.ResponseStatus);
+            _service.Transfer(transferData, ValidAccessToken);
         }
 
         [TestMethod]
-        public void Transfer_ValidAccounts_SenderHasNotEnoughMoney_ReturnsInsufficientFunds()
+        [ExpectedException(typeof(FaultException), "Insufficient funds on the account to perform the operation")]
+        public void Transfer_ValidAccounts_SenderHasNotEnoughMoney_ThrowsFaultException_InsufficientFunds()
         {
             var transferData = new TransferData()
             {
@@ -113,7 +115,8 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        public void Transfer_NotListedBanksReceiverNumber_ReturnsBankNotExists()
+        [ExpectedException(typeof(FaultException), "The bank you want to transfer the money to does not exist")]
+        public void Transfer_NotListedBanksReceiverNumber_ThrowsFaultException_BankNotExists()
         {
             var transferData = new TransferData()
             {

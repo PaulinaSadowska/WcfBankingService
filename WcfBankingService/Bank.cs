@@ -1,4 +1,5 @@
 ﻿using System.Security.Authentication;
+using System.ServiceModel;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Accounts.Number.ControlSum;
@@ -41,7 +42,7 @@ namespace WcfBankingService
             }
             catch (BankException exception)
             {
-                return new LogInResponse(exception.ResponseStatus);
+                throw new FaultException(exception.ResponseStatus.Message());
             }
         }
 
@@ -55,7 +56,7 @@ namespace WcfBankingService
             }
             catch (BankException exception)
             {
-                return new PaymentResponse(exception.ResponseStatus);
+                throw new FaultException(exception.ResponseStatus.Message());
             }
         }
 
@@ -69,7 +70,7 @@ namespace WcfBankingService
             }
             catch (BankException exception)
             {
-                return new PaymentResponse(exception.ResponseStatus);
+                throw new FaultException(exception.ResponseStatus.Message());
             }
         }
 
@@ -116,7 +117,7 @@ namespace WcfBankingService
             catch (BankException exception)
             {
                 //not my account, access denied, or wrong receiver account number
-                return new PaymentResponse(exception.ResponseStatus);
+                throw new FaultException(exception.ResponseStatus.Message());
             }
             try
             {
@@ -125,18 +126,18 @@ namespace WcfBankingService
             catch (BankException exception)
             {
                 if (exception.ResponseStatus != ResponseStatus.OtherBankAccount)
-                    return new PaymentResponse(exception.ResponseStatus);
+                    throw new FaultException(exception.ResponseStatus.Message());
 
                 var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount,
                     transferData.Title);
                 _executor.ExecuteAndSave(interTransfer, sender);
-                return new PaymentResponse(interTransfer.ResponseStatus);
+                return PrepareResponse(interTransfer.ResponseStatus);
             }
             //sender and receiver from my bank
 
             var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
             _executor.ExecuteAndSave(innerTransfer, sender, receiver);
-            return new PaymentResponse(innerTransfer.ResponseStatus);
+            return PrepareResponse(innerTransfer.ResponseStatus);
         }
 
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
@@ -187,6 +188,13 @@ namespace WcfBankingService
                 throw new BankException(ResponseStatus.AccountNumberDoesntExist);
             }
             return account;
+        }
+
+        private static PaymentResponse PrepareResponse(ResponseStatus responseStatus)
+        {
+            if (responseStatus == ResponseStatus.Success)
+                return new PaymentResponse(ResponseStatus.Success);
+            throw new FaultException(responseStatus.Message());
         }
     }
 }

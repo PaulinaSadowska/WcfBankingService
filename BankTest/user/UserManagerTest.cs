@@ -6,6 +6,7 @@ using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Balance;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.DataProvider;
+using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.Users;
 
 namespace BankTest.User
@@ -37,7 +38,9 @@ namespace BankTest.User
             };
             _userManager = new UserManager(new MockDataProvider(userList));
 
-
+            Assert.AreEqual("Incorrect Login or Password", ResponseStatus.IncorrectLoginOrPassword.Message());
+            var response = ResponseStatus.IncorrectLoginOrPassword;
+            Assert.AreEqual("Incorrect Login or Password", response.Message());
         }
 
 
