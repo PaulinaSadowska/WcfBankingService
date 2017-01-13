@@ -149,7 +149,7 @@ namespace WcfBankingService
             }
             catch (BankException exception)
             {
-                return new OperationHistoryResponse(exception.ResponseStatus);
+                throw new FaultException(exception.ResponseStatus.Message());
             }
         }
 

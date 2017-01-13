@@ -192,7 +192,6 @@
     <Compile Include="Service\DataContract\Response\EnumExtensions.cs" />
     <Compile Include="Service\DataContract\Response\LogInResponse.cs" />
     <Compile Include="Service\DataContract\Response\PaymentResponse.cs" />
-    <Compile Include="Service\DataContract\Response\IResponse.cs" />
     <Compile Include="Service\Soap\IBankingService.cs" />
     <Compile Include="Operation\OperationRecord.cs" />
     <Compile Include="Service\DataContract\Response\ResponseStatus.cs" />

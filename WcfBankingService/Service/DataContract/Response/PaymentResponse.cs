@@ -3,7 +3,7 @@
 namespace WcfBankingService.Service.DataContract.Response
 {
     [DataContract]
-    public class PaymentResponse : IResponse
+    public class PaymentResponse
     {
         [DataMember]
         public ResponseStatus ResponseStatus { get; set; }

@@ -24,7 +24,6 @@ namespace BankingSoapServiceTest
         public void signIn_CorrectLoginAndPassword_ReturnsSuccess()
         {
             var response = _service.SignIn(CorrectLogin, CorrectPassword);
-            Assert.AreEqual(response.ResponseStatus, ResponseStatus.Success);
             Assert.IsNotNull(response.AccessToken);
         }
 
@@ -33,7 +32,6 @@ namespace BankingSoapServiceTest
         public void signIn_WrongLogin_ReturnsError()
         {
             var response = _service.SignIn("bad login", CorrectPassword);
-            Assert.AreEqual(response.ResponseStatus, ResponseStatus.IncorrectLoginOrPassword);
             Assert.IsNull(response.AccessToken);
         }
 
@@ -42,7 +40,6 @@ namespace BankingSoapServiceTest
         public void signIn_WrongPassword_ReturnsError()
         {
             var response = _service.SignIn(CorrectLogin, "bad password");
-            Assert.AreEqual(response.ResponseStatus, ResponseStatus.IncorrectLoginOrPassword);
             Assert.IsNull(response.AccessToken);
         }
 
