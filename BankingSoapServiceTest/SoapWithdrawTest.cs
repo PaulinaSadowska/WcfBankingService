@@ -27,7 +27,7 @@ namespace BankingSoapServiceTest
             {
                 AccountNumber = ValidAccountNumber,
                 AccessToken = _accessToken,
-                Amount = 2,
+                Amount = "2",
                 OperationTitle = "WOW withdraw"
             };
             var response = _service.Withdraw(paymentData);
@@ -43,7 +43,7 @@ namespace BankingSoapServiceTest
             {
                 AccountNumber = ValidAccountNumber,
                 AccessToken = _accessToken,
-                Amount = 20000000000000000,
+                Amount = "20000000000000000",
                 OperationTitle = "WOW withdraw"
             };
             _service.Withdraw(paymentData);

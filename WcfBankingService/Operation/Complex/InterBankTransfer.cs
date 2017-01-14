@@ -18,9 +18,8 @@ namespace WcfBankingService.Operation.Complex
         private readonly string _operationTitle;
 
         public InterBankTransfer(IAccount sender, AccountNumber receiverAccountNumber,
-            int amountInCents, string operationTitle)
+            decimal amount, string operationTitle)
         {
-            var amount = amountInCents / 100m;
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiverAccountNumber.ToString()),
@@ -31,6 +30,12 @@ namespace WcfBankingService.Operation.Complex
             _operationTitle = operationTitle;
             _amount = amount;
             ResponseStatus = ResponseStatus.Success;
+        }
+
+        public InterBankTransfer(IAccount sender, AccountNumber receiverAccountNumber,
+            int amountInCents, string operationTitle)
+            : this(sender, receiverAccountNumber, amountInCents/100m, operationTitle)
+        {
         }
 
         protected override void Rollback()

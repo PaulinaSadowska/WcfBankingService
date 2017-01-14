@@ -17,5 +17,7 @@ namespace WcfBankingService.Service.Validation
         void Validate(DepositData paymentData);
 
         void Validate(TransferData transferData);
+
+        void Validate(SoapTransferData transferData);
     }
 }

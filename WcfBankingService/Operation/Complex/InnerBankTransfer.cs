@@ -10,17 +10,21 @@ namespace WcfBankingService.operation.Complex
     {
         private readonly List<BankOperation> _operations;
 
-
-        public InnerBankTransfer(IAccount sender , IPublicAccount receiver , 
-            int amountInCents, string operationTitle)
+        public InnerBankTransfer(IAccount sender, IPublicAccount receiver,
+            decimal amount, string operationTitle)
         {
-            var amount = amountInCents / 100m;
             ResponseStatus = ResponseStatus.Success;
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiver.AccountNumber.ToString()),
                 new IncomingTransfer(receiver, amount, operationTitle, sender.AccountNumber.ToString())
             };
+        }
+
+        public InnerBankTransfer(IAccount sender, IPublicAccount receiver,
+            int amountInCents, string operationTitle)
+            : this(sender, receiver, amountInCents/100m, operationTitle)
+        {
         }
 
 

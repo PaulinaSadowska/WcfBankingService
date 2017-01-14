@@ -1,4 +1,5 @@
-﻿using System.Security.Authentication;
+﻿using System;
+using System.Security.Authentication;
 using System.ServiceModel;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
@@ -51,7 +52,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccountNumber);
-                _executor.ExecuteAndSave(new Deposit(account, paymentData.Amount, paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Deposit(account, decimal.Parse(paymentData.Amount), paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -65,7 +66,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                _executor.ExecuteAndSave(new Withdraw(account, paymentData.Amount, paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Withdraw(account, decimal.Parse(paymentData.Amount), paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -104,15 +105,16 @@ namespace WcfBankingService
             }
         }
 
-        public PaymentResponse SoapTransfer(TransferData transferData, string accessToken) //transfer from soap
+        public PaymentResponse SoapTransfer(SoapTransferData transferData) //transfer from soap
         {
+            var amount = decimal.Parse(transferData.Amount);
             AccountNumber receiverAccountNumber;
             IAccount sender;
             IPublicAccount receiver;
             try
             {
-                sender = GetAccount(accessToken, transferData.SenderAccountNumber);
-                receiverAccountNumber = _accountNumberFactory.GetAccountNumber(transferData.AccountNumber);
+                sender = GetAccount(transferData.AccessToken, transferData.SenderAccountNumber);
+                receiverAccountNumber = _accountNumberFactory.GetAccountNumber(transferData.ReceiverAccountNumber);
             }
             catch (BankException exception)
             {
@@ -121,21 +123,20 @@ namespace WcfBankingService
             }
             try
             {
-                receiver = GetAccount(transferData.AccountNumber);
             }
             catch (BankException exception)
             {
                 if (exception.ResponseStatus != ResponseStatus.OtherBankAccount)
                     throw new FaultException(exception.ResponseStatus.Message());
 
-                var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, transferData.Amount,
+                var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, amount,
                     transferData.Title);
                 _executor.ExecuteAndSave(interTransfer, sender);
                 return PrepareResponse(interTransfer.ResponseStatus);
             }
             //sender and receiver from my bank
 
-            var innerTransfer = new InnerBankTransfer(sender, receiver, transferData.Amount, transferData.Title);
+            var innerTransfer = new InnerBankTransfer(sender, receiver, amount, transferData.Title);
             _executor.ExecuteAndSave(innerTransfer, sender, receiver);
             return PrepareResponse(innerTransfer.ResponseStatus);
         }

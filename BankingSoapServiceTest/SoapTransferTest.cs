@@ -32,14 +32,15 @@ namespace BankingSoapServiceTest
         [TestMethod]
         public void Transfer_BothAccountsFromThisBank_ReturnsSuccess()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
+            var response = _service.Transfer(transferData);
             Assert.AreEqual(ResponseStatus.Success, response.ResponseStatus);
         }
 
@@ -47,86 +48,105 @@ namespace BankingSoapServiceTest
         [ExpectedException(typeof(FaultException), "Account number does not exist")]
         public void Transfer_BothAccountsFromThisBank_nonExistingReceiver_ThrowsFaultException_AccountNumberDoesntExist()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = NotExistingAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = NotExistingAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            _service.Transfer(transferData, ValidAccessToken);
+            _service.Transfer(transferData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException), "Account number does not exist")]
         public void Transfer_BothAccountsFromThisBank_nonExistingSender_ThrowsFaultException_AccountNumberDoesntExist()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = NotExistingAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            _service.Transfer(transferData, ValidAccessToken);
+            _service.Transfer(transferData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException), "Wrong account number format")]
         public void Transfer_InvalidReceiverNumber_ThrowsFaultException_WrongAccountNumber()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = InvalidAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = InvalidAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            _service.Transfer(transferData, ValidAccessToken);
+            _service.Transfer(transferData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException), "Wrong account number format")]
         public void Transfer_InvalidSenderNumber_ThrowsFaultException_WrongAccountNumber()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = InvalidAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            _service.Transfer(transferData, ValidAccessToken);
+            _service.Transfer(transferData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException), "Insufficient funds on the account to perform the operation")]
         public void Transfer_ValidAccounts_SenderHasNotEnoughMoney_ThrowsFaultException_InsufficientFunds()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
-                Amount = 2000000000,
+                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                Amount = "2000000000",
                 SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.InsufficientFunds, response.ResponseStatus);
+            _service.Transfer(transferData);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException), "The bank you want to transfer the money to does not exist")]
         public void Transfer_NotListedBanksReceiverNumber_ThrowsFaultException_BankNotExists()
         {
-            var transferData = new TransferData()
+            var transferData = new SoapTransferData()
             {
-                AccountNumber = NotListedBankAccountNumber,
-                Amount = 2000,
+                ReceiverAccountNumber = NotListedBankAccountNumber,
+                Amount = "20",
                 SenderAccountNumber = ValidSenderAccountNumber,
-                Title = "lorem ipsum"
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
             };
-            var response = _service.Transfer(transferData, ValidAccessToken);
-            Assert.AreEqual(ResponseStatus.BankNotExists, response.ResponseStatus);
+            _service.Transfer(transferData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void Transfer_WrongAmountFormat_ThrowsFaultException()
+        {
+            var transferData = new SoapTransferData()
+            {
+                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                Amount = "20a2",
+                SenderAccountNumber = ValidSenderAccountNumber,
+                Title = "lorem ipsum",
+                AccessToken = ValidAccessToken
+            };
+            _service.Transfer(transferData);
         }
     }
 }

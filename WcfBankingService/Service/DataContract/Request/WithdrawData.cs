@@ -12,7 +12,7 @@ namespace WcfBankingService.Service.DataContract.Request
         public string AccessToken { get; set; }
 
         [DataMember]
-         public decimal Amount { get; set; }
+         public string Amount { get; set; }
 
         [DataMember]
         public string OperationTitle { get; set; }

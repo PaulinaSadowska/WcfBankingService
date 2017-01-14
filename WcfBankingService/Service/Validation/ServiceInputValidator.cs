@@ -40,10 +40,7 @@ namespace WcfBankingService.Service.Validation
             ValidateAccountNumber(paymentData.AccountNumber);
             ValidateAccessToken(paymentData.AccessToken);
             CheckNotNull(paymentData.OperationTitle, "operation title");
-            if (paymentData.Amount<0)
-            {
-                throw new FaultException("Amount must be greater or equal to 0");
-            }
+            ValidateAmount(paymentData.Amount);
         }
 
         public void Validate(DepositData paymentData)
@@ -51,10 +48,7 @@ namespace WcfBankingService.Service.Validation
             CheckNotNull(paymentData, "paymentData");
             ValidateAccountNumber(paymentData.AccountNumber);
             CheckNotNull(paymentData.OperationTitle, "operation title");
-            if (paymentData.Amount < 0)
-            {
-                throw new FaultException("Amount must be greater or equal to 0");
-            }
+            ValidateAmount(paymentData.Amount);
         }
 
         public void Validate(TransferData transferData)
@@ -68,6 +62,16 @@ namespace WcfBankingService.Service.Validation
             {
                 throw new FaultException("Amount must be greater or equal to 0");
             }
+        }
+
+        public void Validate(SoapTransferData transferData)
+        {
+            CheckNotNull(transferData, "transferData");
+            ValidateAccountNumber(transferData.SenderAccountNumber);
+            ValidateAccountNumber(transferData.ReceiverAccountNumber);
+            CheckNotSame(transferData.ReceiverAccountNumber, transferData.SenderAccountNumber, "Account Numbers");
+            CheckNotNull(transferData.Title, "operation title");
+            ValidateAmount(transferData.Amount);
         }
 
         private static void CheckNotSame(string accountNumber, string senderAccountNumber, string tag)
@@ -99,6 +103,19 @@ namespace WcfBankingService.Service.Validation
             if (value.Length != lenght)
             {
                 throw new FaultException($"{tag} must contain {lenght} characters");
+            }
+        }
+
+        private static void ValidateAmount(string amount)
+        {
+            decimal amountValue;
+            if (!decimal.TryParse(amount, out amountValue))
+            {
+                throw new FaultException("Wrong amount format");
+            }
+            if (amountValue < 0)
+            {
+                throw new FaultException("Amount must be greater or equal to 0");
             }
         }
 

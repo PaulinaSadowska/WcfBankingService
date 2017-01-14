@@ -9,7 +9,7 @@ namespace WcfBankingService.Service.DataContract.Request
         public string AccountNumber { get; set; }
 
         [DataMember]
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
 
         [DataMember]
         public string OperationTitle { get; set; }

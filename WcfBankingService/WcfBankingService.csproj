@@ -179,6 +179,7 @@
     <Compile Include="OutsideWorld\RestTransferBody.cs" />
     <Compile Include="PersistantExecutor.cs" />
     <Compile Include="Service\DataContract\Request\DepositData.cs" />
+    <Compile Include="Service\DataContract\Request\SoapTransferData.cs" />
     <Compile Include="Service\Rest\AuthorizationManager.cs" />
     <Compile Include="Service\Rest\BankingRestService.svc.cs">
       <DependentUpon>BankingRestService.svc</DependentUpon>
