@@ -162,6 +162,7 @@
     <Compile Include="Database\SavingData\Helper\IndexesFinder.cs" />
     <Compile Include="Database\SavingData\MockDataInserter.cs" />
     <Compile Include="Database\SavingData\IBankDataInserter.cs" />
+    <Compile Include="DecimalParser.cs" />
     <Compile Include="Operation\Complex\ComplexCommand.cs" />
     <Compile Include="Operation\Complex\InterBankTransfer.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />

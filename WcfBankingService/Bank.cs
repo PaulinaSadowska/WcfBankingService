@@ -52,7 +52,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccountNumber);
-                _executor.ExecuteAndSave(new Deposit(account, decimal.Parse(paymentData.Amount), paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Deposit(account, DecimalParser.Parse(paymentData.Amount), paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -66,7 +66,7 @@ namespace WcfBankingService
             try
             {
                 var account = GetAccount(paymentData.AccessToken, paymentData.AccountNumber);
-                _executor.ExecuteAndSave(new Withdraw(account, decimal.Parse(paymentData.Amount), paymentData.OperationTitle), account);
+                _executor.ExecuteAndSave(new Withdraw(account, DecimalParser.Parse(paymentData.Amount), paymentData.OperationTitle), account);
                 return new PaymentResponse(ResponseStatus.Success);
             }
             catch (BankException exception)
@@ -107,7 +107,7 @@ namespace WcfBankingService
 
         public PaymentResponse SoapTransfer(SoapTransferData transferData) //transfer from soap
         {
-            var amount = decimal.Parse(transferData.Amount);
+            var amount = DecimalParser.Parse(transferData.Amount);
             AccountNumber receiverAccountNumber;
             IAccount sender;
             IPublicAccount receiver;
