@@ -123,6 +123,7 @@ namespace WcfBankingService
             }
             try
             {
+                receiver = GetAccount(transferData.ReceiverAccountNumber);
             }
             catch (BankException exception)
             {
