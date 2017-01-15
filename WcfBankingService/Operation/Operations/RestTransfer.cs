@@ -2,7 +2,7 @@
 using RestSharp;
 using WcfBankingService.Accounts.Number;
 using WcfBankingService.operation;
-using WcfBankingService.OutsideWorld;
+using WcfBankingService.RestCommunication;
 using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;
 
 namespace WcfBankingService.Operation.Operations

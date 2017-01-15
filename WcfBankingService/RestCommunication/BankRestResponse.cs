@@ -1,4 +1,4 @@
-﻿namespace WcfBankingService.OutsideWorld
+﻿namespace WcfBankingService.RestCommunication
 {
     public class BankRestResponse
     {

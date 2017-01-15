@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace WcfBankingService.OutsideWorld
+namespace WcfBankingService.RestCommunication
 {
     public interface IRestAdapter
     {

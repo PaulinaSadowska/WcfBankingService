@@ -4,7 +4,7 @@ using RestSharp.Authenticators;
 using WcfBankingService.Accounts.Number;
 using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseStatus;
 
-namespace WcfBankingService.OutsideWorld
+namespace WcfBankingService.RestCommunication
 {
     public class RestAdapter : IRestAdapter
     {

@@ -25,7 +25,7 @@ namespace WcfBankingService.Service.Rest
                 {
                     return true;
                 }
-                WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Forbidden;
+                PromptBasicAuth();
                 return false;
             }
             PromptBasicAuth();
@@ -46,7 +46,6 @@ namespace WcfBankingService.Service.Rest
             WebOperationContext.Current.OutgoingResponse.Headers.Add(
                 "WWW-Authenticate: Basic realm=\"WcfRestDemo\"");
             WebOperationContext.Current.OutgoingResponse.StatusCode = HttpStatusCode.Unauthorized;
-            throw new WebFaultException(HttpStatusCode.Unauthorized);
         }
     }
 }
