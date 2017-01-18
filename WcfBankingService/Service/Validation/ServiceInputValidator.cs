@@ -113,11 +113,22 @@ namespace WcfBankingService.Service.Validation
             {
                 throw new FaultException("Wrong amount format");
             }
+            CheckAmountPrecision(amount, ',');
+            CheckAmountPrecision(amount, '.');
             if (amountValue < 0)
             {
                 throw new FaultException("Amount must be greater or equal to 0");
             }
         }
 
+        private static void CheckAmountPrecision(string amount, char separator)
+        {
+            var amountParts = amount.Split(separator);
+            if (amountParts.Length <= 1) return;
+            if (amountParts[1].Length > 2)
+            {
+                throw new FaultException("Wrong amount format");
+            }
+        }
     }
 }
