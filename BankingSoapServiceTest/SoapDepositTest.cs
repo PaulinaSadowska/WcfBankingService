@@ -10,15 +10,13 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class SoapDepositTest
     {
-        private const string ValidAccountNumber = "39112169001234567890987654";
-        private const string NotExistingAccountNumber = "04112169001234567891234567";
-        private const string InvalidAccountNumber = "12112169001234567891234567";
-        private const string OtherBankAccountNumber = "04112168661234567891234567";
+        private readonly AccountsTestData _data;
         private readonly IBankingService _service;
 
         public SoapDepositTest()
         {
             _service = new BankingService(new MockDataInserter());
+            _data = new AccountsTestData();
         }
 
 
@@ -27,7 +25,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = ValidAccountNumber,
+                AccountNumber = _data.ValidSenderAccountNumber,
                 Amount = "200",
                 OperationTitle = "WOW deposit"
             };
@@ -42,7 +40,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = InvalidAccountNumber,
+                AccountNumber = _data.InvalidAccountNumber,
                 Amount = "200",
                 OperationTitle = "WOW deposit"
             };
@@ -55,7 +53,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = NotExistingAccountNumber,
+                AccountNumber = _data.NotExistingAccountNumber,
                 Amount = "200",
                 OperationTitle = "WOW deposit"
             };
@@ -68,7 +66,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = ValidAccountNumber,
+                AccountNumber = _data.ValidSenderAccountNumber,
                 Amount = "20x0",
                 OperationTitle = "WOW deposit"
             };
@@ -81,7 +79,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = OtherBankAccountNumber,
+                AccountNumber = _data.ListedBankAccountNumber,
                 Amount = "200",
                 OperationTitle = "WOW deposit"
             };
@@ -101,7 +99,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = ValidAccountNumber,
+                AccountNumber = _data.ValidSenderAccountNumber,
                 Amount = "-200",
                 OperationTitle = "WOW deposit"
             };
@@ -127,7 +125,7 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new DepositData()
             {
-                AccountNumber = ValidAccountNumber,
+                AccountNumber = _data.ValidSenderAccountNumber,
                 Amount = "-200",
             };
             _service.Deposit(paymentData);

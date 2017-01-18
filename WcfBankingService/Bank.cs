@@ -18,7 +18,7 @@ namespace WcfBankingService
 {
     public class Bank
     {
-        private const string BankId = "11216900";
+        private const string BankId = "00112169";
 
         private readonly UserManager _userManager;
         private readonly AccountNumberFactory _accountNumberFactory;

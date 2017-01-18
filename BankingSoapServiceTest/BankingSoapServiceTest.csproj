@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountsTestData.cs" />
     <Compile Include="RestTransferTest.cs" />
     <Compile Include="SoapDepositTest.cs" />
     <Compile Include="SoapSignInTest.cs" />

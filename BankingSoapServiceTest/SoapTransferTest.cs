@@ -11,21 +11,13 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class SoapTransferTest
     {
-        private const string ValidSenderAccountNumber = "39112169001234567890987654";
-        private const string ValidReceiverAccountNumber = "86112169001234567898765432";
-
-        private const string NotExistingAccountNumber = "04112169001234567891234567";
-        private const string InvalidAccountNumber = "12112169001234567891234567";
-
-        private const string ListedBankAccountNumber = "66112241001122334455667788";
-        private const string NotListedBankAccountNumber = "38333241001122334455667788";
-
-        private const string ValidAccessToken = "QJAMYUPWOBXS";
+        private readonly AccountsTestData _data;
         private readonly IBankingService _service;
 
         public SoapTransferTest()
         {
             _service = new BankingService(new MockDataInserter());
+            _data = new AccountsTestData();;
         }
 
 
@@ -34,11 +26,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                ReceiverAccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             var response = _service.Transfer(transferData);
             Assert.AreEqual(ResponseStatus.Success, response.ResponseStatus);
@@ -50,11 +42,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = NotExistingAccountNumber,
+                ReceiverAccountNumber = _data.NotExistingAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -65,11 +57,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                ReceiverAccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = NotExistingAccountNumber,
+                SenderAccountNumber = _data.NotExistingAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -80,11 +72,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = InvalidAccountNumber,
+                ReceiverAccountNumber = _data.InvalidAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -95,11 +87,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                ReceiverAccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = InvalidAccountNumber,
+                SenderAccountNumber = _data.InvalidAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -110,11 +102,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                ReceiverAccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = "2000000000",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -125,11 +117,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = NotListedBankAccountNumber,
+                ReceiverAccountNumber = _data.NotListedBankAccountNumber,
                 Amount = "20",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }
@@ -140,11 +132,11 @@ namespace BankingSoapServiceTest
         {
             var transferData = new SoapTransferData()
             {
-                ReceiverAccountNumber = ValidReceiverAccountNumber,
+                ReceiverAccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = "20a2",
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum",
-                AccessToken = ValidAccessToken
+                AccessToken = _data.ValidAccessToken
             };
             _service.Transfer(transferData);
         }

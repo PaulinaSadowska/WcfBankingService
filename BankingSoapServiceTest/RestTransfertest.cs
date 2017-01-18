@@ -9,21 +9,13 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class RestTransferTest
     {
-        private const string ValidSenderAccountNumber = "39112169001234567890987654";
-        private const string ValidReceiverAccountNumber = "86112169001234567898765432";
-
-        private const string NotExistingAccountNumber = "04112169001234567891234567";
-        private const string InvalidAccountNumber = "12112169001234567891234567";
-
-        private const string ListedBankAccountNumber = "66112241001122334455667788";
-        private const string NotListedBankAccountNumber = "38333241001122334455667788";
-
-        private const string ValidAccessToken = "QJAMYUPWOBXS";
+        private AccountsTestData _data;
         private readonly IBankingRestService _service;
 
         public RestTransferTest()
         {
             _service = new BankingRestService(new MockDataInserter());
+            _data = new AccountsTestData();;
         }
 
 
@@ -32,9 +24,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
+                AccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -46,9 +38,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
+                AccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = ListedBankAccountNumber,
+                SenderAccountNumber = _data.ListedBankAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -60,9 +52,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = NotExistingAccountNumber,
+                AccountNumber = _data.NotExistingAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -74,9 +66,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
+                AccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = NotExistingAccountNumber,
+                SenderAccountNumber = _data.NotExistingAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -88,9 +80,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = InvalidAccountNumber,
+                AccountNumber = _data.InvalidAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -102,9 +94,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = ValidReceiverAccountNumber,
+                AccountNumber = _data.ValidReceiverAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = InvalidAccountNumber,
+                SenderAccountNumber = _data.InvalidAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);
@@ -116,9 +108,9 @@ namespace BankingSoapServiceTest
         {
             var transferData = new TransferData()
             {
-                AccountNumber = NotListedBankAccountNumber,
+                AccountNumber = _data.NotListedBankAccountNumber,
                 Amount = 2000,
-                SenderAccountNumber = ValidSenderAccountNumber,
+                SenderAccountNumber = _data.ValidSenderAccountNumber,
                 Title = "lorem ipsum"
             };
             var response = _service.Transfer(transferData);

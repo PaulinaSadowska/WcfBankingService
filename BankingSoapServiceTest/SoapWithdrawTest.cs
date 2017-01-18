@@ -10,14 +10,13 @@ namespace BankingSoapServiceTest
     [TestClass]
     public class SoapWithdrawTest
     {
-        private const string ValidAccountNumber = "39112169001234567890987654";
-        private readonly string _accessToken;
+        private readonly AccountsTestData _data;
         private readonly IBankingService _service;
 
         public SoapWithdrawTest()
         {
             _service = new BankingService(new MockDataInserter());
-            _accessToken = "876123456433";
+            _data = new AccountsTestData();
         }
 
         [TestMethod]
@@ -25,8 +24,8 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new WithdrawData()
             {
-                AccountNumber = ValidAccountNumber,
-                AccessToken = _accessToken,
+                AccountNumber = _data.ValidSenderAccountNumber,
+                AccessToken = _data.ValidAccessToken,
                 Amount = "2",
                 OperationTitle = "WOW withdraw"
             };
@@ -41,8 +40,8 @@ namespace BankingSoapServiceTest
         {
             var paymentData = new WithdrawData()
             {
-                AccountNumber = ValidAccountNumber,
-                AccessToken = _accessToken,
+                AccountNumber = _data.ValidSenderAccountNumber,
+                AccessToken = _data.ValidAccessToken,
                 Amount = "20000000000000000",
                 OperationTitle = "WOW withdraw"
             };

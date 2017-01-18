@@ -7,7 +7,7 @@ namespace BankTest.Account
     public class AccountNumberFactoryTest
     {
         private const string InnerNumber = "1234567891234567";
-        private const string BankId = "11216900";
+        private const string BankId = "00112169";
 
         private readonly AccountNumberFactory _accountNumberFactory;
         
