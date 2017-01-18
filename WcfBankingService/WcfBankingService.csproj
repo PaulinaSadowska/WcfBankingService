@@ -165,6 +165,8 @@
     <Compile Include="DecimalParser.cs" />
     <Compile Include="Operation\Complex\ComplexCommand.cs" />
     <Compile Include="Operation\Complex\InterBankTransfer.cs" />
+    <Compile Include="Operation\Operations\RollbackTransferFee.cs" />
+    <Compile Include="Operation\Operations\TransferFee.cs" />
     <Compile Include="Operation\Operations\BankOperation.cs" />
     <Compile Include="Operation\Operations\Deposit.cs" />
     <Compile Include="Operation\Operations\IBankCommand.cs" />

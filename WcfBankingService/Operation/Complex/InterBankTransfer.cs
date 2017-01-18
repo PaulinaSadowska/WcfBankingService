@@ -23,6 +23,7 @@ namespace WcfBankingService.Operation.Complex
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiverAccountNumber.ToString()),
+                new TransferFee(sender, receiverAccountNumber.ToString()),
                 new RestTransfer(sender.AccountNumber, amount, operationTitle, receiverAccountNumber)
             };
             _sender = sender;
@@ -45,6 +46,12 @@ namespace WcfBankingService.Operation.Complex
             var rollback = new RollbackTransfer(_sender, _amount, _operationTitle, _receiverAccountNumber);
             _operations.Add(rollback);
             rollback.Execute();
+
+            if (!_operations[1].Executed) return;
+
+            var feeRollback = new RollbackTransferFee(_sender, _receiverAccountNumber.ToString());
+            _operations.Add(feeRollback);
+            feeRollback.Execute();
         }
 
 

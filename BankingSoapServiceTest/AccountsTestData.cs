@@ -11,6 +11,6 @@
         public readonly string ListedBankAccountNumber = "89001122411234567890987654";
         public readonly string NotListedBankAccountNumber = "83001122491234567890987654";
 
-        public readonly string ValidAccessToken = "QJAMYUPWOBXS";
+        public readonly string ValidAccessToken = "876123456433";
     }
 }
