@@ -10,7 +10,9 @@ namespace WcfBankingService.Users
 
         string GenerateAccessToken(string password);
 
-        IEnumerable<IAccount> GetAllAccounts(string accessToken);
+        ICollection<IAccount> GetAllAccounts(string accessToken);
+
+        ICollection<string> GetAllAccountNumbers(string accessToken);
 
         IAccount GetAccount(string accessToken, AccountNumber accountNumber);
 

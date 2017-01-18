@@ -14,7 +14,9 @@ namespace WcfBankingService.Users
 
         bool AddAccount(string login, string accessToken, IAccount account);
 
-        IEnumerable<IAccount> GetAllAccounts(string login, string accessToken);
+        ICollection<IAccount> GetAllAccounts(string login, string accessToken);
+
+        ICollection<string> GetAllAccountNumbers(string login, string accessToken);
 
         IAccount GetAccount(string accessToken, AccountNumber accoutNumber);
 

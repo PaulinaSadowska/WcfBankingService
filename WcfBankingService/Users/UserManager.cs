@@ -49,10 +49,14 @@ namespace WcfBankingService.Users
             return user != null && user.AddAccount(accessToken, account);
         }
 
-        public IEnumerable<IAccount> GetAllAccounts(string login, string accessToken)
+        public ICollection<IAccount> GetAllAccounts(string login, string accessToken)
         {
-            var user = GetUser(login);
-            return user?.GetAllAccounts(accessToken);
+            return GetUser(login)?.GetAllAccounts(accessToken);
+        }
+
+        public ICollection<string> GetAllAccountNumbers(string login, string accessToken)
+        {
+            return GetUser(login)?.GetAllAccountNumbers(accessToken);
         }
 
         public IAccount GetAccount(string accessToken, AccountNumber accoutNumber)

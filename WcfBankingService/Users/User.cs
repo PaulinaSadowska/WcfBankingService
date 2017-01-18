@@ -43,10 +43,16 @@ namespace WcfBankingService.Users
             return accessToken;
         }
 
-        public IEnumerable<IAccount> GetAllAccounts(string accessToken)
+        public ICollection<IAccount> GetAllAccounts(string accessToken)
         {
             Authorize(accessToken);
             return _accouts;
+        }
+
+        public ICollection<string> GetAllAccountNumbers(string accessToken)
+        {
+            Authorize(accessToken);
+            return _accouts.Select(account => account.AccountNumber.ToString()).ToList();
         }
 
         public IAccount GetAccount(string accessToken, AccountNumber accountNumber)

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace WcfBankingService.Service.DataContract.Response
 {
@@ -8,9 +9,13 @@ namespace WcfBankingService.Service.DataContract.Response
         [DataMember]
         public string AccessToken { get; set; }
 
-        public LogInResponse(string accessToken)
+        [DataMember]
+        public List<string> AccountNumbers { get; set; }
+
+        public LogInResponse(string accessToken, List<string> accountNumbers)
         {
             AccessToken = accessToken;
+            AccountNumbers = accountNumbers;
         }
     }
 }

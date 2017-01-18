@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Authentication;
 using System.ServiceModel;
 using WcfBankingService.Accounts;
@@ -38,8 +39,9 @@ namespace WcfBankingService
             try
             {
                 var accessToken = _userManager.SignIn(login, password);
+                var accounts = _userManager.GetAllAccountNumbers(login, accessToken).ToList();
                 _dataInserter.SaveAccessToken(login, accessToken);
-                return new LogInResponse(accessToken);
+                return new LogInResponse(accessToken, accounts);
             }
             catch (BankException exception)
             {
