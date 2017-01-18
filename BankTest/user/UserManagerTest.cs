@@ -8,6 +8,7 @@ using WcfBankingService.Accounts.Number;
 using WcfBankingService.Database.DataProvider;
 using WcfBankingService.Service.DataContract.Response;
 using WcfBankingService.Users;
+using WcfBankingService.Users.Access;
 
 namespace BankTest.User
 {
@@ -15,7 +16,7 @@ namespace BankTest.User
     public class UserManagerTest
     {
         private const string Login = "Admin";
-        private const string Password = "Password";
+        private const string Password = "Pass";
 
         private readonly string _accessToken;
 
@@ -25,10 +26,11 @@ namespace BankTest.User
 
         public UserManagerTest()
         {
-            IUser user = new WcfBankingService.Users.User(Login, Password);
+            var hashedPassword = new StandardPasswordHasher().HashPassword(Password);
+   
+            IUser user = new WcfBankingService.Users.User(Login, hashedPassword);
             _accessToken = user.GenerateAccessToken(Password);
             Assert.IsNotNull(_accessToken);
-
             _accountNumber = new AccountNumber("12345678", "1234567891234321", "12");
             IAccount account = new WcfBankingService.Accounts.Account(_accountNumber, new Balance(122m));
             Assert.IsTrue(user.AddAccount(_accessToken, account));
@@ -38,9 +40,9 @@ namespace BankTest.User
             };
             _userManager = new UserManager(new MockDataProvider(userList));
 
-            Assert.AreEqual("Incorrect Login or Password", ResponseStatus.IncorrectLoginOrPassword.Message());
+            Assert.AreEqual("Incorrect Login or HashedPassword", ResponseStatus.IncorrectLoginOrPassword.Message());
             var response = ResponseStatus.IncorrectLoginOrPassword;
-            Assert.AreEqual("Incorrect Login or Password", response.Message());
+            Assert.AreEqual("Incorrect Login or HashedPassword", response.Message());
         }
 
 

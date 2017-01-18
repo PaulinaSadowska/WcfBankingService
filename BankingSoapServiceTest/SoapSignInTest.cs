@@ -27,7 +27,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException), "Incorrect Login or Password")]
+        [ExpectedException(typeof(FaultException), "Incorrect Login or HashedPassword")]
         public void signIn_WrongLogin_ReturnsError()
         {
             var response = _service.SignIn("bad login", CorrectPassword);
@@ -35,7 +35,7 @@ namespace BankingSoapServiceTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException), "Incorrect Login or Password")]
+        [ExpectedException(typeof(FaultException), "Incorrect Login or HashedPassword")]
         public void signIn_WrongPassword_ReturnsError()
         {
             var response = _service.SignIn(CorrectLogin, "bad password");

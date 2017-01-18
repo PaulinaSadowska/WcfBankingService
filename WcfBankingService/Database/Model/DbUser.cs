@@ -8,6 +8,6 @@ namespace WcfBankingService.Database.Model
     {
         [PrimaryKey] public int Id;
         [Column(Name = "login"), NotNull] public string Login;
-        [Column(Name = "password"), NotNull] public string Password;
+        [Column(Name = "password"), NotNull] public string HashedPassword;
     }
 }

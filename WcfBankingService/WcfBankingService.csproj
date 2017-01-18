@@ -203,7 +203,9 @@
     <Compile Include="Service\Validation\IServiceInputValidator.cs" />
     <Compile Include="Service\Validation\ServiceInputValidator.cs" />
     <Compile Include="Users\Access\AccessTokenGenerator.cs" />
+    <Compile Include="Users\Access\IPasswordComparator.cs" />
     <Compile Include="Users\Access\IPasswordHasher.cs" />
+    <Compile Include="Users\Access\PasswordComparator.cs" />
     <Compile Include="Users\Access\StandardPasswordHasher.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserManager.cs" />

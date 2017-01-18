@@ -10,34 +10,39 @@ namespace WcfBankingService.Users
     public class User : IUser
     {
         public static readonly int AccessTokenLength = 12;
-        private readonly string _password;
+        private readonly string _hashedPassword;
         private readonly List<IAccount> _accouts;
         private readonly List<string> _accessTokens;
         public string Login { get; }
 
-        public User(string login, string password) 
-            : this(login, password, new List<IAccount>(), new List<string>())
+        private readonly PasswordComparator _passwordComparator;
+
+        public User(string login, string hashedPassword) 
+            : this(login, hashedPassword, new List<IAccount>(), new List<string>())
         {
             
         }
 
-        public User(string login, string password, List<IAccount> accounts) 
-            : this(login, password, accounts, new List<string>())
+        public User(string login, string hashedPassword, List<IAccount> accounts) 
+            : this(login, hashedPassword, accounts, new List<string>())
         {
 
         }
 
-        public User(string login, string password, List<IAccount> accounts, List<string> accessTokens )
+        public User(string login, string hashedPassword, List<IAccount> accounts, List<string> accessTokens )
         {
             Login = login;
-            _password = password;
+            _hashedPassword = hashedPassword;
             _accouts = accounts;
             _accessTokens = accessTokens;
+
+            _passwordComparator = new PasswordComparator();
         }
 
         public string GenerateAccessToken(string password)
         {
-            if (password != _password) return null;
+            if (!_passwordComparator.ArePasswordsSame(_hashedPassword, password))
+                return null;
 
             var accessToken = AccessTokenGenerator.Generate(AccessTokenLength);
             _accessTokens.Add(accessToken);

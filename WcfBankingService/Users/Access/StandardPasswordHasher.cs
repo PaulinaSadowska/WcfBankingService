@@ -9,13 +9,12 @@ namespace WcfBankingService.Users.Access
         public const int SaltLength = 16;
         private const int DeriveKeyIterrations = 10000;
 
-        private readonly RNGCryptoServiceProvider _cryptoServiceProvider = new RNGCryptoServiceProvider();
+        private readonly RNGCryptoServiceProvider _cryptoServiceProvider;
 
-        private byte[] _hash;
-
-        private byte[] _salt;
-
-        private byte[] _saltedHash;
+        public StandardPasswordHasher()
+        {
+            _cryptoServiceProvider = new RNGCryptoServiceProvider();
+        }
 
         public string HashPassword(string password, byte[] salt)
         {
@@ -26,30 +25,26 @@ namespace WcfBankingService.Users.Access
                 throw new ArgumentException($"Salt is to short. Expected length: {SaltLength}");
 
             if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Password cannot be empty");
-
-            _salt = salt;
-
-            //Password-Based Key Derivation Function 2
+                throw new ArgumentException("HashedPassword cannot be empty");
 
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, DeriveKeyIterrations);
 
-            _hash = pbkdf2.GetBytes(PasswordHashLength);
+            var hash = pbkdf2.GetBytes(PasswordHashLength);
 
-            _saltedHash = new byte[PasswordHashLength + SaltLength];
+            var saltedHash = new byte[PasswordHashLength + SaltLength];
 
-            _hash.CopyTo(_saltedHash, 0);
-            salt.CopyTo(_saltedHash, PasswordHashLength);
+            hash.CopyTo(saltedHash, 0);
+            salt.CopyTo(saltedHash, PasswordHashLength);
 
-            return Convert.ToBase64String(_saltedHash);
+            return Convert.ToBase64String(saltedHash);
         }
 
         public string HashPassword(string password)
         {
-            _salt = new byte[SaltLength];
-            _cryptoServiceProvider.GetBytes(_salt);
+            var salt = new byte[SaltLength];
+            _cryptoServiceProvider.GetBytes(salt);
 
-            return HashPassword(password, _salt);
+            return HashPassword(password, salt);
         }
     }
 }

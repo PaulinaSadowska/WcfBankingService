@@ -30,7 +30,7 @@ namespace WcfBankingService.Database.DataProvider
                 var query = from p in db.Users
                             select p;
                 return query.ToList()
-                    .Select(user => CreateUser(user.Login, user.Password, user.Id))
+                    .Select(user => CreateUser(user.Login, user.HashedPassword, user.Id))
                     .ToList();
             }
         }
