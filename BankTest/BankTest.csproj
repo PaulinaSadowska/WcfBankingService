@@ -59,6 +59,7 @@
     <Compile Include="DecimalParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\AccessTokenGeneratorTest.cs" />
+    <Compile Include="User\StandardPasswordHasherTest.cs" />
     <Compile Include="User\UserManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>

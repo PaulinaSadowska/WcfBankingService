@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WcfBankingService.Users;
+using WcfBankingService.Users.Access;
 
 namespace BankTest.User
 {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Authentication;
 using WcfBankingService.Accounts;
 using WcfBankingService.Accounts.Number;
+using WcfBankingService.Users.Access;
 
 namespace WcfBankingService.Users
 {
