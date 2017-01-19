@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Authentication;
 using System.ServiceModel;
 using WcfBankingService.Accounts;
@@ -34,6 +33,12 @@ namespace WcfBankingService
             _dataInserter = dataInserter;
         }
 
+        /// <summary>
+        /// Tries to sign in with given login and password. When fails throws FaultException
+        ///  </summary>
+        /// <param name="login">user login</param>
+        /// <param name="password">user password</param>
+        /// <returns>response status and access token</returns>
         public LogInResponse SignIn(string login, string password)
         {
             try
@@ -49,6 +54,11 @@ namespace WcfBankingService
             }
         }
 
+        /// <summary>
+        /// Tries to perform deposit operation, if fails throws Fault Exception
+        /// </summary>
+        /// <param name="paymentData">data needed to perform deposit</param>
+        /// <returns>response status</returns>
         public PaymentResponse Deposit(DepositData paymentData)
         {
             try
@@ -63,6 +73,11 @@ namespace WcfBankingService
             }
         }
 
+        /// <summary>
+        /// Tries to perform withdraw operation, if fails throws Fault Exception
+        /// </summary>
+        /// <param name="paymentData">data needed to perform withdraw</param>
+        /// <returns>response status</returns>
         public PaymentResponse Withdraw(WithdrawData paymentData)
         {
             try
@@ -77,6 +92,13 @@ namespace WcfBankingService
             }
         }
 
+        /// <summary>
+        /// Tries to perform transfer initialized by REST service. 
+        /// If fails returnd PaymentResponse with error code and message.
+        /// Blocks inner transfers because lack of permissions
+        /// </summary>
+        /// <param name="transferData">data needed to perform transfer</param>
+        /// <returns>response status</returns>
         public PaymentResponse RestTransfer(TransferData transferData)
         {
             try
@@ -87,7 +109,8 @@ namespace WcfBankingService
                 {
                     GetAccount(transferData.AccountNumber);
                     GetAccount(transferData.SenderAccountNumber);
-                    return new PaymentResponse(ResponseStatus.AccessDenied);
+                    //transfer fails when both accounts are from this bank
+                    return new PaymentResponse(ResponseStatus.AccessDenied); 
                 }
                 catch (BankException exception)
                 {
@@ -107,7 +130,15 @@ namespace WcfBankingService
             }
         }
 
-        public PaymentResponse SoapTransfer(SoapTransferData transferData) //transfer from soap
+        /// <summary>
+        /// Transfer called by Soap service. 
+        /// Performs inner bank transfer when both account are from this bank or 
+        /// inter bank transfer when receiver is from other (listed) bank.
+        /// When transfer fails - throws FaultException
+        /// </summary>
+        /// <param name="transferData">data needed to perform transfer</param>
+        /// <returns>response status</returns>
+        public PaymentResponse SoapTransfer(SoapTransferData transferData) 
         {
             var amount = DecimalParser.Parse(transferData.Amount);
             AccountNumber receiverAccountNumber;
@@ -132,18 +163,25 @@ namespace WcfBankingService
                 if (exception.ResponseStatus != ResponseStatus.OtherBankAccount)
                     throw new FaultException(exception.ResponseStatus.Message());
 
+                //receiver ot from this bank - INTER BANK TRANSFER
                 var interTransfer = new InterBankTransfer(sender, receiverAccountNumber, amount,
                     transferData.Title);
                 _executor.ExecuteAndSave(interTransfer, sender);
                 return PrepareResponse(interTransfer.ResponseStatus);
             }
-            //sender and receiver from my bank
+            //sender and receiver from this bank - INNER TRANSFER
 
             var innerTransfer = new InnerBankTransfer(sender, receiver, amount, transferData.Title);
             _executor.ExecuteAndSave(innerTransfer, sender, receiver);
             return PrepareResponse(innerTransfer.ResponseStatus);
         }
 
+        /// <summary>
+        /// Fetches operation history for given account number. If permissions denied - throws FaultException
+        /// </summary>
+        /// <param name="accessToken">access token to verify permissions</param>
+        /// <param name="accountNumber">account number which history should be fetched</param>
+        /// <returns>operation records list with response status</returns>
         public OperationHistoryResponse GetOperationHistory(string accessToken, string accountNumber)
         {
             try
