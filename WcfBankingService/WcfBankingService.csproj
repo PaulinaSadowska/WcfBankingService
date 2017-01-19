@@ -176,6 +176,9 @@
     <Compile Include="Operation\Operations\RollbackTransfer.cs" />
     <Compile Include="Operation\Operations\Withdraw.cs" />
     <Compile Include="Operation\Operations\OutgoingTransfer.cs" />
+    <Compile Include="RestCommunication\ErrorHandling\JsonErrorHandler.cs" />
+    <Compile Include="RestCommunication\ErrorHandling\JsonErrorWebHttpBehaviour.cs" />
+    <Compile Include="RestCommunication\ErrorHandling\JsonErrorWebHttpBehaviourElement.cs" />
     <Compile Include="RestCommunication\IRestAdapter.cs" />
     <Compile Include="RestCommunication\RestAdapter.cs" />
     <Compile Include="RestCommunication\BankRestResponse.cs" />
@@ -235,6 +238,9 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
