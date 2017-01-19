@@ -4,9 +4,9 @@ namespace WcfBankingService.Operation.Operations
 {
     public class RollbackTransferFee : Deposit
     {
-        private const decimal TransferFeeValue = 0.1m;
-        public RollbackTransferFee(IPublicAccount account, string receiverAccountNumber)
-            : base(account, TransferFeeValue, $"fee refund for transfer to {receiverAccountNumber}", "Bank 00112169")
+
+        public RollbackTransferFee(IPublicAccount account, decimal transferFeeValue, string receiverAccountNumber)
+            : base(account, transferFeeValue, $"fee refund for transfer to {receiverAccountNumber}", "Bank 00112169")
         {
 
         }

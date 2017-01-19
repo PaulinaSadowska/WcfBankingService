@@ -1,4 +1,5 @@
-﻿namespace WcfBankingService.RestCommunication
+﻿// ReSharper disable InconsistentNaming
+namespace WcfBankingService.RestCommunication
 {
     public class RestTransferBody
     {

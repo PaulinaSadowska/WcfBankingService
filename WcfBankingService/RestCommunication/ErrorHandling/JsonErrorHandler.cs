@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
@@ -13,17 +11,23 @@ namespace WcfBankingService.RestCommunication.ErrorHandling
 {
     public class JsonErrorHandler : IErrorHandler
     {
-        ///
-        /// Is the error always handled in this class?
-        ///
+        /// <summary>
+        /// Checks if the error should be handled in this class
+        /// </summary>
+        /// <param name="error">error to handle</param>
+        /// <returns>if the error should be handled in this class</returns>
         public bool HandleError(Exception error)
         {
             return error is WebFaultException;
         }
 
-        ///
-        /// Provide the Json fault message
-        ///
+
+        /// <summary>
+        /// Provides Json fault message with correct response code
+        /// </summary>
+        /// <param name="error">exception to handle</param>
+        /// <param name="version">message version</param>
+        /// <param name="fault">fault message</param>
         public void ProvideFault(Exception error, MessageVersion version,
             ref Message fault)
         {

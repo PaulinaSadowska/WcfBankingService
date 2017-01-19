@@ -2,6 +2,9 @@
 {
     public interface IBankCommand
     {
+        /// <summary>
+        /// Execute bank command
+        /// </summary>
         void Execute();
     }
 }

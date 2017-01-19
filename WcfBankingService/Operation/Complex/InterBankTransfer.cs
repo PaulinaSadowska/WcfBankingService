@@ -10,6 +10,8 @@ namespace WcfBankingService.Operation.Complex
 {
     public class InterBankTransfer : ComplexCommand
     {
+        private const decimal TransferFeeValue = 0.1m;
+
         private readonly List<BankOperation> _operations;
 
         private readonly IAccount _sender;
@@ -23,7 +25,7 @@ namespace WcfBankingService.Operation.Complex
             _operations = new List<BankOperation>
             {
                 new OutgoingTransfer(sender, amount, operationTitle, receiverAccountNumber.ToString()),
-                new TransferFee(sender, receiverAccountNumber.ToString()),
+                new TransferFee(sender, TransferFeeValue, receiverAccountNumber.ToString()),
                 new RestTransfer(sender.AccountNumber, amount, operationTitle, receiverAccountNumber)
             };
             _sender = sender;
@@ -49,7 +51,7 @@ namespace WcfBankingService.Operation.Complex
 
             if (!_operations[1].Executed) return;
 
-            var feeRollback = new RollbackTransferFee(_sender, _receiverAccountNumber.ToString());
+            var feeRollback = new RollbackTransferFee(_sender, TransferFeeValue, _receiverAccountNumber.ToString());
             _operations.Add(feeRollback);
             feeRollback.Execute();
         }
