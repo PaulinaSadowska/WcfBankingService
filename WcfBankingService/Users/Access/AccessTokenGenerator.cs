@@ -7,6 +7,11 @@ namespace WcfBankingService.Users.Access
     {
         private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
 
+        /// <summary>
+        /// Generates random string of given size
+        /// </summary>
+        /// <param name="size">lengtth of the string to generate</param>
+        /// <returns>random string</returns>
         public static string Generate(int size)
         {
             var builder = new StringBuilder();
