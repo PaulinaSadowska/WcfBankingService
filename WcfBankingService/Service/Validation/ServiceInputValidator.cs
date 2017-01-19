@@ -9,6 +9,7 @@ namespace WcfBankingService.Service.Validation
         public const int MinLoginLength = 3;
         public const int MinPasswordLength = 3;
         private const int AccountNumberLength = 26;
+        private const decimal MaxAmountValue = 100000000;
 
         public void ValidateLogin(string login)
         {
@@ -58,10 +59,7 @@ namespace WcfBankingService.Service.Validation
             ValidateAccountNumber(transferData.SenderAccountNumber);
             CheckNotSame(transferData.AccountNumber, transferData.SenderAccountNumber, "Account Numbers");
             CheckNotNull(transferData.Title, "operation title");
-            if (transferData.Amount < 0)
-            {
-                throw new FaultException("Amount must be greater or equal to 0");
-            }
+            CheckAmountValue(transferData.Amount);
         }
 
         public void Validate(SoapTransferData transferData)
@@ -115,9 +113,18 @@ namespace WcfBankingService.Service.Validation
             }
             CheckAmountPrecision(amount, ',');
             CheckAmountPrecision(amount, '.');
+            CheckAmountValue(amountValue);
+        }
+
+        private static void CheckAmountValue(decimal amountValue)
+        {
             if (amountValue < 0)
             {
                 throw new FaultException("Amount must be greater or equal to 0");
+            }
+            if (amountValue > MaxAmountValue)
+            {
+                throw new FaultException("Amount to high");
             }
         }
 

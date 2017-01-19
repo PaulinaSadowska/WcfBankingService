@@ -24,7 +24,6 @@ namespace WcfBankingService.RestCommunication
             var basicAuthPassword = WebConfigurationManager.AppSettings["BasicAuthPassword"];
             var client = new RestClient(GetBankAddress(_receiver.BankId))
             {
-                Authenticator = new SimpleAuthenticator("username", basicAuthLogin, "password", basicAuthPassword)
             };
             return client.Execute<BankRestResponse>(CreateRequest(amountToSend, operationTitle));
         }

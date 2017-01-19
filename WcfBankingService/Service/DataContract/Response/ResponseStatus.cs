@@ -8,7 +8,7 @@ namespace WcfBankingService.Service.DataContract.Response
         [Description("")]
         Success = 0,
 
-        [Description("Incorrect Login or HashedPassword")]
+        [Description("Incorrect Login or Password")]
         IncorrectLoginOrPassword = -1,
 
         [Description("Insufficient funds on the account to perform the operation")]

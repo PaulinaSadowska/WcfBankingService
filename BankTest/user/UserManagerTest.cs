@@ -40,9 +40,9 @@ namespace BankTest.User
             };
             _userManager = new UserManager(new MockDataProvider(userList));
 
-            Assert.AreEqual("Incorrect Login or HashedPassword", ResponseStatus.IncorrectLoginOrPassword.Message());
+            Assert.AreEqual("Incorrect Login or Password", ResponseStatus.IncorrectLoginOrPassword.Message());
             var response = ResponseStatus.IncorrectLoginOrPassword;
-            Assert.AreEqual("Incorrect Login or HashedPassword", response.Message());
+            Assert.AreEqual("Incorrect Login or Password", response.Message());
         }
 
 
