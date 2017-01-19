@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -12,10 +13,6 @@ namespace WcfBankingService.RestCommunication.ErrorHandling
 {
     public class JsonErrorHandler : IErrorHandler
     {
-        #region Public Method(s)
-
-        #region IErrorHandler Members
-
         ///
         /// Is the error always handled in this class?
         ///
@@ -33,15 +30,8 @@ namespace WcfBankingService.RestCommunication.ErrorHandling
             fault = this.GetJsonFaultMessage(version, error);
 
             ApplyJsonSettings(ref fault);
-            ApplyHttpResponseSettings(ref fault,
-                System.Net.HttpStatusCode.Unauthorized, "response");
+            ApplyHttpResponseSettings(ref fault, HttpStatusCode.BadRequest, "Bad request");
         }
-
-        #endregion
-
-        #endregion
-
-        #region Protected Method(s)
 
         ///
         /// Apply Json settings to the message
@@ -75,26 +65,20 @@ namespace WcfBankingService.RestCommunication.ErrorHandling
         protected virtual Message GetJsonFaultMessage(
             MessageVersion version, Exception error)
         {
-            var knownTypes = new List<Type>(); 
-            var faultType = error.GetType().Name; 
-
-            if ((error is FaultException) && 
-            (error.GetType().GetProperty("Detail") != null))
+            TransferResponse response;
+            if (error is SerializationException)
             {
-                var detail = (error.GetType().GetProperty("Detail").GetGetMethod().Invoke(
-                    error, null));
-                knownTypes.Add(detail?.GetType());
-                faultType = detail?.GetType().Name;
+                response = new TransferResponse("Wrong request format");
+            }
+            else
+            {
+                response = new TransferResponse("Unauthorized");
             }
 
-            var response = new TransferResponse("Unauthorized");
-
             var faultMessage = Message.CreateMessage(version, "", response,
-                new DataContractJsonSerializer(response.GetType(), knownTypes));
+                new DataContractJsonSerializer(response.GetType()));
 
             return faultMessage;
         }
-
-        #endregion
     }
 }
