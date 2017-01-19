@@ -31,18 +31,16 @@ namespace BankTest.User
             IUser user = new WcfBankingService.Users.User(Login, hashedPassword);
             _accessToken = user.GenerateAccessToken(Password);
             Assert.IsNotNull(_accessToken);
+
             _accountNumber = new AccountNumber("12345678", "1234567891234321", "12");
             IAccount account = new WcfBankingService.Accounts.Account(_accountNumber, new Balance(122m));
             Assert.IsTrue(user.AddAccount(_accessToken, account));
+
             var userList = new List<IUser>
             {
                 user
             };
             _userManager = new UserManager(new MockDataProvider(userList));
-
-            Assert.AreEqual("Incorrect Login or Password", ResponseStatus.IncorrectLoginOrPassword.Message());
-            var response = ResponseStatus.IncorrectLoginOrPassword;
-            Assert.AreEqual("Incorrect Login or Password", response.Message());
         }
 
 
