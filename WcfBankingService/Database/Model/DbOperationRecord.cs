@@ -3,6 +3,9 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Database.Model
 {
+    /// <summary>
+    /// Operation Record table data model
+    /// </summary>
     [Table(Name = "OperationHistory")]
     public class DbOperationRecord
     {

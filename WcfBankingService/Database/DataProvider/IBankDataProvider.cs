@@ -5,6 +5,10 @@ namespace WcfBankingService.Database.DataProvider
 {
     public interface IBankDataProvider
     {
+        /// <summary>
+        /// Restore all user informations from the database (with access tokens, history and accounts)
+        /// </summary>
+        /// <returns>list on users with all it's informations</returns>
         List<IUser> GetStoredData();
     }
 }

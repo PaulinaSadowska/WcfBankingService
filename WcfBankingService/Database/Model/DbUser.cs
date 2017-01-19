@@ -3,6 +3,9 @@ using LinqToDB.Mapping;
 
 namespace WcfBankingService.Database.Model
 {
+    /// <summary>
+    /// Users table data model
+    /// </summary>
     [Table(Name = "Users")]
     public class DbUser
     {

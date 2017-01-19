@@ -3,6 +3,9 @@ using LinqToDB.Data;
 
 namespace WcfBankingService.Database.Model
 {
+    /// <summary>
+    /// Bank database model with all it's tables
+    /// </summary>
     public class DbBank : DataConnection
     {
         public DbBank() : base("bank") { }

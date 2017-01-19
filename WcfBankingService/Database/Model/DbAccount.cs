@@ -2,6 +2,9 @@
 
 namespace WcfBankingService.Database.Model
 {
+    /// <summary>
+    /// Accounts table data model
+    /// </summary>
     [Table(Name = "Accounts")]
     public class DbAccount
     {
