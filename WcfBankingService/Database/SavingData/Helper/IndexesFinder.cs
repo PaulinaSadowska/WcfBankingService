@@ -6,6 +6,11 @@ namespace WcfBankingService.Database.SavingData.Helper
 {
     public class IndexesFinder
     {
+        /// <summary>
+        /// Finds user id in database for a given login
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <returns>user id</returns>
         public int GetUserId(string login)
         {
             using (var db = new DbBank())
@@ -21,6 +26,11 @@ namespace WcfBankingService.Database.SavingData.Helper
             }
         }
 
+        /// <summary>
+        /// Finds account id for a given inner account number
+        /// </summary>
+        /// <param name="innerAccountNumber">inner account number (without bank id and control sum)</param>
+        /// <returns>account id</returns>
         public int GetAccountId(string innerAccountNumber)
         {
             using (var db = new DbBank())
