@@ -9,16 +9,14 @@
             _balanceValue = balanceValue;
         }
 
-        public IBalance AddToBalance(decimal amount)
+        public void AddToBalance(decimal amount)
         {
             _balanceValue += amount;
-            return this;
         }
 
-        public IBalance SubstractFromBalance(decimal amount)
+        public void SubstractFromBalance(decimal amount)
         {
             _balanceValue -= amount;
-            return this;
         }
 
         public decimal GetValue()

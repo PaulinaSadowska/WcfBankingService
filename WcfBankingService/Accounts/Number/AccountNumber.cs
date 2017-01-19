@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService.Accounts.Number
 {
+    /// <summary>
+    /// stores account umber informations, simplify comparing account numbers
+    /// </summary>
     public class AccountNumber
     {
         public readonly string BankId;

@@ -146,7 +146,6 @@
     <Compile Include="Accounts\Number\ControlSum\StandardControlSumCalculator.cs" />
     <Compile Include="Accounts\Number\ControlSum\IControlSumCalculator.cs" />
     <Compile Include="Accounts\Balance\IBalance.cs" />
-    <Compile Include="Accounts\Number\MockAccountNumberFactory.cs" />
     <Compile Include="Bank.cs" />
     <Compile Include="BankException.cs" />
     <Compile Include="Database\Model\DbAccount.cs" />

@@ -18,7 +18,7 @@ namespace WcfBankingService.Accounts
         {
         }
 
-        public Account(AccountNumber accountNumber, IBalance balance, List<OperationRecord> operationRecord)
+        public Account(AccountNumber accountNumber, IBalance balance, IList<OperationRecord> operationRecord)
         {
             AccountNumber = accountNumber;
             Balance = balance;

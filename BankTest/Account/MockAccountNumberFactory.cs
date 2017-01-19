@@ -1,4 +1,6 @@
-﻿namespace WcfBankingService.Accounts.Number
+﻿using WcfBankingService.Accounts.Number;
+
+namespace BankTest.account
 {
     public class MockAccountNumberFactory : IAccountNumberFactory
     {
