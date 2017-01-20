@@ -8,6 +8,9 @@ using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.Operation.Complex
 {
+    /// <summary>
+    /// transfer between account from this and other bank
+    /// </summary>
     public class InterBankTransfer : ComplexCommand
     {
         private const decimal TransferFeeValue = 0.1m;

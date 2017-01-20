@@ -2,6 +2,9 @@
 
 namespace WcfBankingService.Operation.Operations
 {
+    /// <summary>
+    /// refund of transfer fee, executed whan interbank transfer failed after executing TransferFee
+    /// </summary>
     public class RollbackTransferFee : Deposit
     {
 

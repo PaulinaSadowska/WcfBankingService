@@ -3,6 +3,9 @@ using WcfBankingService.operation.operations;
 
 namespace WcfBankingService.Operation.Operations
 {
+    /// <summary>
+    /// bank fee executed during interbank transfer
+    /// </summary>
     public class TransferFee : Withdraw
     {
 

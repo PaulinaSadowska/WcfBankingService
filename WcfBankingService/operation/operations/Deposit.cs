@@ -3,6 +3,9 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Operation.Operations
 {
+    /// <summary>
+    /// deposit operation
+    /// </summary>
     public class Deposit : BankOperation
     {
         private readonly IPublicAccount _targetAccount;
@@ -25,6 +28,9 @@ namespace WcfBankingService.Operation.Operations
             _amount = amount;
         }
 
+        /// <summary>
+        /// Executes deposit operation and sabe balance after it into operation record
+        /// </summary>
         public override void Execute()
         {
             if(Executed)

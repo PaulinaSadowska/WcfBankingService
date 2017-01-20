@@ -26,6 +26,11 @@ namespace WcfBankingService.operation.operations
             _amount = amount;
         }
 
+        /// <summary>
+        /// execute withdraw operation. 
+        /// Throws exception when amount is higher than balance value
+        /// records balance after operation into operation record object
+        /// </summary>
         public override void Execute()
         {
             if (Executed)

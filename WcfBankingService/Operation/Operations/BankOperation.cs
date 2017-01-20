@@ -4,12 +4,24 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Operation.Operations
 {
+    /// <summary>
+    /// abstract class used to share common functionalities between withdraw and deposit classes
+    /// </summary>
     public abstract class BankOperation : IBankCommand
     {
+        /// <summary>
+        /// operation record
+        /// </summary>
         public OperationRecord OperationRecord { get; }
 
+        /// <summary>
+        /// account number of account on which this operation is performed
+        /// </summary>
         public AccountNumber AccountNumber;
 
+        /// <summary>
+        /// if command was executed
+        /// </summary>
         public bool Executed { get; set; }
 
         protected BankOperation(AccountNumber accountNumber, OperationRecord record)

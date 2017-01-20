@@ -6,6 +6,9 @@ using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.operation.Complex
 {
+    /// <summary>
+    /// transfer between accounts within this bank
+    /// </summary>
     public class InnerBankTransfer : ComplexCommand
     {
         private readonly List<BankOperation> _operations;

@@ -7,6 +7,9 @@ using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseS
 
 namespace WcfBankingService.Operation.Operations
 {
+    /// <summary>
+    /// Transfer performed between banks connected via REST
+    /// </summary>
     public class RestTransfer: BankOperation
     {
         private readonly IRestAdapter _restAdapter;
@@ -27,6 +30,9 @@ namespace WcfBankingService.Operation.Operations
             _operationTitle = operationTitle;
         }
 
+        /// <summary>
+        /// execute Rest transaction. Throws exception when respose contains error.
+        /// </summary>
         public override void Execute()
         {
             ValidateResponse(_restAdapter.Execute(_amount, _operationTitle));
