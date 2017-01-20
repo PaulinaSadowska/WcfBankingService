@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace WcfBankingService.Service.DataContract.Response
 {
+    /// <summary>
+    /// status of the response (enums with error message)
+    /// </summary>
     public enum ResponseStatus
     {
         [Description("")]

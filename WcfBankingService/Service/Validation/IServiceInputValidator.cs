@@ -2,6 +2,9 @@
 
 namespace WcfBankingService.Service.Validation
 {
+    /// <summary>
+    /// validates service input data and throws BankException when anything is whing with then
+    /// </summary>
     internal interface IServiceInputValidator
     {
         /// <summary>

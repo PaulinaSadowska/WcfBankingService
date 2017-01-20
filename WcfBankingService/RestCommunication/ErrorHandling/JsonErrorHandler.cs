@@ -9,6 +9,9 @@ using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.RestCommunication.ErrorHandling
 {
+    /// <summary>
+    /// allows to customize behaviour after WebFaultException 
+    /// </summary>
     public class JsonErrorHandler : IErrorHandler
     {
         /// <summary>

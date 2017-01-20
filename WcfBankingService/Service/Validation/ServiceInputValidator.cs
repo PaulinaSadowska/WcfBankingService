@@ -4,6 +4,9 @@ using WcfBankingService.Users;
 
 namespace WcfBankingService.Service.Validation
 {
+    /// <summary>
+    /// <see cref="IServiceInputValidator"/>
+    /// </summary>
     public class ServiceInputValidator : IServiceInputValidator
     {
         public const int MinLoginLength = 3;
@@ -11,30 +14,45 @@ namespace WcfBankingService.Service.Validation
         private const int AccountNumberLength = 26;
         private const decimal MaxAmountValue = 100000000;
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator.ValidateLogin"/>
+        /// </summary>
         public void ValidateLogin(string login)
         {
             CheckNotNull(login, "login");
             CheckMinLength(login, MinLoginLength, "login");
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator.ValidatePassword"/>
+        /// </summary>
         public void ValidatePassword(string password)
         {
             CheckNotNull(password, "password");
             CheckMinLength(password, MinPasswordLength, "password");
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void ValidateAccessToken(string accessToken)
         {
             CheckNotNull(accessToken, "accessToken");
             CheckLength(accessToken, User.AccessTokenLength, "accessToken");
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void ValidateAccountNumber(string accountNumber)
         {
             CheckNotNull(accountNumber, "accountNumber");
             CheckLength(accountNumber, AccountNumberLength, "acountNumber");
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void Validate(WithdrawData paymentData)
         {
             CheckNotNull(paymentData, "paymentData");
@@ -44,6 +62,9 @@ namespace WcfBankingService.Service.Validation
             ValidateAmount(paymentData.Amount);
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void Validate(DepositData paymentData)
         {
             CheckNotNull(paymentData, "paymentData");
@@ -52,6 +73,9 @@ namespace WcfBankingService.Service.Validation
             ValidateAmount(paymentData.Amount);
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void Validate(TransferData transferData)
         {
             CheckNotNull(transferData, "transferData");
@@ -62,6 +86,9 @@ namespace WcfBankingService.Service.Validation
             CheckAmountValue(transferData.Amount);
         }
 
+        /// <summary>
+        /// <see cref="IServiceInputValidator"/>
+        /// </summary>
         public void Validate(SoapTransferData transferData)
         {
             CheckNotNull(transferData, "transferData");

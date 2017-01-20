@@ -6,6 +6,9 @@ using ResponseStatus = WcfBankingService.Service.DataContract.Response.ResponseS
 
 namespace WcfBankingService.RestCommunication
 {
+    /// <summary>
+    /// <see cref="IRestAdapter"/>
+    /// </summary>
     public class RestAdapter : IRestAdapter
     {
         private const string Endpoint = "transfer";
@@ -18,6 +21,10 @@ namespace WcfBankingService.RestCommunication
             _sender = sender;
         }
 
+        /// <summary>
+        /// <see cref="IRestAdapter.Execute"/>
+        /// crteates rest client with basic auth credentials and executes request
+        /// </summary>
         public IRestResponse<BankRestResponse> Execute(decimal amountToSend, string operationTitle)
         {
             var basicAuthLogin = WebConfigurationManager.AppSettings["BasicAuthLogin"];

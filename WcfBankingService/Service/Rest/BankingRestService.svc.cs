@@ -8,24 +8,34 @@ using WcfBankingService.Service.Validation;
 
 namespace WcfBankingService.Service.Rest
 {
+    /// <summary>
+    /// <see cref="BankingRestService"/>
+    /// </summary>
     public class BankingRestService : IBankingRestService
     {
         private readonly IServiceInputValidator _inputValidator;
         private readonly Bank _bank;
 
-
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public BankingRestService()
             :this(new DbDataInserter())
         {
         }
 
+        /// <summary>
+        /// <see cref="BankingRestService"/>
+        /// </summary>
         public BankingRestService(IBankDataInserter dataInserter)
         {
             _inputValidator = new ServiceInputValidator();
             _bank = new Bank(dataInserter);
         }
 
-
+        /// <summary>
+        /// <see cref="BankingRestService"/>
+        /// </summary>
         public TransferResponse Transfer(TransferData transferData)
         {
             try
