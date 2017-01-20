@@ -6,6 +6,9 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Database.SavingData.Helper
 {
+    /// <summary>
+    /// halper class used to save data into database
+    /// </summary>
     public class DataSaver
     {
         /// <summary>

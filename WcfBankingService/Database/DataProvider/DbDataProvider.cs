@@ -9,6 +9,9 @@ using WcfBankingService.Users;
 
 namespace WcfBankingService.Database.DataProvider
 {
+    /// <summary>
+    /// <see cref="IBankDataProvider"/>
+    /// </summary>
     public class DbDataProvider : IBankDataProvider
     {
         private static IAccountNumberFactory _accountNumberFactory;
@@ -18,6 +21,10 @@ namespace WcfBankingService.Database.DataProvider
             _accountNumberFactory = accountNumberFactory;
         }
 
+        /// <summary>
+        /// <see cref="IBankDataProvider.GetStoredData"/>
+        /// </summary>
+        /// <returns></returns>
         public List<IUser> GetStoredData()
         {
             return GetUsersFromDb();

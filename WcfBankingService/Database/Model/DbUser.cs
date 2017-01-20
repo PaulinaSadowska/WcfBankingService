@@ -9,8 +9,19 @@ namespace WcfBankingService.Database.Model
     [Table(Name = "Users")]
     public class DbUser
     {
+        /// <summary>
+        /// user id
+        /// </summary>
         [PrimaryKey] public int Id;
+
+        /// <summary>
+        /// user login
+        /// </summary>
         [Column(Name = "login"), NotNull] public string Login;
+
+        /// <summary>
+        /// user password hashed with IPasswordHasher
+        /// </summary>
         [Column(Name = "password"), NotNull] public string HashedPassword;
     }
 }

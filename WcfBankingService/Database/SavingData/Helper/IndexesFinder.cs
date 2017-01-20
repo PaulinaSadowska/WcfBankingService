@@ -4,6 +4,9 @@ using WcfBankingService.Database.Model;
 
 namespace WcfBankingService.Database.SavingData.Helper
 {
+    /// <summary>
+    /// helper class used to find user and account indexes in database
+    /// </summary>
     public class IndexesFinder
     {
         /// <summary>

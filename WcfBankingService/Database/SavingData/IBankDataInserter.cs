@@ -4,6 +4,9 @@ using WcfBankingService.Operation.Operations;
 
 namespace WcfBankingService.Database.SavingData
 {
+    /// <summary>
+    /// inserts data into bank database
+    /// </summary>
     public interface IBankDataInserter
     {
         /// <summary>

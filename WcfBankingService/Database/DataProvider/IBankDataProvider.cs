@@ -3,6 +3,9 @@ using WcfBankingService.Users;
 
 namespace WcfBankingService.Database.DataProvider
 {
+    /// <summary>
+    /// Fetches user informations from the database (with accounts, access tokens and operation history)
+    /// </summary>
     public interface IBankDataProvider
     {
         /// <summary>
