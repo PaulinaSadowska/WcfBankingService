@@ -4,6 +4,9 @@ using WcfBankingService.Service.DataContract.Response;
 
 namespace WcfBankingService.operation.operations
 {
+    /// <summary>
+    /// withdrawal operation
+    /// </summary>
     public class Withdraw : BankOperation
     {
         private readonly IAccount _targetAccount;
@@ -13,6 +16,7 @@ namespace WcfBankingService.operation.operations
             : this(targetAccount, amount, operationTitle, "Withdraw")
         {
         }
+
 
         public Withdraw(IAccount targetAccount, decimal amount, string operationTitle, string source)
             : base(targetAccount.AccountNumber, new OperationRecord
@@ -29,7 +33,7 @@ namespace WcfBankingService.operation.operations
         /// <summary>
         /// execute withdraw operation. 
         /// Throws exception when amount is higher than balance value
-        /// records balance after operation into operation record object
+        /// records balance after operation into operation record
         /// </summary>
         public override void Execute()
         {

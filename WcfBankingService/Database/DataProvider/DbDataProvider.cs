@@ -24,7 +24,6 @@ namespace WcfBankingService.Database.DataProvider
         /// <summary>
         /// <see cref="IBankDataProvider.GetStoredData"/>
         /// </summary>
-        /// <returns></returns>
         public List<IUser> GetStoredData()
         {
             return GetUsersFromDb();

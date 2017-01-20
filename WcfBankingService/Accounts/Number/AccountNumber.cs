@@ -1,12 +1,23 @@
 ﻿namespace WcfBankingService.Accounts.Number
 {
     /// <summary>
-    /// stores account umber informations, simplify comparing account numbers
+    /// stores account number informations, simplify comparing account numbers
     /// </summary>
     public class AccountNumber
     {
+        /// <summary>
+        /// Bank identifier
+        /// </summary>
         public readonly string BankId;
+
+        /// <summary>
+        /// Client's account number (unique within this bank)
+        /// </summary>
         public readonly string InnerNumber;
+
+        /// <summary>
+        /// control sum
+        /// </summary>
         public readonly string ControlSum;
 
         public AccountNumber(string bankId, string innerNumber, string controlSum)
