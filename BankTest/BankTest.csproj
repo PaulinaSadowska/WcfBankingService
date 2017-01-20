@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Account\AccountNumberFactoryTest.cs" />
     <Compile Include="Account\MockAccountNumberFactory.cs" />
-    <Compile Include="Account\StandardControlSumCalculatorTest.cs" />
+    <Compile Include="Account\NRBControlSumCalculatorTest.cs" />
     <Compile Include="Account\MockControlSumCalculator.cs" />
     <Compile Include="DecimalParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,12 +5,24 @@ using WcfBankingService.operation;
 
 namespace WcfBankingService.Accounts
 {
+    /// <summary>
+    /// stores account informations
+    /// </summary>
     public class Account : IAccount
     {
+        /// <summary>
+        /// account number
+        /// </summary>
         public AccountNumber AccountNumber { get; }
 
+        /// <summary>
+        /// balance
+        /// </summary>
         public IBalance Balance { get; }
 
+        /// <summary>
+        /// records of operations performed on this account
+        /// </summary>
         private readonly IList<OperationRecord> _operationHistory;
 
         public Account(AccountNumber accountNumber, IBalance balance)

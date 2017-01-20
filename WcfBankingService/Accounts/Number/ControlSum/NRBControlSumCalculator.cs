@@ -3,7 +3,11 @@ using System.Globalization;
 
 namespace WcfBankingService.Accounts.Number.ControlSum
 {
-    public class StandardControlSumCalculator : IControlSumCalculator
+    /// <summary>
+    /// Calculates control sum of the account number and checks if account number is correct accordint to NRB format
+    /// </summary>
+    // ReSharper disable once InconsistentNaming
+    public class NRBControlSumCalculator : IControlSumCalculator
     {
         private const int AccountNumberLength = 26;
         private const int BankIdLength = 8;
@@ -11,6 +15,10 @@ namespace WcfBankingService.Accounts.Number.ControlSum
 
         private const string PL = "2521";
 
+        /// <summary>
+        /// <see cref="IControlSumCalculator.Calculate"/>
+        /// Throws exception when bankId or innerAccountNumber length is invalid
+        /// </summary>
         public string Calculate(string bankId, string innerAccountNumber)
         {
             ValidateInput(bankId, innerAccountNumber);
@@ -18,6 +26,9 @@ namespace WcfBankingService.Accounts.Number.ControlSum
             return controlSum.ToString("00");
         }
 
+        /// <summary>
+        /// <see cref="IControlSumCalculator.IsValid"/>
+        /// </summary>
         public bool IsValid(string accountNumber)
         {
             if (accountNumber == null || accountNumber.Length != AccountNumberLength)

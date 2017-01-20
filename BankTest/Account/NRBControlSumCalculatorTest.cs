@@ -5,7 +5,8 @@ using WcfBankingService.Accounts.Number.ControlSum;
 namespace BankTest.account
 {
     [TestClass]
-    public class StandardControlSumCalculatorTest
+    // ReSharper disable once InconsistentNaming
+    public class NRBControlSumCalculatorTest
     {
         private const string AccountNumber = "0000261395100000";
         private const string BankId = "10101023";
@@ -14,9 +15,9 @@ namespace BankTest.account
         private readonly IControlSumCalculator _controlSumCalculator;
 
   
-        public StandardControlSumCalculatorTest()
+        public NRBControlSumCalculatorTest()
         {
-            _controlSumCalculator = new StandardControlSumCalculator();
+            _controlSumCalculator = new NRBControlSumCalculator();
         }
 
 

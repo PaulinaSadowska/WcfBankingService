@@ -143,7 +143,7 @@
     <Compile Include="Accounts\Number\AccountNumber.cs" />
     <Compile Include="Accounts\Number\AccountNumberFactory.cs" />
     <Compile Include="Accounts\Number\IAccountNumberFactory.cs" />
-    <Compile Include="Accounts\Number\ControlSum\StandardControlSumCalculator.cs" />
+    <Compile Include="Accounts\Number\ControlSum\NRBControlSumCalculator.cs" />
     <Compile Include="Accounts\Number\ControlSum\IControlSumCalculator.cs" />
     <Compile Include="Accounts\Balance\IBalance.cs" />
     <Compile Include="Bank.cs" />

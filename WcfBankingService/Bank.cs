@@ -30,7 +30,7 @@ namespace WcfBankingService
 
         public Bank(IBankDataInserter dataInserter)
         {
-            _accountNumberFactory = new AccountNumberFactory(BankId, new StandardControlSumCalculator());
+            _accountNumberFactory = new AccountNumberFactory(BankId, new NRBControlSumCalculator());
             _userManager = new UserManager(new DbDataProvider(_accountNumberFactory));
             _executor = new PersistantExecutor(dataInserter);
             _dataInserter = dataInserter;

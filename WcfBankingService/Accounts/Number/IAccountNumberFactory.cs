@@ -13,10 +13,17 @@
         AccountNumber GetAccountNumberFromInner(string innerNumber);
 
         /// <summary>
-        /// Creates account number object from full account number (string)
+        /// Creates account number object from full account number (string). Account must belong to this bank
         /// </summary>
         /// <param name="accountNumber">full account number (with control sum and bankId)</param>
         /// <returns></returns>
         AccountNumber GetBankAccountNumber(string accountNumber);
+
+        /// <summary>
+        /// Creates account number object from full account number (string). Account dont have to belong to this bank
+        /// </summary>
+        /// <param name="accountNumber">full account number (with control sum and bankId)</param>
+        /// <returns></returns>
+        AccountNumber GetAccountNumber(string accountNumber);
     }
 }

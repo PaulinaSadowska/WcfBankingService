@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService.Accounts.Balance
 {
+    /// <summary>
+    /// Interface of accounts balance
+    /// </summary>
     public interface IBalance
     {
         /// <summary>
