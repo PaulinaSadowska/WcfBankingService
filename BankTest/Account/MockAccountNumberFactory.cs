@@ -13,5 +13,10 @@ namespace BankTest.account
         {
             return new AccountNumber("", "", "");
         }
+
+        public AccountNumber GetAccountNumber(string accountNumber)
+        {
+            return new AccountNumber("", "", "");
+        }
     }
 }

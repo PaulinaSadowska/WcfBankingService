@@ -13,6 +13,9 @@ namespace WcfBankingService.Database.SavingData
         private readonly DataSaver _dataSaver;
         private readonly IndexesFinder _indexesFinder;
 
+        /// <summary>
+        /// default constructor. Creates default data saver and index finder
+        /// </summary>
         public DbDataInserter()
         {
             _dataSaver = new DataSaver();

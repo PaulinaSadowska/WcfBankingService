@@ -12,7 +12,7 @@ namespace WcfBankingService.Operation.Operations
         private readonly decimal _amount;
 
         /// <summary>
-        /// creates deposit command. Used to create deposit (default source field value)
+        /// creates deposit command. Used to create deposit with default source field value
         /// </summary>
         /// <param name="targetAccount">account on which operation will be performed</param>
         /// <param name="amount">amount to send</param>
@@ -23,7 +23,7 @@ namespace WcfBankingService.Operation.Operations
         }
 
         /// <summary>
-        /// creates deposit command. Allows to add custom spurce value
+        /// creates deposit command. Allows to add custom source value, used in derived types
         /// </summary>
         /// <param name="targetAccount">account on which operation will be performed</param>
         /// <param name="amount">amount to send</param>
