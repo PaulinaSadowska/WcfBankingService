@@ -4,8 +4,14 @@ using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.Users
 {
+    /// <summary>
+    /// User containing operation record and it's accounts
+    /// </summary>
     public interface IUser
     {
+        /// <summary>
+        /// login of the user
+        /// </summary>
         string Login { get; }
 
         /// <summary>

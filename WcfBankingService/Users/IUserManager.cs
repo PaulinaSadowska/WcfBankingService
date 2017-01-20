@@ -4,6 +4,9 @@ using WcfBankingService.Accounts.Number;
 
 namespace WcfBankingService.Users
 {
+    /// <summary>
+    /// Contains operations on the user and its accounts
+    /// </summary>
     public interface IUserManager
     {
         /// <summary>

@@ -6,7 +6,7 @@ using WcfBankingService.Operation.Operations;
 namespace WcfBankingService
 {
     /// <summary>
-    /// Used fo erform operations and save them using given data inserter
+    /// Used fo perform operations and save them using given data inserter
     /// </summary>
     public class PersistantExecutor
     {

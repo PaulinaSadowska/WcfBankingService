@@ -16,6 +16,9 @@ using WcfBankingService.Users;
 
 namespace WcfBankingService
 {
+    /// <summary>
+    /// Allows to pererform bank operations on user manager and save records of them
+    /// </summary>
     public class Bank
     {
         private const string BankId = "00112169";

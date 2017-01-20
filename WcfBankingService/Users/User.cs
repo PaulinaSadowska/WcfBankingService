@@ -9,10 +9,14 @@ namespace WcfBankingService.Users
 {
     public class User : IUser
     {
+        /// <summary>
+        /// Length of the access token
+        /// </summary>
         public static readonly int AccessTokenLength = 12;
         private readonly string _hashedPassword;
         private readonly List<IAccount> _accouts;
         private readonly List<string> _accessTokens;
+
         public string Login { get; }
 
         private readonly PasswordComparator _passwordComparator;

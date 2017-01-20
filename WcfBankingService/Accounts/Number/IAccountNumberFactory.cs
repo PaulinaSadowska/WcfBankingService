@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService.Accounts.Number
 {
+    /// <summary>
+    /// Creates account number with proper control sum
+    /// </summary>
     public interface IAccountNumberFactory
     {
         /// <summary>

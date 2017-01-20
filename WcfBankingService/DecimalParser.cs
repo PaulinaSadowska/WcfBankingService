@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService
 {
+    /// <summary>
+    /// Parses string to decimal in allowed formats
+    /// </summary>
     public class DecimalParser
     {
         /// <summary>

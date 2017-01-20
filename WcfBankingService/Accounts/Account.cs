@@ -25,26 +25,41 @@ namespace WcfBankingService.Accounts
             _operationHistory = operationRecord;
         }
 
+        /// <summary>
+        /// <see cref="IPublicAccount.AddToBalance"/>
+        /// </summary>
         public void AddToBalance(decimal amount)
         {
             Balance.AddToBalance(amount);
         }
 
+        /// <summary>
+        /// <see cref="IAccount.SubstractFromBalance"/>
+        /// </summary>
         public void SubstractFromBalance(decimal amount)
         {
             Balance.SubstractFromBalance(amount);
         }
 
+        /// <summary>
+        /// <see cref="IPublicAccount.AddOperationToHistory"/>
+        /// </summary>
         public void AddOperationToHistory(OperationRecord operationRecord)
         {
             _operationHistory.Add(operationRecord);
         }
 
+        /// <summary>
+        /// <see cref="IAccount.GetBalanceValue"/>
+        /// </summary>
         public decimal GetBalanceValue()
         {
             return Balance.GetValue();
         }
 
+        /// <summary>
+        /// <see cref="IAccount.GetOperationHistory"/>
+        /// </summary>
         public IEnumerable<OperationRecord> GetOperationHistory()
         {
             return _operationHistory;
