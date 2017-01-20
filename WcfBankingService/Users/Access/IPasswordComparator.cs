@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService.Users.Access
 {
+    /// <summary>
+    /// compares passwords with hashed versions
+    /// </summary>
     public interface IPasswordComparator
     {
         /// <summary>

@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace WcfBankingService.Users.Access
 {
+    /// <summary>
+    /// <see cref="IPasswordComparator"/>
+    /// </summary>
     public class PasswordComparator : IPasswordComparator
     {
         private readonly StandardPasswordHasher _hasher;
@@ -12,6 +15,9 @@ namespace WcfBankingService.Users.Access
             _hasher = new StandardPasswordHasher();
         }
 
+        /// <summary>
+        /// <see cref="IPasswordComparator.ArePasswordsSame"/>
+        /// </summary>
         public bool ArePasswordsSame(string hashedPassword, string password)
         {
             var bytes = Convert.FromBase64String(hashedPassword);

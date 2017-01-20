@@ -3,6 +3,9 @@ using System.Security.Cryptography;
 
 namespace WcfBankingService.Users.Access
 {
+    /// <summary>
+    /// <see cref="IPasswordHasher"/>
+    /// </summary>
     public class StandardPasswordHasher : IPasswordHasher
     {
         public const int PasswordHashLength = 20;
@@ -16,6 +19,9 @@ namespace WcfBankingService.Users.Access
             _cryptoServiceProvider = new RNGCryptoServiceProvider();
         }
 
+        /// <summary>
+        /// <see cref="IPasswordHasher.HashPassword"/>
+        /// </summary>
         public string HashPassword(string password, byte[] salt)
         {
             if (salt == null)
@@ -39,6 +45,9 @@ namespace WcfBankingService.Users.Access
             return Convert.ToBase64String(saltedHash);
         }
 
+        /// <summary>
+        /// <see cref="IPasswordHasher.HashPassword"/>
+        /// </summary>
         public string HashPassword(string password)
         {
             var salt = new byte[SaltLength];

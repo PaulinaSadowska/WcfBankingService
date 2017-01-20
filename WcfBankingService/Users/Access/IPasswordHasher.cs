@@ -1,5 +1,8 @@
 ﻿namespace WcfBankingService.Users.Access
 {
+    /// <summary>
+    /// hashes password
+    /// </summary>
     public interface IPasswordHasher
     {
         /// <summary>

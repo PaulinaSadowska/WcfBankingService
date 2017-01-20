@@ -3,6 +3,9 @@ using System.Text;
 
 namespace WcfBankingService.Users.Access
 {
+    /// <summary>
+    /// Generates new random access token of given length
+    /// </summary>
     public class AccessTokenGenerator
     {
         private static readonly Random Random = new Random((int)DateTime.Now.Ticks);

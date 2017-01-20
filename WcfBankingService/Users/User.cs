@@ -7,6 +7,9 @@ using WcfBankingService.Users.Access;
 
 namespace WcfBankingService.Users
 {
+    /// <summary>
+    /// <see cref="IUser"/>
+    /// </summary>
     public class User : IUser
     {
         /// <summary>
@@ -43,6 +46,11 @@ namespace WcfBankingService.Users
             _passwordComparator = new PasswordComparator();
         }
 
+        /// <summary>
+        /// Generates access token if password matches. If not - returns null
+        /// </summary>
+        /// <param name="password">password</param>
+        /// <returns>new access token</returns>
         public string GenerateAccessToken(string password)
         {
             if (!_passwordComparator.ArePasswordsSame(_hashedPassword, password))
@@ -53,34 +61,52 @@ namespace WcfBankingService.Users
             return accessToken;
         }
 
+        /// <summary>
+        /// <see cref="IUser.GetAllAccounts"/>
+        /// </summary>
         public ICollection<IAccount> GetAllAccounts(string accessToken)
         {
             Authorize(accessToken);
             return _accouts;
         }
 
+        /// <summary>
+        /// <see cref="IUser.GetAllAccountNumbers"/>
+        /// </summary>
         public ICollection<string> GetAllAccountNumbers(string accessToken)
         {
             Authorize(accessToken);
             return _accouts.Select(account => account.AccountNumber.ToString()).ToList();
         }
 
+        /// <summary>
+        /// <see cref="IUser.GetAccount"/>
+        /// </summary>
         public IAccount GetAccount(string accessToken, AccountNumber accountNumber)
         {
             Authorize(accessToken);
             return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber));
         }
 
+        /// <summary>
+        /// <see cref="IUser.GetAccount"/>
+        /// </summary>
         public IPublicAccount GetAccount(AccountNumber accountNumber)
         {
             return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber));
         }
 
+        /// <summary>
+        /// <see cref="IUser.ContainsAccount"/>
+        /// </summary>
         public bool ContainsAccount(AccountNumber accountNumber)
         {
             return _accouts?.FirstOrDefault(account => account.AccountNumber.Equals(accountNumber)) != null;
         }
 
+        /// <summary>
+        /// <see cref="IUser.AddAccount"/>
+        /// </summary>
         public bool AddAccount(string accessToken, IAccount account)
         {
             Authorize(accessToken);
