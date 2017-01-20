@@ -24,6 +24,11 @@ namespace WcfBankingService.Operation.Operations
         /// </summary>
         public bool Executed { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="accountNumber">accout number on which operation will be performed</param>
+        /// <param name="record">operation record</param>
         protected BankOperation(AccountNumber accountNumber, OperationRecord record)
         {
             OperationRecord = record;

@@ -28,6 +28,10 @@ namespace WcfBankingService
         private readonly PersistantExecutor _executor;
         private readonly IBankDataInserter _dataInserter;
 
+        /// <summary>
+        /// creates bank object
+        /// </summary>
+        /// <param name="dataInserter">data inserter user to save data into database</param>
         public Bank(IBankDataInserter dataInserter)
         {
             _accountNumberFactory = new AccountNumberFactory(BankId, new NRBControlSumCalculator());

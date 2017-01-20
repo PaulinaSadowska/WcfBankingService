@@ -16,6 +16,10 @@ namespace WcfBankingService.Operation.Operations
         private readonly decimal _amount;
         private readonly string _operationTitle;
 
+        /// <param name="sender">sender account number</param>
+        /// <param name="amount">amount to transfer</param>
+        /// <param name="operationTitle">operation title</param>
+        /// <param name="receiver">receiver  account number</param>
         public RestTransfer(AccountNumber sender, decimal amount, 
             string operationTitle, AccountNumber receiver) 
             : base(receiver, new OperationRecord

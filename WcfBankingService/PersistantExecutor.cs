@@ -12,6 +12,10 @@ namespace WcfBankingService
     {
         private readonly IBankDataInserter _dataInserter;
 
+        /// <summary>
+        /// Creates persistant executor with given data insester
+        /// </summary>
+        /// <param name="dataInserter">data inserter used to insert data into database</param>
         public PersistantExecutor(IBankDataInserter dataInserter)
         {
             _dataInserter = dataInserter;

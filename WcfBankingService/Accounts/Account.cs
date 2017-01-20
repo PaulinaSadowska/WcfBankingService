@@ -25,11 +25,22 @@ namespace WcfBankingService.Accounts
         /// </summary>
         private readonly IList<OperationRecord> _operationHistory;
 
+        /// <summary>
+        /// creates account with given account number, balance and empty record
+        /// </summary>
+        /// <param name="accountNumber">account number</param>
+        /// <param name="balance">account balance</param>
         public Account(AccountNumber accountNumber, IBalance balance)
             : this(accountNumber, balance, new List<OperationRecord>())
         {
         }
 
+        /// <summary>
+        /// creates account with given account number, balance and record
+        /// </summary>
+        /// <param name="accountNumber">account number</param>
+        /// <param name="balance">account balance</param>
+        /// <param name="operationRecord">operations history</param>
         public Account(AccountNumber accountNumber, IBalance balance, IList<OperationRecord> operationRecord)
         {
             AccountNumber = accountNumber;

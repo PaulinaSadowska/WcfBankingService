@@ -20,6 +20,12 @@
         /// </summary>
         public readonly string ControlSum;
 
+        /// <summary>
+        /// constructor of account number
+        /// </summary>
+        /// <param name="bankId">bank id (8 digits)</param>
+        /// <param name="innerNumber">inner account number (16 digits)</param>
+        /// <param name="controlSum">control sum (2 digits)</param>
         public AccountNumber(string bankId, string innerNumber, string controlSum)
         {
             BankId = bankId;

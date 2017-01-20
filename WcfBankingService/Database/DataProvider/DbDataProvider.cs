@@ -16,6 +16,10 @@ namespace WcfBankingService.Database.DataProvider
     {
         private static IAccountNumberFactory _accountNumberFactory;
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        /// <param name="accountNumberFactory">factory used to create full account numbers from inner account numbers</param>
         public DbDataProvider(IAccountNumberFactory accountNumberFactory)
         {
             _accountNumberFactory = accountNumberFactory;

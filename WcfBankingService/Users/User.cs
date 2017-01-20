@@ -20,22 +20,43 @@ namespace WcfBankingService.Users
         private readonly List<IAccount> _accouts;
         private readonly List<string> _accessTokens;
 
+        /// <summary>
+        /// user login
+        /// </summary>
         public string Login { get; }
 
         private readonly PasswordComparator _passwordComparator;
 
+        /// <summary>
+        /// creates user with given data
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="hashedPassword">user hashed password</param>
         public User(string login, string hashedPassword) 
             : this(login, hashedPassword, new List<IAccount>(), new List<string>())
         {
             
         }
 
+        /// <summary>
+        /// creates user with given data
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="hashedPassword">user hashed password</param>
+        /// <param name="accounts">account list</param>
         public User(string login, string hashedPassword, List<IAccount> accounts) 
             : this(login, hashedPassword, accounts, new List<string>())
         {
 
         }
 
+        /// <summary>
+        /// creates user with given data
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="hashedPassword">user hashed password</param>
+        /// <param name="accounts">account list</param>
+        /// <param name="accessTokens">access tokens</param>
         public User(string login, string hashedPassword, List<IAccount> accounts, List<string> accessTokens )
         {
             Login = login;

@@ -15,6 +15,11 @@ namespace WcfBankingService.RestCommunication
         private readonly AccountNumber _receiver;
         private readonly AccountNumber _sender;
 
+        /// <summary>
+        /// creates rest adapter to execute rest request
+        /// </summary>
+        /// <param name="receiver">receiver full account number (from other bank)</param>
+        /// <param name="sender">sender full account number (from this bank)</param>
         public RestAdapter(AccountNumber receiver, AccountNumber sender)
         {
             _receiver = receiver;
